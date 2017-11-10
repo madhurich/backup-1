@@ -1,0 +1,27 @@
+: Cannot find module 'webpack/bin/config-yargs'
+
+You got this error, after you installed 'react-router'
+
+and then you installed all the packages first by running 
+--> npm install
+
+then run the server 
+----webpack-dev-server
+now it worked
+
+--> IMPORTANT
+ERROR in ./components/Root.js
+Module not found: Error: Cannot resolve 'file' or 'directory' ./components/Header in C:\Users\madhu\Desktop\ints\react\react-router-prac\components
+ @ ./components/Root.js 17:14-44
+
+ you got this error, when you imported 'wrong path' within Root component
+
+ you did --> import Header from './components/Header';
+ but already Root is inside of components so you should write
+ import Header from '/Header'; that's all
+
+ -->IMPORTANT
+ you got an error when you dint specify curly braces while importing 'Link'
+ it should be 
+ import {Link} from 'react-router';
+ BUT BUT you dind import Link from 'react-router'--->WRONG WRONG WRONG

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		
+
+
+
+		<script>
+			function myFunc(x){
+				x = 'other';
+			}
+			var name = "mad";
+			console.log(name);
+			myFunc(name);
+			console.log(name);
+
+			//pass by reference
+			function myRef(y){
+				//y.color = 'black';
+				y = {newVal: 'some val'};
+			}
+			var obj = {
+				color: 'blue',
+
+			};
+			console.log(obj);
+			myRef(obj);
+			console.log(obj);
+			var obj1 = {
+				author: 'jk',
+				book: 'harry potter'
+			};
+			//here we are assigning the refernce of obj1 to obj2
+			// they are referncing to the same object in the memory so 
+			//the changes done to either obj1 or obj2 they are reflected on both
+			//since they both are pointing to the same memory refernce.
+			var obj2 = obj1;
+			obj2.author = 'other jk';
+			console.log(obj1 == obj2);
+
+			//here you are copying the vaue of arr1 to arr2 and assigning the same
+			//value to arr2, BUT arr1 points to a memory locaiton say EX: 00
+			//and in that location we have [1, 2, 3], now arr2 is pointing to a different
+			//memory location say Ex: 11 whose value is also [1, 2, 3]
+			//in javascript values will be same ONLY when they point to the same
+			//memory location, here since arr1 and arr2 are pointing to different locations
+			//they will NOT be same
+			var arr1 = [1, 2, 3];
+			var arr2 = [1, 2, 3];
+			console.log(arr1 == arr2);
+
+		</script>
+	</body>
+</html>

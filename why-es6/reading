@@ -1,0 +1,37 @@
+why ES6
+> to avoid memory leak,
+in ES5 when we declare variables using var keyword, they are global
+and will be alive throughout the application even after their usage,
+this is nothing but we are wasting the memory occupied by this varibles
+even after their use. So inorder to avoid this we use block scoped varibles
+where the variables are dead after their usage and there's no more memory wastage.
+
+> we use fat arrow functions in es6 unlike normal functions, this 
+usage is better than es5 functions because in a fat arrow function the 'this' inside of it refers to the outer function's 'this' and we no need to use any binding keywords like call, apply or bind within the inner function to bind the 'this' of outer function.
+
+------
+> a fat arrow function's 'this' doesn't have it's own value, instead it always refers
+to the function in which it is declared. Unlike ES5 we dont have to use any binding expressions like call, apply or bind to bind the 'this' of a function to what ever the object we use.
+-------
+
+service only returns object.
+factory can return any javascript datatype.
+
+$http, $q, location, log, templateCache, 
+
+custom directives
+table, transaction template.
+RESt is a standard, rest ful is implementation
+can be implemented using Express and Java
+-------------------------------
+lexical scopes
+
+closures -> when we have a function within a function, the inner function can access the variables
+of outer function but outer function will not be able to access the variables decalred in inner function.
+
+When ever we have 'this' in outer function , in JS to use the context of this 'this' inside of the inner function, we wont be able to use it, i mean the context of outer function's 'this' will not be available to inner function. To do that we need to assign the 'this' to a varibale and use that varibale instead of 'this' in inner function.
+
+BUT in ES6, the 'this' of outer function has its own context, in the inner function as well.
+We dont need to bind the 'this' in inner function, to get the current context
+
+HERE IT IS CALLED LEXICAL 'THIS' also called lexical scoping

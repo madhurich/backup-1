@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		
+
+
+		<script>
+			var add = function(a, b){
+				  return a + b;
+				};
+
+				Function.prototype.clone = function() {
+				 return this;
+				};
+
+				var copyAdd = add.clone();
+				console.log(copyAdd(2, 3));
+			
+		</script>
+	</body>
+</html>

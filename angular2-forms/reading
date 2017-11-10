@@ -1,0 +1,209 @@
+TEMPLATE DRIVEN FORMS
+forms in angular
+
+
+in angular forms, to associate the input fields to reference objects we have a 'Control'
+class this can be achieved using 'ngControl' directive. This directive holds a reference to an object
+that has properties which represents the state of that particular input field.
+
+Ex: <input type="text" ngControl="fName" #fName="ngForm">
+		now when angular sees a local varibale, it references to an object that ngControl directive holds.
+		and that refernce variable will be something like
+			fName = {
+				value: //value assigned
+				dirty: //true if it is changed
+				pristine: //false if its changed (opp of dirty)
+				touched: //true if its touched
+				untouched: //false if touched (opp of touched)
+			}
+Control and ControlGroup extends their behaviour from 'Abstract Class'
+all the properties that a 'Control' has, these all will also be available for a ControlGroup as well.
+
+But if we check the ControlGroup, its enough because it ill give true if and only if all the controls
+inside of that group are valid and true.
+
+so a form has one single ControlGroup and each input field in that form
+has a Control.
+-----------------------------
+<form>
+	<div class="from-group">
+		<label>Enter name</label>
+		<input ngControl="fName" #fName="ngForm" class="from-control" type="text" id="fName" name="fName">
+	</div>
+	<div class="from-group">
+		<label>Enter Comment</label>
+		<input ngControl="comment" #comment="ngForm" class="from-control" rows="4" id="comment" name="comment">
+	</div>
+	<button class="btn btn-primary">Submit</button>
+</form>	
+------
+Along with ngControl on each input field we have a controlGroup for a single form, with this e will
+be able to determine the state of the entire form.
+
+Ex: 
+<form #f="ngForm"> //now here when evr angular sees a local variable 'f' on a 'form' element it points to an object having the property called 'form' 
+.i.e f = {
+		form: 
+	}
+}
+	
+</form>	//and here we are not using ngControl directive, to hold that reference varible, we are not doing this because angular by default does this for every form element and that's the reason we are not doing it and just using that refernce variable to hold the referece to that control object 
+
+And here you can see that, that local varible 'f' holds the state of the entire form and has the controls of each input field inside of the form.
+This can be seen as 'f.form.controls' --> this is an object that has properties as the control varibales fro each input field
+
+MODEL-DRIVEN FORMS
+One difference between template and model driven forms is that we explicity
+define the control group object and e dont depend on ngControl of the form element 
+> behind the scened angular constructs a controlGroup object for each form element,
+here we are defining our own controlGroup object.
+
+export class SignUp{
+	form = new ControlGroup({
+		username: new Control('', Validators.required), 
+		password: new Control('', Validators.required)
+	});
+}//this is same as a ControlGroup object created by angular when we create a form element, but here we are defining our own validations and values
+
+and in the 'form' template we can do
+<form [ngFormModel]="form">
+	<input ngControl="username">
+	<input ngControl="password">
+</form>
+
+-----general-case-----------
+export componentName{
+	controlGroupVariableName = new ControlGroup({
+		controlVar1: new Control('valueYouWantToGive', Validators.required),
+		controlVar2: new Control('valueYouWantToGive', Validators.required)
+	});
+}
+
+<form [ngFormModel]="controlGroupVariableName">
+	<input ngControl="controlVar1" #varAssigned="ngForm">//here when we dont use local variables, to access this input field
+	we need to write "controlGroupVariableName.controls.controlVar1.valid"
+	But when we assign a variable we can just do "varAssigned.valid"
+	<input ngControl="controlVar2">
+</form>
+
+DONOT FROGET TO IMPORT 'Validators', 'ControlGroup', 'Control' from 'angular2/common' while you create
+explicit Control groups
+
+---------------------another-simpler-way-of-creating-ControlGroup---------------------------
+DONOT FORGET TO IMPORT 'FormBuilder'
+export class compName{
+	form: ControlGroup;
+	constructor(fb: FromBuilder){
+		this.form = fb.group({
+			username: [],
+			password: []
+		});
+		
+	}
+}
+
+here this is the same as before but s more simpler way, we first sepcify the name 'variable name'
+to the 'ControlGroup' then we define the constructor, within the constructor we specify the "form's" group object which is same as inside the constructor from the earlier method
+--------------
+IMPLEMENTING CUSTOM VALIDATION
+
+---this is the custom validator file-------------
+
+import {Control} from 'angular2/common';
+export class appName{
+	static methodName(control: Control){
+		if(control.value.indexOf(' ') != -1)
+			return {cannotContainSpace: true};
+		return null;	
+	}
+}
+
+export class compName{
+	form: ControlGroup;
+	constructor(fb: FormBuilder){
+		this.form = fb.group({
+			username: [],
+			password: []
+		})
+	}
+}
+
+ASYNC validator
+
+static shouldBeUnique(control: Control){
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			if(control.value == 'mad'){
+				resolve({shouldBeUnique : true});
+			}else{
+				resolve(null);
+			}
+		}, 3000);
+	});
+}
+
+-----
+static shouldBeUnique(control: control){
+		var usernames = ['mad', 'man', 'dad'];
+		var count = 0;
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				for(var i = 0; i < usernames.length; i++){
+					if(control.value == usernames[i]){//if the etered value matches any of the array elements increment the count
+						count++;
+					}
+				}
+				if(count){//if count is populated then the name is found in the array it means it is not unique, so make the error appear on the screen set the 'shouldBeUnique' value to be 'true'
+					resolve({shouldBeUnique : true});
+				}else{
+					resolve(null);
+				}
+			}, 3000);
+			
+		});
+	}
+here, you are checking the array if the enetered input is found or not,	
+
+NOW while including these async validators in the component, the third parameter is for async
+validators, DONOT inculde them in the regular sync validators place.
+
+	username: [defaultVal, 
+	Validators.compose([syncValidator1, syncValidator2]), 
+	asyncValidator]//see here is the third argument where async validators should be included
+----------
+NOW while the checking of input filed value in the array is processing e wanted to sidpaly a meesage
+while it is in the process. So for that we can check for 
+	username.control.pending -> value
+	see this value will be 'true' when the async validator is running, when it is resolved/rejected
+	this value will be false, i.e if checking process is done
+-------------
+ONSUBMIT
+on submitting the form sometimess we need to check if the credentials match or not
+for that we can set custom errors in the submit method
+
+onSubmit(){
+	this.form.find('controlVariable').setErrors({
+		errorVar: true;
+	});
+}	
+
+onSubmit(){
+	this.form.find('username').setErrors({
+		invalidLogin: true;
+	});
+}
+---------------
+REFER http://stackoverflow.com/questions/35474991/angular-2-form-validating-for-repeat-password
+for the assignment
+
+you checked in the template
+		<div *ngIf="form.errors">//here 'form' is the name that you've given for all the controls
+			<div class="alert alert-danger" *ngIf="form.errors.matchPasswords">
+				passwords dint match
+			</div>
+		</div>
+
+in the template now we can check for username.errors.invalidLogin
+
+
+

@@ -1,0 +1,89 @@
+REFER http://brianflove.com/2016/12/26/typing-up-your-angular-1-app/
+REFER http://almerosteyn.com/2016/02/angular15-component-typescript
+
+npm install --save-dev typescript
+npm install --save @types/angular
+
+to define a controller in typescript
+
+class NameController implements ng.IComponentController{
+    public users;
+    constructor(){}
+    public $onInit(){
+        this.users = [];
+    }
+}
+
+to define a component
+inside of a component, we can have, template, controller, controllerAs, bindings etc; so all of these
+must be defined at the top in the class definition.
+If any of these members are to be optional, we can also do that by putting a '?'
+
+by doing this we say 'controller, template, controllerAs, bindings' member is optional when ever 
+a class is created by implementing this interface, it may or maynot have this member
+
+Ex: interface IComponentOptions{
+    controller?: any; 
+    template?: string;
+    controllerAs?: any;
+    bindings?: any;
+}
+
+class NameComponent implements ng.IComponentOptions{
+    public template: string;
+    public controller: any;
+
+    constructor(){
+        this.template = '';
+        this.controller = NameController;
+    }
+}
+
+----------------------
+interface ISomeComponent{
+	templateUrl?: string;
+	controller?: any;
+	bindings?: any;
+	transclude?: any; 
+}
+class SomeComponent implements ISomeComponent{
+	public templateUrl: string;
+	public controller: any;
+	public bindings: any;
+
+	constructor(){
+		this.bindings = {
+
+		};
+
+		this.templateUrl = '';
+		this.controller = SomeComponentController;
+
+	}
+}
+
+interface IComponentController{
+	textBindings: any;
+	dataBindings: any;
+	functionBindings(): any;
+}
+
+interface addIComponentController extends IComponentController{
+	add(): any;
+}
+class SomeComponentController implements addIComponentController{
+	textBindings: any;
+	dataBindings: any;
+	functionBindings(): any;
+
+	constructor(){
+		this.textBindings = '';
+		this.dataBindings = 0;
+	}
+
+	this.add = () => {
+		functionBindings();
+	}
+
+}
+

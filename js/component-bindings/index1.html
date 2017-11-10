@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="firstCtrl">
+			<input type="text" ng-model="nameHere">
+			<input type="text" ng-model="other">
+			<mad m1="sayHi()" school="dps"></mad>
+			<mad school="hps"></mad>
+		</div>
+		
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script>
+			angular.module('myApp', []);
+			angular.module('myApp').controller('firstCtrl', firstCtrl);
+			angular.module('myApp').directive('mad', function(){
+				return {
+					restrict: 'E',
+					controller: function($scope){
+						//var vm = this;
+						$scope.other ='madhuri';
+
+					},
+					scope: {
+						m1: '&'
+					},
+					template: '<h3>{{nameHere}}</h3><input type="text" ng-model="nameHere"><input type="text" ng-model="other"><button ng-click="m1()">say hi</button><br>{{getName}}',
+					link: function(scope, elem, attr){
+						scope.getName = attr.school;
+						console.log(attr);
+						console.log(elem);
+						elem.bind('mouseover', function(){
+							console.log('you moused over', scope.getName);
+						});
+					}
+					
+
+				}
+			});
+
+			firstCtrl.$inject = ['$scope'];
+			function firstCtrl($scope){
+				//var vm = this;
+				$scope.nameHere = 'mad';
+				$scope.sayHi = function(){
+							console.log('hi');
+						};
+			}
+		</script>
+	</body>
+</html>

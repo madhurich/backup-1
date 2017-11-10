@@ -1,0 +1,9 @@
+diff a/angular/angular.txt b/angular/angular.txt	(rejected hunks)
+@@ -6,6 +6,5 @@
+ 1.Vendors
+ 2.Modules
+ 3.Controllers
+-4.Directives
+\ No newline at end of file
+ 4.Directives
+ 

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Destroy</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="firstCtrl" >
+		<input type="text" ng-model="name">{{name}}
+	</div>
+	
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script>
+	var obj1 = {
+		name: 'xyz',
+		place: 'killer'
+	};
+	function firstObj(name, place){
+		this.name = name;
+		this.place = place;
+	}
+
+	var secondObj = new firstObj('killer','' );
+
+	//var o1 = new Object();
+
+
+	function Person () {
+	}
+	Person.prototype.nationality = 'Madhuri';
+	var p1 = new Person();
+	var p2 = new Person();
+	var obj2 = Object.create(obj1);
+	console.log(obj2.name);
+		var app = angular.module('myApp', []);
+		app.controller('firstCtrl', ['$scope', function($scope){
+			$scope.name = "madhuri";
+			$scope.isClicked = true;
+			$scope.toggle = function(){
+				$scope.isClicked = !$scope.isClicked; 
+			};
+			$scope.$on('$destroy', function(){
+				console.log();
+			});
+		}]);
+	</script>
+</body>
+</html>

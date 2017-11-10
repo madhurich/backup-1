@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>to do app</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+	<body ng-app="toDoApp">
+		<div ng-controller="taskCtrl as vm">
+			Enter name of the task
+			<input type="text" ng-model="vm.name">
+			Enter priority
+			<input type="number" ng-model="vm.priority">
+			<button ng-click="vm.addTask()">Add Task</button>
+
+			<table ng-show="vm.tasks.length > 0">
+				<thead>
+					<tr>
+						<th>Task</th>
+						<th>Priority</th>
+						<th>Remove</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="task in vm.tasks | orderBy:'priority'">
+						<td>{{task.name}}</td>
+						<td>{{task.priority}}</td>
+						<td><button ng-click="vm.removeTask(task.id)">Remove</button></td>
+					</tr>
+				</tbody>
+			</table>
+
+
+			
+		</div>
+		
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script src="app.js"></script>
+		<script src="controllers/taskCtrl.js"></script>
+	</body>
+</html>

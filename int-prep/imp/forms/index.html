@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body ng-app="myApp">
+	<form name="myForm">
+		Email:
+		<span ng-show="myForm.email.$invalid">Email invalid</span>
+		<input type="email" name="email" ng-model="email"><br>
+		Name:
+		<input type="text" name="name" ng-model="name"><br>
+		number:
+		<input type="number" name="number" ng-model="number"><br>
+		<input type="button" value="submit" ng-disabled="myForm.email.$invalid">
+	</form>
+
+	<div ng-controller="myCtrl">
+		<h3>Angular API</h3>
+		<p>{{uName}}</p>
+
+		<input type="text" ng-model="people" ng-list="$">
+	</div>
+
+	
+	
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	 <script>
+	 	var app = angular.module('myApp', []);
+	 	app.controller('myCtrl', ['$scope', function($scope){
+	 		$scope.nameHere = "madKILL";
+	 		$scope.uName = angular.isNumber($scope.nameHere);
+	 		console.log($scope.uName);
+
+	 		$scope.people = ["kill", "mad", "man"];
+	 	}]);
+
+	 </script>
+</body>
+</html>

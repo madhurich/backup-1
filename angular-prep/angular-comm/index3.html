@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="firstCtrl">
+			<button ng-click="sendData()">send</button>
+			<div ng-controller="secondCtrl">
+				
+			</div>
+		</div>
+		<div ng-controller="thirdCtrl">
+			<input type="text" ng-model="name.nameHere">
+		</div>
+		<div ng-controller="fourthCtrl">
+			<input type="text" ng-model="name.nameHere">
+		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+		<script>
+			var app = angular.module('myApp', []);
+
+			app.controller('firstCtrl', ['$scope', function($scope){
+				$scope.$on('event_name', function(event, value){
+					console.log(event);
+					console.log(value);
+				});
+
+				$scope.sendData = function(){
+					$scope.$broadcast('broad_name', 'broad_val');
+				};
+				
+			}]);
+			app.controller('secondCtrl', ['$scope', function($scope){
+				$scope.$emit('event_name', 'event_value_of_emit');
+				$scope.$on('broad_name', function(event, value){
+					console.log(event);
+					console.log(value);
+				});
+			}]);
+
+			app.controller('thirdCtrl', ['$scope', 'syncFac', function($scope, syncFac){
+				$scope.name = syncFac;
+			}]);
+			app.controller('fourthCtrl', ['$scope', 'syncFac', function($scope, syncFac){
+				$scope.name = syncFac;
+			}]);
+
+			app.factory('syncFac', function(){
+				return {
+					nameHere: 'some'
+				};
+			});
+		</script>
+	</body>
+</html>

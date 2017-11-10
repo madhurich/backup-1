@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	
+
+
+	<script>
+		//var arr = [2, 3, 3, 3, 6, 6, 6, 5, 5, 5];
+		// var numbers = [4, 2, 5, 1, 3];
+		// numbers.sort(function(a, b) {
+		//   return a - b;
+		// });
+		// console.log(numbers);
+
+		//remove dups from the array
+		//arr.filter(function(elem, index, input){
+  			//console.log(input);
+  			//return input.indexOf(elem) == index;
+		//});
+
+
+
+		//-----to return difference of two arrays----------
+		// function removeUn(value, arr){
+		// 	for(var i = 0; i < arr.length; i++){
+		// 		if(arr[i] == value){
+		// 			//remove one element from 'ith' index
+		// 			arr.splice(i, 1);
+		// 			i--;
+		// 		}
+		// 	}
+		// 	return arr;
+		// }
+		// function array_diff(a, b) {
+		// 	//to copy use slice, else only memory pointer will be changed and the original value will be changed if you do var acopy = a; any changes to 'a' will affect to 'acopy' as well, to avoid this we are doing slice.
+		// 	var acopy = a.slice();
+		// 	var bcopy = b.slice();
+		//   for(var x in a){
+		//     for(var y in b){
+		//       if(a[x] == b[y]){
+		//         delete acopy[x];
+		//         delete bcopy[y];
+		//       }
+		//     }
+		//   }
+		//   var difference = acopy.concat(bcopy);
+		//   var res = removeUn(undefined, difference);
+		//   return res;
+		// }
+		// var a = [1, 4, 4, 7, 4, 10, 40];
+		// var b = [1, 4, 9, 10];
+		// console.log(array_diff(a, b));
+
+		// //----------return min length of a word in a string of words------------
+		// var str = 'hello hi how are you l';
+
+		// function minLenghtWord(str){
+		//   var arr = str.split(' ');
+		//   console.log(arr);
+		//   var lengths = [];
+		//   //get the length of each word and push into res
+		//   lengths.forEach(function(elem, index){
+		//     res.push(elem.length);
+		//   });
+		//   console.log(lengths);
+		//   //remove dups from lengths
+		//   var removedDups = lengths.filter(function(elem, index, input){
+		//     return input.indexOf(elem) == index;
+		//   });
+		//   console.log(removedDups);
+		//   //sort the 'lengths' array in ascending order 
+		//   removedDups.sort(function(a, b){
+		//     return a - b;
+		//   });
+		//   console.log(removedDups);
+		//   //return the smallest value, which is at first in 'removedDups'
+		//   return removedDups[0];
+		// }
+
+		// console.log(minLenghtWord(str));
+
+		// //----------find index where the sum of both the sides is equal--------------
+		// var arr = [1,100,50,-51,1,1];
+		// var arr1, arr2, indexVal = -1;
+		// function index(arr){
+		//   for(var x in arr){
+		//     if(x > 0){
+		//       //slice the left side of index 'x'
+		//       arr1 = arr.slice(0, x);
+		//       //slice the right side of index 'x', here index 'x' is a string, so convert
+		//       //that to number by multiplying it with '1'
+		//       arr2 = arr.slice((x*1)+1);
+		//       //calculate the sum of left side
+		//        var sum1 = arr1.reduce(function(acc, elem, index){
+		//         return acc + elem;
+		//       }, 0);
+		//       //calculate the sum of right side
+		//        var sum2 = arr2.reduce(function(acc, elem, index){
+		//         return acc + elem;
+		//       }, 0);
+		//       if(sum1 == sum2){
+		//         indexVal = x;
+		//       }
+		//     }
+		//     else{
+		//       indexVal = 'array not enough';
+		//     }
+		//   }
+		//  return indexVal;
+		// }
+
+		// console.log(index(arr));
+
+		// //--------------count of pos numbers and sum of neg numbers-----------------
+		// var input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, -11, -12, -13, -14, -15];
+		// function sumArray(input){
+		//   var  posArr = [], negArr = [], result, negSum, posSum;
+		//   input.forEach(function(elem, index){
+		//     if(elem > 0){
+		//       posArr.push(elem);
+		//     }else{
+		//       negArr.push(elem);
+		//     }
+		//   });
+		//   posSum = posArr.length; 
+		//   negSum = negArr.reduce(function(acc, elem, index){
+		//     return acc + elem;
+		//   }, 0);
+		//   result = [posSum, negSum];
+		//   return result;
+		// }
+		// sumArray(input);
+
+		// //-------------descending order number----------------
+		// function descendingOrder(n){
+		//   //convert 'n' to string array
+		//  var arr = n.toString().split('');
+		//  console.log(arr);
+		//  //sort in descendingOrder
+		//  arr.sort(function(a, b){
+		//    return b - a;
+		//  });
+		//  var res = arr.join('');
+		//  //convert 'numbered string' to number by multiplying it with 1
+		//  return res * 1;
+		// }
+
+		// descendingOrder(945984938);
+
+		//---------convert to binary number----------
+		// var rems = [];
+		// function getBin(n, r){
+		//   n = Math.floor(n / 2);
+		//   r = n % 2;
+		//   rems.push(r);
+		//   if(n === 1){
+		//     return rems.join('');
+		//   }
+		//   return getBin(n, r);
+		// }
+
+		// console.log(getBin(56, null));
+
+		//-------------convert added number to binary-----------
+		var rems = [], n;
+		function addBin(a, b){
+		  sum = a + b;
+		  var getBin = function(n, r){
+		  			r = n % 2;
+				  rems.push(r);
+				  n = Math.floor(n / 2);
+				  
+				  if(n === 1){
+				  	rems.push(n);
+				    return rems.reverse().join('');
+				  }
+				  return getBin(n, r);
+				};
+				return getBin(sum, null);
+		}
+		console.log(addBin(29, 28));
+	</script>
+</body>
+</html>

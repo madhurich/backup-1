@@ -1,0 +1,176 @@
+1. attain the functionality of 'click', after the page is being loaded.
+
+2. Cross origin requests? how to handle them. (CORS)
+Access-Control-Allow-Origin: * or domain-name
+
+3. two functions with same name call them, which function is called? in JS
+
+4. how to declare global variables in JS
+
+5. in one script I have one variable declared, how to use this variable in another script file?
+
+6. in a table second row fourth column value?
+
+7. Without using setTimeout function, how to delay execution of a function?
+??????
+
+8. Why to use tbody, thead etc.. unlike just the tr and td
+
+9. What is doctype in html and why we use it?
+what version of HTML is used? and also the mode? (strict, transitional, frameset)
+
+10. How to dynamically get option tags for the select tag in html?
+appendChild();
+
+11. how to remove underline for anchor tag elements?
+test-decoration
+
+12. how to get hand symbol, when you hover over an element
+cursor:pointer
+
+13. How to use filters in angular
+
+14. how do you attain routing in angular?
+
+15. Scrolling para in web page? (scrolling text, how do you get that?)
+REFER http://www.quackit.com/html/codes/scrolling_text.cfm
+CSS
+
+16. How to get an element to be in one place in html, even when you scroll up and down
+position:fixed;
+
+17. what are id selectors and class selectors in jquery?
+
+18. How to get the value of an element in javascript and jquery
+.value, val()
+
+19. How to get the text inside of an element? [text(),val(),html()]
+.innerText()-->JS
+
+20. localStorage and sessionStorage?
+
+21. How to remove an item in localStorage? (can I remove it?)
+
+22. You have two functions with same naem in different scripts, when you call the function
+which one will be called?
+
+23. How to get the text from right to left, Ex: in urdu language
+float: right;????
+
+24. How do you refresh the page, without using javascript functions
+history.go();
+
+25. what is window.onload() and $(document).ready(function(){})
+window.onload()--wait for everything to be loaded.
+html page, images, 
+
+26. what are == and === difference?
+
+27. what is origin, in web api requests?
+1.adding header in the server, Access-Control-Aloow-origin
+2. JSONP (JSON with padding) this is only for GET
+3. Proxy - server configuration
+
+28. What is a callback? in jQuery
+
+29.BOX model in css?
+30. Padding? what is it?
+
+1, 23
+
+-------
+1. What are the challenges faced?
+2. How do you manage backlogs?
+3. version you are familar, browsers you have supportd using angularJS
+new Date().getTime() - DOB 23 JAN 2017.getTime() = Date()
+
+---------------------
+Level - 2
+Tell something about your self?
+1. how do you execute your task daily?
+2. input box has a date field, how do you get the age?
+3. new features in HTML 5 how did you use them? and difference between HTML4 and HTML5
+
+4. how do you manage css for all browsers?
+5. how did you consume web apis (Did you consume or create them?)
+6. you have a button, that should be bottom right corner and should not be moved when I scroll teh page?
+7. input field, you entered a color name input should be changed to that color
+8. you have a large data, if it's updated on the server how will you know that?
+9. how can you use localStorage to store data? how can you clear it?
+10. you entered a value like 12000, then it should be like 12,000 how can you
+do that in jquery?
+11. can you change the $ sign to #? in jquery?
+12. why are you looking for new project?
+13. Tell me about your eductional details? Highest education? (just Btech, year and branch?)
+14. how will you start your work in jquery? if I gave you new laptop?
+15. Difference between local storge and session storage
+16. Difference between http requests in javascript and jquery?
+17. How will you do AJAX requests?
+18. Have you worked on JSPs?
+19. I want to change all the div heights to 100px?
+20. What is BOX model?
+21. How did you check the http requests are done or not? (how did you test them?)
+22. Do you have any questions fro me? (many times ??)
+23. Is the current project is your first project? in the US?
+what was your first project?
+24. Explain me a day at work?
+---------------
+1. What are the technologies used in the project?
+2. Is it an internal or external? who uses it?
+3. Provide a description about the project?
+4. What would be the role of the new developer that you are hiring for the position?
+5. what is the size of team?
+6. Is there any on shore/ off shore (is everyone working onsite or some of them in offsite)  
+------------------------
+level-3
+1. how do you get the values of all input boxes.
+2. how many years of exp?
+3. How many years of US exp do you have?
+4. have you used SOAP or REST.
+5. Submit a form and that has 20 input boxes, how do you get the values from all those
+when I just submit the form.
+6. Do you have exp with java and JSP
+7. How do you get data using AJAX?
+----------------------------
+Level-1
+1. Tell me about yourself?
+2. can you tell me the architechture in angular? how doess it work?
+3. how do you implement routing in angular?
+4. how did you use node? in your project? explain it using with express?
+5. Why you need express? with node?
+6. Say I have three different databases, how can my node app access all these different
+platformed databses?(like SAP, Unix)
+7. how the node app will know if there's any change in the database? what will be your approach?
+8. why you need node when you have other frameworks like JAVA?
+9. So if 100 people are requesting for the same url? how does node app serve these 100 people?
+and does the 100th person will get the response at the 100th minute? (as per your explanation)
+10. Difference between MongoDB and other databases? like SQL, why you need mongo upon that?
+11. Do you know about stored procedures? (SQL)
+12. Have you worked with SQL?
+13. So you also worked with onshore and offshore team?
+14. Difference between NODE and AJAX
+15. How to implement offline browsing?
+16. How do you deal with lot of images loading on the page?
+17. how about the resolution? of images when you sprite them?
+18. Did you work on mobile apps? like android?
+19. What are promises? have you used them?
+20. Have you heard about clusters?
+21. how do you deal with search engine optimization?
+--------------------------------------------------
+level-2
+1. ionic, phone-gap
+2. Binding of JSON services are you responsible for integrating with 
+3. Have you done node or Java coding for backened (Bamboo)
+4. What is react native?
+5. Remember an instance where you find difficulty in mobile responsive 
+Screen reader suppport? ADA how the info has to be read?
+JAW screen reader support, keyboard upport, audio support so independent templates
+6. Given the tasks, what steps like 1, 2, and 3 would you consider in doing first.
+7. 10 to 20 % in wireframing and layout and other would be on development side.
+8. how will you analyze the layout on different devices?(she exlplained about different
+break points, and said they will provide layouts, how that should look on various devices)
+
+Automotive dealership management in NA region, Michigan
+both the client side and server side 4 to 6 months may be extended
+racial issues?
+

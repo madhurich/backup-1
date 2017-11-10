@@ -1,0 +1,124 @@
+angular.module('myApp', []);
+		.config(function($provider){
+			$provider.provide('hello', function(){
+				this.$get = function(){
+					return function(){
+						alert('hello');
+					}
+				}
+			});
+		});
+
+
+angular.module('myApp', [])
+		.factory('facName', function(){
+				return "abc" ;
+			}
+		});	
+
+//factory can return any data type (object, array, function, null, undefined)
+angular.module('myApp')
+		.controller('myCtrl',['$scope', 'facName', function($scope, facName){
+				$scope.users = facName.getUsers();
+		}]);
+
+
+angular.module('myApp')
+		.config(function($provider){
+			$provider.provide('facName', function(){
+				this.$get = function(){
+					return function(){
+						return ['a', 'b', 'c', 'd'];
+					}
+				}
+			})
+		})	
+
+https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository
+http://stackoverflow.com/questions/8961334/how-to-change-folder-with-git-bash
+https://stackoverflow.com/questions/2845731/how-to-uncommit-my-last-commit-in-git/2846154
+http://stackoverflow.com/questions/22365370/how-to-rollback-everything-to-previous-commit
+
+---------------------------
+
+
+
+11:00 PM
+
+Karthik k
+
+(function(angular) {
+  'use strict';
+angular.module('docsTabsExample', [])
+  .component('myTabs', {
+    transclude: true,
+    controller: function MyTabsController() {
+      // empty array
+      var panes = this.panes = [];
+      // selected model in all panes set to false(hidden), 
+      // selected pane parameter -->  model selected will be set to true(shown)
+      this.select = function(pane) {
+        // goes over through all pane components
+        angular.forEach(panes, function(pane) {
+          // its modelvalue the selected property 
+          // on all components to false
+          pane.selected = false;
+        });
+        // passed pane component 
+        // model selected value will be set to true 
+        pane.selected = true;
+      };
+      // myPane component nundi call avthundi
+      this.addPane = function(pane) {
+        //console.log(JSON.stringify(pane));
+        // array -- 
+        // first pane vachinapudu -- panes.length will be zero
+        if (panes.length === 0) {
+          // first pane component will be selected in html seqence
+          this.select(pane);
+        }
+        // array.length
+        panes.push(pane);
+      };
+    },
+    templateUrl: 'my-tabs.html'
+  })
+  .component('myPane', {
+    transclude: true,
+    require: {
+      tabsCtrl: '^myTabs'
+    },
+    bindings: {
+      title: '@'
+    },
+    controller: function() {
+      // 
+      this.$onInit = function() {
+        // refer parent componet
+        this.tabsCtrl.addPane(this);
+        //console.log(this);
+      };
+    },
+    templateUrl: 'my-pane.html'
+  });
+})(window.angular);
+
+/*
+Copyright 2017 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/
+
+
+------------------------------
+//540 trinity lane North St Peters burg.
+car pool, Azure 
+
+1600 + utilities (water, electricity)
+
+2 bhk,
+-------
+
+
+
+

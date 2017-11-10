@@ -1,0 +1,142 @@
+class 
+	-- data variables 
+	-- methods
+
+parent class 
+child class
+
+inheritance 
+		--parent classs -- variables methods
+		-- child class -- child class will inherit all parent class variables and methods 
+
+	Person 
+		-- name
+		-- age 
+				-- methods 
+						-- display()
+
+	Student 
+		-- studentId
+				--methods 
+						-- getStuId();
+
+Student extens Person
+
+new Student();
+		-- name
+		-- age
+		-- studentId
+				methods 
+					display
+					getStuId
+
+
+function Person(name, age) {
+	this.name = name;
+	this.age= age;
+}
+Person.prototype.display = function() {console.log(this.name, this.age)}
+function Student(name, age, stuId) {
+	this.stuId = stuId;
+	Person.call(this, name, age);
+}
+Student.prototype = Object.create(Person.prototype);
+Student.prototype.constructor = Student;
+Student.prototype.getStuId = function() {return this.stuId;}
+
+
+
+
+
+Person
+		-- name
+		-- age
+
+prototype 
+		-- nationality
+
+		Person inherits protyotype object --> nationality 
+
+----------------
+Points to remember
+> in classical inheritance, when ever we  are creating a new student object
+the constructor of student will automatically be the 'person', so in order to have 
+the student constructor, we write this statement called
+		student.prototype.constructor = student;
+if the above statement is not written, then each time when a new student instance is
+created, automaticly it's constructor will be 'person'.
+>Each time when you are creating a new student, every one will and must have different
+name, age and id. So each time when a new student object is created it must be unique, so inorder
+attain that uniqueness we explicitly define the constructor ti be a 'student' but not 'person'
+	ie. student.prototype.constructor = student	
+>when we want to share a common method or value, then we define that in the prototype of
+person, and this value is not changed I mean, this value is global to all the object instances that
+are created out of 'person' --> this is called Prototypal inheritance and each object 
+instance will share 'this' global method or value and it doesn't create a new value each time
+a new instance is created.	
+
+Prototypl inheritance
+> We have a function, when we create a new object out of this function, then all the methods and 
+properties declared inside of this function's prototype will be inherited by this new object created. The same prototype is being shared by all the object instances
+created out of this function.
+
+Classical inheritance
+> we have a function and when we create new objects out of it, a new class is being created this is no
+more same as the parent class. Each time when we create a new object a new class is being created.
+
+-------
+
+when a child class object is created it has its own properties and methods along with the parent class's properties and methods.
+-------------------------------------------------------------
+
+1. unlike map and reduce forEach returns undefined and CANNOT be chainable.
+arr.forEach(function(currentVal, index, array){
+	
+}, object);
+Object.getOwnPropertyDescriptor(object, 'prop_name')
+
+
+2. map returns a new array with the result of element executed by the function
+arr.map(function(currentVal, index, array){
+	
+}, object);
+
+3. arr.reduce(function(accumulator, currentvalue, index, arr){
+	
+}, initialVal);
+
+accumulator will have the initialValue as its value if its provided and current value will be 
+array's first value, else accumulator will
+have the array's first element as its value and the currentvalue will be the second value of the array
+
+After first iteration, the accumulator will have the result which is done by executing 
+the callback, so for the next iteration the accumulator will have the new value provided by
+second invocation of the function
+
+FALSY values
+--> zero
+--> false
+--> undefined
+--> null
+--> empty string " "
+--> NaN
+
+------
+for 'of' loop in ES6
+for(let x of arr){//x loops through the elements
+	
+}
+
+for(let x in arr){//x loops through the indices of elements
+	
+}
+
+amt avail = $K;
+no. of toys = N = length of array;
+[x, y, z, l, m] = prices;
+for(let sum in prices){
+	if (prices[sum] <= K){}
+	else if(prices[sum] + prices[sum+1] <=k){}
+}
+
+

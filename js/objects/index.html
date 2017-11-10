@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		
+
+		<script>
+			function me(name, age){
+				this.name = name;
+				this.age = age;
+			}
+			me.prototype.skill = 'fun';
+			var mad = new me('mad', 23);
+			console.log(Object.keys(mad));
+
+			var obj = Object.create(mad);
+			console.log(Object.keys(obj));			
+		</script>
+	</body>
+</html>

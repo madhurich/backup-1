@@ -1,0 +1,28 @@
+> ng new users-followers
+> ng generate component gitUsersFollowers
+> added a form in html
+
+REFER https://scotch.io/tutorials/how-to-deal-with-different-form-controls-in-angular-2
+
+<form #varName="ngForm" (ngSubmit)="onSubmit(f)">
+    <input type="text" name="someName" [(ngModel)]="inputName" />
+</form>
+
+every input must have a name attribute that can be anything meaningful
+and value of [(ngModel)] must be the name defined in the class, ie 'inputName'
+must be defined.
+
+YOU GOT AN ERROR SAYING, 'NO PROVIDER FOR Http in AppComponent'
+
+this is due to the speling mistake
+import {Http} from '@angular/http';//--> here you need to mention small 'http' not 'Http'
+
+-----
+you got a WARNING, whne you did 
+import {Observable} from 'rxjs/observable';//-->THIS IS WRONG
+
+DO THIS import {Observable} from 'rxj/Rx';
+----
+Earlier you used multiple get methods to retrieve, users and their repos
+and stored the result in different varibales. But later you used forkJoin
+that joins the result of both the observables(usercall and repos call).

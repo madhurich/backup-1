@@ -1,0 +1,115 @@
+	<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+
+	</head>
+	<body>
+		<div id="parent-div">
+			<p id="p1">some content here para1</p>
+			<p id="p2">some content here para2</p>
+			<p id="p3">some content here para3</p>
+			<p id="p4">some content here para4</p>
+		</div>
+		<input type="button" value="hide p2">
+		<input type="button" value="click on load">
+		<input type="button" value="getData" onclick="getData()">
+		<div id="content"></div>
+		<hr><hr>
+		<table>
+		  <tr>
+		    <td>first col in first row</td><td>second col in first row</td><td>third col in first row</td><td>fourth col in first row</td>
+		  </tr>
+		  <tr>
+		    <td>first col in second row</td><td>second col in second row</td><td>third col in second row</td><td>fourth col in second row</td>
+		  </tr>
+		</table>
+	
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		
+		<script>
+			/*document.getElementById('parent-div').addEventListener('click', function(e){
+				console.log(e.target);
+			});*/
+
+			var tv = $('table tr:nth-child(2) td:nth-child(4)').text();
+			console.log(tv);
+			var getData = function(){
+				$.ajax({
+				url: 'http://rest.learncode.academy/api/johnbob/friends/',
+				method: 'GET',
+				success: function(data){
+					console.log(data);
+				},
+				error: function(err){
+					console.log(err);
+				}
+			});
+		};
+
+		var fourth_val = document.getElementsByTagName('td')[7].innerHTML;
+		console.log(fourth_val);
+
+		var td = document.querySelectorAll('td')[7].innerHTML;
+		console.log(td);
+			// $('#content').load('./reading.txt', function(responseTxt, statusTxt, xhr){
+			// 	console.log(responseTxt);
+			// });
+			$('#p1').css({'color': 'blue', 'font-size': '14px'}).slideUp(3000);
+
+			/*var ki = $.noConflict();
+			ki('#p2').css('color', 'red');*/
+
+			// $.noConflict();
+			// jQuery(document).ready(function($){
+			// 	$('#p3').css('color', 'yellow');
+			// });//this can be used if you dont want to change the shortcut '$',
+			//particularly inside of this function
+
+			//jquery call back is necessary
+			$('input[value="hide p2"]').click(function(){
+				$('#p2').hide('slow', function(){
+					alert('p2 is hidden');
+				});
+			});//here it is alerter after the p is hidden
+
+			// $('input[value="hide p2"]').click(function(){
+			// 	$('#p2').hide('slow'); 
+			// 		alert('p2 is hidden');
+				
+			// });//here it is alerted before the p is hidden, so a callback
+			//function is always necessary.
+
+			$('#p3').on({
+				click: function(){
+					alert('clicked');
+				},
+				mouseover: function(){
+					alert('moused over');
+				},
+				dblclick: function(){
+					alert('double clicked');
+				}
+			});
+
+			$('input[value="click on load"]').click(function(){
+				alert('this happens on load');
+			});
+
+			document.getElementsByTagName('input')[1].onload = function(){
+
+				alert('auto handler');
+				document.getElementsByTagName('input')[1].click();
+			
+			};
+
+			// setTimeout(function(){
+			// 	$('input[value="click on load"]').trigger('click');
+			// }, 10);
+			
+
+		</script>
+
+
+	</body>
+</html>

@@ -1,0 +1,63 @@
+REFER https://github.com/angular/angular.js/wiki/Understanding-Dependency-Injection
+REFER http://anandmanisankar.com/posts/angularjs-dependency-injection-demystified/
+REFER https://egghead.io/lessons/angularjs-providers
+
+when evr you are creating a service using provider method of $provide
+then when you are using this service, it actually calls the $get method of that provider.
+> you can't just inject the sevice instace inside of the config function, BUT to use the service
+you shoud inject it's provoder, i.e  inject 'serviceNameProvider' inside of the config function 
+then you can configure the servive how ever you need and you must pass in the instance of the serivce
+inside of the run function.
+
+app.config(function($provide){
+	$provide.provider('serviceName', function(){
+		this.$get = function(){
+			return function(name){
+				alert('some val' + name);
+			}
+		}
+	});
+});
+
+app.factory('serviceNAme', function(){
+	return function(name){
+		alert('some val' + name);
+	};
+});
+
+app.service('serviceNAme', function(){
+	return function(name){
+		alert('some val' + name);
+	};
+});
+
+app.value('serviceNAme', function(name){
+	alert('some val' + name);
+});
+
+you can inject the serivece's instances as a n argument to the functions
+var myFunc = function(serviceName){
+	serviceName('some name');	
+};
+and you cna call it using
+$injector.invoke(myFunc);
+
+you can assign the service to aother variables and use it
+var myFunc = $injector.get('serviceNAme');
+and call it like this
+myFunc('some name');
+
+----------------
+another way of injecting the objects into the controllers
+this way is prefered if you have more dependencies that your controller depends on
+else the traditional approach is better, the 'inline array annotation'.
+
+var myCtrl = function($scope, $http){
+	$http.get('url')
+			.success(function(data){
+				console.log(data);
+			});	
+};
+
+app.controller('myCtrl', myCtrl);
+myCtrl.$inject = ['$scope', '$http'];

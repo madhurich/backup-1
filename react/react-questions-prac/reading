@@ -1,0 +1,93 @@
+> React Components can be created in two ways on is in ES5 and other in ES6.
+
+in ES5
+
+
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+var Main = React.createClass({
+	getInitialState: function(){
+
+	},
+
+	propTypes:{},
+	getDefaultProps: function(){},
+
+	displayName: 'appName',
+
+	render: function(){}
+});
+
+module.exports = Main;
+
+In Es5 we have these methods to set the initial state, for the default props.
+Inside of class we write an object where we have all these as properties.
+
+********IMPORTANT******
+inportant thing here to note is, if we create components in ES5 in React, then we dont need to bind the 'this' of a function when we want to invoke, 'React' does that automatically 
+
+so instead of 
+<p onClick={this.methodName.bind(this)}></p>
+
+we do
+<p onClick={this.methodName}></p>
+//here we are not binding the 'this' React does that automatically by refering to the component in which this line of code is written.
+
+
+in ES6 we do
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+class Main extends React.Component{
+	constructor(){
+		super();
+		this.state = {};
+	}
+	render(){
+		return(
+			<div></div>
+		)
+	}
+}
+
+export default Main;
+
+*******IMPORTANT*****
+in ES6 we need to bind the 'this' to refer to the component
+
+<p onClick={this.methodName.bind(this)}></p>
+else it will point to the window and gives undefined.
+
+appName.propTypes = {
+	name: React.PropTypes.string
+}
+
+appName.defaultProps = {}
+--------------------------
+to remove node_modules folder, when you tries to delete that by just clicking the 'delete' of(shift + del) will not be done
+instead use -->npm install rimraf -g
+			-->rimraf node_modules
+then node_modules folder will be deleted.
+
+REFER http://stackoverflow.com/questions/28175200/unable-to-delete-node-modules-folder-windows-7			
+
+----------------------------------
+virtual-DOM
+--> when ever we are rendering a component in react, actually it is converted to an object and then browser understands that object and render's the element depending upon the 'type' of that element.
+
+when we do 
+ReactDOM.render(<Main/>, document.getElementById('app'));
+
+ReactDOM.render(React.createElement('Main', null), document.getElementById('app'));
+
+and when we look at that 'Main' component object
+
+{
+	'type': Main(),//here if the component is custom, i.e if it is created by us then the type here will be function, else it will be a string
+	'key': null,
+	props:{},
+	_owner: null,
+	ref: null  
+}
+

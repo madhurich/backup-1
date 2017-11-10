@@ -1,0 +1,42 @@
+<form [ngFormModel]="form" (ngSubmit)="onSubmit()">
+	<div class="form-group">
+		<label>Username</label>
+		<input 
+			type="text"
+			class="form-control"
+			id="username"
+			ngControl="username"
+			#username="ngForm"
+			(change)="onInputChange(username)">
+		<div *ngIf="username.control.pending">
+			...checking for uniqueness
+		</div>	
+		<div *ngIf="username.touched && username.errors">
+			<div class="alert alert-danger" *ngIf="username.errors.invalidLogin">
+				credentials are not valid
+			</div>
+			<div class="alert alert-danger" *ngIf="username.errors.required">
+				username is required
+			</div>
+			<div class="alert alert-danger" *ngIf="username.errors.cannotContainSpace">
+				username cannot contain spaces
+			</div>
+			<div class="alert alert-danger" *ngIf="username.errors.shouldBeUnique">
+				username must be unique
+			</div>
+		</div>	
+	</div>
+	<div class="form-group">
+		<label>Password</label>
+		<input 
+			type="text"
+			class="form-control"
+			id="password"
+			ngControl="password"
+			#password="ngForm">
+		<div class="alert alert-danger" *ngIf="password.touched && !password.valid">
+			password is required
+		</div>			
+	</div>
+	<button class="btn btn-primary">Submit</button>	
+</form>

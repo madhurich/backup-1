@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl as vm">
+			<p><strong>Name </strong>{{vm.myName}}</p>
+			<input type="text" ng-model="vm.one">
+			<button ng-click="vm.onChange()">change one way</button>
+			<my-comp name="madhuri here" one="vm.one"></my-comp>
+		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script>
+			angular.module('myApp', []);
+			angular.module('myApp').controller('myCtrl', myCtrl);
+			angular.module('myApp').component('myComp', {
+				template: '<h1>{{$ctrl.name}}</h1><input type="text" ng-model="$ctrl.one">',
+				bindings: {
+					name: '@',
+					one: '<'
+				},
+
+				controller: function(){
+
+					this.$onChanges = function(changesObj){
+						console.log(changesObj);
+					}
+				}
+			});
+
+			myCtrl.$inject = ['$scope'];
+			function myCtrl($scope){
+				var vm = this;
+				vm.myName = 'mad';
+				vm.one ='one';
+				vm.onChange = function(){
+					vm.one = 'one changed';
+				}
+			}
+
+		</script>
+	</body>
+</html>
+//800-272-9676

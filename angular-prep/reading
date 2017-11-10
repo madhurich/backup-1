@@ -1,0 +1,8 @@
+Online test
+>$routeProvider configures the routes.
+>AngularJs bootstraps itself during config phase
+>since Javascript is the only framework, applications of Angular are
+NOT safe and secure
+>clear-property mentions in which area the float elements are not allowed to
+float
+REFER http://www.w3schools.com/cssref/tryit.asp?filename=trycss_class-clear

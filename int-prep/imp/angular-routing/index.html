@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="firstCtrl">
+		<input type="text" ng-model="nameHere">
+		<input type="button" ng-click="register()" value="send">
+	</div>
+
+	<div ng-controller="secondCtrl">
+		<input type="text" ng-model="nameHere">
+	</div>
+	
+	 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	<script>
+		var app = angular.module('myApp', []);
+		app.controller('firstCtrl', ['$scope', '$rootScope', function($scope, $rootScope){
+			$scope.register = function(){
+				$rootScope.$broadcast('SEND', $scope.nameHere);
+			};
+
+			setTimeout(function(){
+				$scope.nameHere = "new value";
+				$scope.$apply();
+
+
+			});
+		}]);
+
+		$scope.$watch('nameHere', function(newVal, oldVal){
+			if(newVal !== oldVal){
+				console.log('value is not changed');
+			}else{
+				console.log('value is changed');
+			}
+		});
+
+		app.controller('secondCtrl', ['$scope', function($scope){
+			$scope.$on('SEND', function(event, args){
+				$scope.nameHere = args;
+			});
+		}]);
+	</script>
+</body>
+</html>

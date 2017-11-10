@@ -1,0 +1,138 @@
+to write typescript files, first install
+npm install -g typescript 
+on your machine.
+> then create a file Ex: 'main.ts'
+to run it, in the terminal, run
+tsc main.ts 
+        -->this will create a '.js' file and this is the ultimate file that
+        reaches the browser and must be included in any of the files that use this.
+        Ex: inside of the index file, inlcude 'main.js' file.
+
+to run the files in watch mode, 
+tsc main.ts -w 
+        --> runs the file in watch mode and watches for all changes.
+----
+decalring the type of varibales
+let varName: string;
+let myNum: number;
+let myBool: boolean;
+
+to declare which are arrays
+let myNumArr: string[]; or 
+let myNumArr: Array<any>
+
+A tuple is something that has two datatypes 
+let myTuple: [number, string]; //this accepts an array where the first element must be 
+                                //number and the second element must be string, the remaining can be anything
+Ex: myTuple = [43, 'killer']; //accepts doesnt throw any error.
+myTuple = ['killer', 43]; throws an error because order dint match here.
+myTuple = ['killer', 43, 90, false, 'mad'];//will not throw a error since the starting pattern 
+//is same 
+
+FUNCTIONS
+
+function sum(a: number, b: number): number{
+    return a + b;
+}//this says the arguments must be numbers and the return type must also be a number
+will throw an error if either of them are not stisfied.
+
+sum(4, 5);//gives 8
+sum('4', 5);//throws error    
+
+INTERFACES
+
+function toDo(myTodo: {task: string, priority: number}){
+        return myTodo.task+ ' '+ myTodo.priority;
+}   
+
+let myTodo = {task: 'first task', priority: 4};
+toDo(myTodo);
+
+interfaces are something that are used to set custom type of an argument, to be
+passed into the function.
+interface toDoType{
+        task: string;
+        priority: number;
+} 
+
+function  toDo(myTodo: toDoType){
+      return myTodo.task+ ' '+ myTodo.priority;  
+}                       
+
+let myTodo = {task: 'first task', priority: 4};
+
+console.log(toDo(mytodo));
+
+CLASSES
+
+class User{
+        name: string;
+        age: number;
+        gender: string;
+
+        constructor(name: string, age: number, gender: string){
+                this.name = name;
+                this.age = age;
+                this.gender = gender;
+
+                console.log(this.name + "'s age is " +this.age);
+        }
+
+        register(){
+                console.log('name is registered ' + this.name);
+        }
+
+
+}
+
+let mad = new User('madhuri', 23, 'female');
+//this statement will create an object called 'mad' which is of class User
+>User{name: 'madhuri', age: 23, gender: 'female'}
+
+we can access all the methods and properties of User, if they are public (if private we
+will only be able to access those properties or methods within the class but not outside of the class).
+
+register(); //method is accessible for 'mad'
+mad.register();//will log "name is registered madhuri"
+
+console.log(mad);
+//mad is of type 'User' and 'mad' has all the methods and properties declared inside of 'User'                                
+
+WE can extend the behaviour of one class into another with 'extends' keyword
+
+Ex: 
+class otherUser extends User{
+        id: number; //properties that are specific to 'otherUser' must be declared here
+        constructor(name: string, age: number, gender: string, id: number){//within the here we need to mention all the properties that 
+                                                                        //this class uses.
+                super(name, age, gender);//within super, we need to mention all the properties that are in the parent class
+                                        //this statement will eventually do 
+                                        //this.name = name;
+                                        //this.age = age;
+                                        //this.gender = gender;
+                this.id = id;
+        }
+}
+
+let man = new otherUser('manaswini', 24, 'female', 4);
+//this will have all the methods and properties decalred within User.
+
+we can do 
+man.register();//will log 'name is registered manaswini'
+
+> we can create an interface for classes to tell, how that class is before its actually
+being created.
+
+interface userType{
+        name: string;
+        age: number;
+        gender: string;
+        register();
+}//this says that what ever the class implements this interface, it must and should contain 
+all these methods and properties defined within here, else it will throw an error if any of these 
+are missing
+
+Ex: class User implements userType{
+        //this User class is expected to have 
+        name, age, gender properties and register() function
+}

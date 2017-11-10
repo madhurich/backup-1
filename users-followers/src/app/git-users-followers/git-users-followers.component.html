@@ -1,0 +1,29 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" >
+    <input 
+    class="form-control"
+    type="text"
+    [(ngModel)]="inputUser"
+    name="inputUser"
+    />
+    <button class="btn btn-primary">get User</button>
+</form>
+<div *ngIf="user" >
+    <div>
+        <img src="{{user?.user?.avatar_url}}" id="avatar"/>
+    </div>
+    <div class="row">
+        <div class="col-sm-6" id="repos">
+            <h2>Repos</h2>
+            <ul>
+                <li *ngFor="let repo of user?.repos"><a href="{{repo.html_url}}">{{repo.name}}</a></li>  
+            </ul>
+        </div>
+        <div class="col-sm-6" id="followers">
+            <h2>Followers</h2>
+            <ul>
+                <li *ngFor="let follower of user?.followers">{{follower.login}}</li>  
+            </ul>
+        </div>
+    </div>
+    
+</div>

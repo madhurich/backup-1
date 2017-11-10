@@ -1,0 +1,35 @@
+REFER https://thinkster.io/egghead/providers
+
+only constants and instances are used in .run function
+this is to prevent configuring the application while it is running.
+
+.config accepts only providers, we cant inject factories or services in the configuration
+REFER http://stackoverflow.com/questions/17485900/injecting-dependencies-in-config-modules-angularjs
+------------
+factories-->
+			return any kind of data type
+			it has a 'return' keyword
+			can be used to have reusable functionality
+services--> returns an object
+			it has 'this' key word
+			can be used for to implement 'helper methods'
+			it always creates an object instance, when ever created.
+
+When to use a factory and when to use service
+REFER http://stackoverflow.com/questions/18939709/
+REFER https://blog.thoughtram.io/angular/2015/07/07/service-vs-factory-once-and-for-all.html
+angularjs-when-to-use-service-instead-of-factory
+	--> it's basically the coding preference
+	--> all the functionality that can be done with service can be done with factory.
+-------
+When to use Angular? When to use JQeury
+
+Angular
+when ever you have dynamic data to be dispalyed, when ever you have a specific data to be displayed in a specific place and there's lot of complexity invloved and when you want to keep track of changes that are taking place from time to time then you can use ANGULAR.
+
+A conteoller is place where we can create a new child scope, and it can be attached to a specific view to have certain values declared in that controller
+
+JQuery
+when ever you have static data to be displayed, and the application is smaller and when you dont need to keep track of changes then JQuery is preferable.
+
+

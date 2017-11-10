@@ -1,0 +1,64 @@
+> always load the js files at the bottom of the body.
+> the script file will not be loaded, untill unless you have some lines in the file.
+i.e in the sources in chrome developer tools
+
+in C datatypes
+	int, float, char, boolean, short, long, double, byte
+	class and objects
+
+in javaScript
+	number
+	string - characters or strings
+	boolean	- 0 or 1
+	undefined
+	object -key value
+		--null , intentional absense of value
+		it's an object's subtype.
+		--array (arrays hold duplicate values and sequence is 
+		important)
+		here we are also considering 'function' as datatype
+
+----
+0, 1, 1, 2, 3, 5, 8, 13
+--class2
+JAvascript doesnt support multithreading.
+Java supports multi threading, this is used to process multiple CPU processes.
+So when 
+
+I/O operations, databse connection then JAvascript is used.
+If Memory usage is considered then JAva is used
+
+we can store integers as numbers in javascript (people mislead asking whether you can store integers in javascript).
+REPL-read, eval, print, loop
+
+
+Key value pairs in JS
+its a linked data structure, and keys must be unique and they must be a string
+and values can be anything(any data type)
+Array is a subtype of object
+
+----
+02/23/2017
+Array -> stores sequence can hold duplicate values, each item can be of any datatype.
+
+Function -> we have set of statements, can return a value, can accept parameters aso called as arguments
+
+data types in JS
+
+number
+object
+string
+null
+undefined
+boolean
+false
+NaN
+--difference between parameters and arguments
+parameters are something which are given to the function decalaration or at
+the time of declaration or definition.
+
+Ex: function func(a, b){//-->here a and b are parameters
+	return a + b;
+}
+
+func(2, 3); --> here 2 and 3 are arguments

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	
+
+
+	<script>
+		function giveOrder(orderNum){
+			console.log("order num ", orderNum);
+			// handleOrder(function(){
+			// 	console.log("your order " + orderNum + " is ready");
+			// });
+			setTimeout(function(){
+				console.log("order processing complete for order "+ orderNum);
+			}, 2000);
+		}
+
+
+		giveOrder(1);
+		giveOrder(2);
+		giveOrder(3);
+		giveOrder(4);
+	</script>
+</body>
+</html>

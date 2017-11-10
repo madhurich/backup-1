@@ -1,0 +1,4 @@
+1. npm install -g yo
+2. npm install -g generator-meanjs
+3. yo meanjs
+then a

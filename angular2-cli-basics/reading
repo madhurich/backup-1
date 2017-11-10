@@ -1,0 +1,145 @@
+ANGULAR2- CLI - USAGE
+1. npm install -g angular-cli
+2. ng new folderName
+3. go to the folder (cd folderName)
+4. ng serve (this starts teh server)
+
+ng generate component componentName --inline-template --inline-style
+
+this command generates the component called 'componentName' which has a template and style
+inline, meaning in the same file
+
+----------------
+To generate a service use
+ng generate service serviceName
+-----
+while using a service, we import that in app.module.ts and include that in the 'providers' array, 
+then to ue that in app.component.ts, we again need to import that in that file and include that in 
+the constructor to use that.
+
+We can avod this double importing of the service in app.module.ts and app.component.ts
+
+by using objects in 'providers' array
+
+providers: [{provide: 'customString', useClass: ClassNameHere},
+{provide:'customString1', useValue: 'someValHere'}]
+
+Now ot use these string notated services or values in app.component.ts
+
+we need to first import 'Inject' at the top
+and we dont need to import the service again here, since we used object notated providers in app.module.ts
+
+now in constructor(@Inject('customString1') private customString1){
+  this.name = this.customString1; //name will have the value 'someValHere' sicne we assigned this in providers array.
+}
+
+----------
+When ever you want to pass in some values to a component from the template of other component.
+
+1. In the receiving component we need to declare the Input variables
+and render that varibale inside the template of receivng component.
+
+Ex: rece.comp.ts
+
+template: `
+  {{someVar}}
+`
+
+@Input() someVar;
+
+Ex: outputting value of someVar from other component say other.comp.ts
+here, <rece [someVar]="valueHere"></rece>
+
+now this value called 'valueHere' is assigned to 'someVar' of the receiving component and 
+is displayed in the template of rece.comp.ts
+------------
+*********IMPORTANT*************
+if [(ngModel)] is used inside of the form of an input element, then
+we must specify the 'name' attribute or 'ngModelOptions' else it will throw following error.
+
+EXCEPTION: Error in ./CustomFormComponent class CustomFormComponent - inline template:3:36 caused by: If ngModel is used within a form tag, either the name attribute must be set or the form
+      control must be defined as 'standalone' in ngModelOptions.
+
+      Example 1: <input [(ngModel)]="person.firstName" name="first">
+      Example 2: <input [(ngModel)]="person.firstName" [ngModelOptions]="{standalone: true}">
+------------------------
+component specific styles
+When ever we are using styles inside of a component, those styles will be
+private to that componnet itself and will not be applicable to other components
+eventhough the refereing element is same in other component.
+
+One more thing is for Example we have 'compOne'
+with selector: 'compOne'
+
+we render that in app.component
+<comp-one></comp-one>
+
+Now we can apply style to this 'comp-one' element inside of
+app.component file
+comp-one{
+  border: 1px solid blue;
+}
+, BUT this style will not be aplied to this
+'comp-one' element because we need to mention a 'host' inside of this
+comp-one.component.ts
+
+styles: [`
+  :host{
+    display: block
+  }
+`]
+
+Now this style will be combined with comp-one style and will be applied
+------------
+conditional styling
+we can add conditional styles to the component with [ngclass] = {className:propName}
+Now inside of the class we can declare 'propName' to be flase or true or what ever.
+DEpending on the value of 'propName' the class 'className' will be applie to the element
+
+
+.className{
+  color: red;
+}
+
+------------
+we need to import this at the top
+import {ViewEncapsulation} from '@angular2/core';
+encapsulation: ViewEncapsulation
+
+                .Native
+                local styles will not be applied globally and global styles will not be applied local to the component
+
+                .Emulated (default)
+                global styles will be applied to all the components
+
+                .None
+                local styles will be applied globally
+----------------------
+Output
+
+When ever we want to declare custom events, it can be done using 'Output'
+
+Ex: we have form-comp.ts
+inside that or from this components we want to emit an event
+say 'update'
+so in form-comp.ts file
+  @Output update  = new EventEmitter(); //also import Output and EventEmitter at the top from '@angular2/core'
+
+  now in the template of 'form-comp.ts'
+  template: `
+      <button (click)="update.emit({key: 'someVal'})">click</button>
+  `
+  Now on occuring this 'update' event a function will be executed in another component
+  or the emitted value 'someVal' will be caught in another component.
+  Say other.comp.ts
+  in here
+  <form-comp (update)="onUpdate($event)"></form-comp>
+
+  this 'onUpdate' function will be executed declared inside of 'other.comp.ts' file
+
+  class OtherComp {
+    onUpdate(event){
+      console.log(event.text);
+    }
+  }
+

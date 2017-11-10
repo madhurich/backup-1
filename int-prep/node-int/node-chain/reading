@@ -1,0 +1,32 @@
+*****YOU GOT AN ERROR*****
+-------------------
+
+TypeError: Router.use() requires middleware function but got a Object
+    at Function.use (C:\Users\madhu\Desktop\node-int\node-chain\node_modules\express\lib\router\index.js:458:13)
+    at EventEmitter.<anonymous> (C:\Users\madhu\Desktop\node-int\node-chain\node_modules\express\lib\application.js:219:
+------------------------
+solution: here you forgot to export the router in birds.js
+-------------
+DEBUGGER
+> set DEBUGGER=express:* & node server.js
+------
+Error handling
+app.use(function(err, req, res, next){
+	if(err){
+		//do something
+	}else{
+		next();
+	}
+
+});   
+> if you write next(err), if you call next with "err"argument more than once in your
+app, then the default error handelr of express will be trigeered and it will lose the connection
+with the server.
+> when you specify next('routes'), in a error handler function, then the other handlers after this will
+be skipped
+------------
+serving static files
+app.use(express.static('public'));-->localhost:3000/img/kill.jpg
+app.use('/public', express.static('public'));-->loclahost:3000/public/img/kill.jpg
+app.use('/public', express.static(path.join(__dirname, 'public')));-->absoulte path
+if you are running the app in another directory then its better to use absolute path

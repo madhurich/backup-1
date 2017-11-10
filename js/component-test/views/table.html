@@ -1,0 +1,22 @@
+Enter name of the task
+<input type="text" ng-model="$ctrl.name">
+Enter priority
+<input type="number" ng-model="$ctrl.priority">
+<button ng-click="$ctrl.addTask()">Add Task</button>
+
+<table ng-show="$ctrl.tasks.length > 0">
+	<thead>
+		<tr>
+			<th>Task</th>
+			<th>Priority</th>
+			<th>Remove</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="task in $ctrl.tasks | orderBy:'priority'">
+			<td>{{task.name}}</td>
+			<td>{{task.priority}}</td>
+			<td><button ng-click="$ctrl.removeTask(task.id)">Remove</button></td>
+		</tr>
+	</tbody>
+</table>

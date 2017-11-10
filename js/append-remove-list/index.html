@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<input type="text" id="inp1">
+		<button id="btn">click</button>
+		<ul id="users"></ul>
+
+		<button onclick="exampleFunc()">Example</button>
+
+
+		<script>
+			//document.getElementById('someId').onclick = function(){};
+			function exampleFunc(){alert('checking');}
+			var id = 0;
+			document.getElementById('btn').addEventListener('click', function(){
+				id++;
+				var inpElem = document.getElementById('inp1');
+				var inp = inpElem.value;
+				var li = document.createElement('LI');
+				var button = document.createElement('button');
+				var buttonText = document.createTextNode('remove');
+				button.appendChild(buttonText);
+				li.setAttribute('id', id);
+				var liVal = document.createTextNode(inp);
+				li.appendChild(liVal);
+				document.getElementById('users').appendChild(li);
+				inpElem.value = "";
+				//document.body.appendChild()
+			});
+
+			var parent = document.getElementById('users');
+			parent.addEventListener('click', function(e){
+				parent.removeChild(document.getElementById(e.target.id));
+				console.log(e.target.id);
+				resetIds();
+				//id--;
+			});
+
+			function resetIds(){
+				var lis = document.querySelectorAll('#users li');
+				for(var i = 0; i < lis.length; i++){
+					lis[i].id--;
+				}
+			}
+
+		</script>
+	</body>
+</html>

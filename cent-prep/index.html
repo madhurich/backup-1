@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<style>
+			.well{
+				float: left;
+			}
+			.container{
+				float: right;
+			}
+			@keyframes rotateTran{
+				0%{transform: rotate(30deg);}
+				8.33%{transform: rotate(60deg);}
+				16.66%{transform: rotate(90deg);}
+				24.99%{transform: rotate(120deg);}
+				33.32%{transform: rotate(150deg);}
+				41.65%{transform: rotate(180deg);}
+				49.98%{transform: rotate(210deg);}
+				58.31%{transform: rotate(240deg);}
+				66.64%{transform: rotate(270deg);}
+				74.97%{transform: rotate(300deg);}
+				83.30%{transform: rotate(330deg);}
+				100%{transform: rotate(360deg);}
+			}
+			.tran{
+				width: 100px;
+				height: 100px;
+				background-color: yellow;
+				transform: rotate(90deg);
+				/*transform-origin: 20% 20%;*/
+				clear: both;
+				/*animation-name: rotateTran;*/
+				animation-duration: 5s;
+				animation-iteration-count: 3;
+			}
+			div[data-toggle="tooltip"]{
+				display: inline-block;
+			}
+			.pos{
+				width: 100px;
+				height: 100px;
+				background-color: blue;
+				float: left;
+				position: absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="well">
+			in well content-here
+		</div>
+		<div class="container">
+			<div class="jumbotron">
+				jumbotron
+			</div>
+		</div>
+		<div class="tran">
+			transform
+		</div>
+		<div data-toggle="tooltip" title="hello">
+			hover here
+		</div><br>
+		<div data-toggle="tooltip" data-placement="right" title="mad">
+			mad here
+		</div>
+		<div class="pos" style="z-index: 1; background-color: yellow; width: 200px; height: 120px;">div1</div>
+		<div class="pos" style="z-index: 0; background-color: red; width: 300px; height: 150px;">div2</div>
+		<div class="pos" style="z-index: 2; background-color: pink;">div3</div>
+		
+		
+		
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		
+		<script>
+		$(document).ready(function(){
+			$('div[data-toggle="tooltip"]').tooltip();
+		});
+			var a = "hello";
+			function school(name, place){
+				this.name = name;
+				this.place = place;
+			}
+
+			var WPS = new school('wps', 'warangal');
+			console.log(WPS);
+			function firstFunc(){
+				//var a = "hi";
+				console.log(a);
+			}
+			firstFunc();
+
+			
+		</script>
+	</body>
+</html>

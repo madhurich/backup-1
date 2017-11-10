@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<input type="button" value="reload the page">
+
+	<input type="button" value="5">
+	select here
+	<select id="options">
+		
+	</select>
+
+	<marquee behaviour="scroll" direction="up" scrollamount="1">Scrolling text</marquee>
+
+	<input type="button" value="delay the alert">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="script_one.js"></script>
+	<script src="script_two.js"></script>
+	<script>
+
+
+		console.log(first, second);
+		(function to_log_location(){
+			console.log(location);
+			window.localStorage.setItem('me', 'madhuri');
+			window.sessionStorage.setItem('me', 'madhuri');
+			console.log("localStorage",window.localStorage);
+			console.log(history);
+			window.localStorage.removeItem('me');
+			window.localStorage.clear();
+			console.log("localStorage after removing item",window.localStorage);
+			console.log("sessionStorage",window.sessionStorage);
+			var item = window.localStorage.getItem('me');
+			console.log("item here", item);
+
+		
+		})();
+		
+		//func1();
+
+			// document.getElementsByTagName('input')[1].addEventListener('click', function(){
+			// 	var option = document.createElement('OPTION');
+			// 	var attr = document.createAttribute('value');
+			// 	attr.value = 3;
+			// 	option.setAttribute(attr);
+			// 	document.getElementById('options').appendChild(option);
+			// });
+
+			// $('input[value="5"]').click(function(e){
+			// 	var n = e.target.value;
+			// 	for(i = 1; i <= n; i++){
+			// 		$('#options').append("<option value="+ i + ">"+ i +"</option>");
+			// 	}
+				
+			// });
+
+			document.getElementsByTagName('input')[1].addEventListener('click', function(e){
+				var n = e.target.value;
+				for(i = 1; i <= n; i++){
+					var opt = document.createElement('OPTION');
+					var val = document.createAttribute('value');
+					val.value = i;
+					opt.innerHTML += i;
+					opt.setAttributeNode(val);
+					document.getElementById('options').appendChild(opt);
+				}
+
+			});
+			
+		
+			document.getElementsByTagName('input')[0].addEventListener('click', function(){
+				alert('on reload');
+				//location.reload();
+				history.go();
+				
+				
+			});
+
+			// document.getElementsByTagName('input')[2].addEventListener('click', function(){
+			// 	alert('must be delayed');
+			// }).delay(3000);
+		
+	</script>
+</body>
+</html>

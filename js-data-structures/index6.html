@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		
+
+		<script>
+			function objGlobal(name, age){
+			  this.name = name;
+			  this.age = age;
+			}
+			objGlobal.prototype.color = "fair";
+
+			var obj = new objGlobal('mad', 22);
+			obj.color = 'red';
+			console.log(obj.color);
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,32 @@
+@media screen and (max-width: 768px) {
+	header.hero>div.hero-div>div.hero-img {
+		position: static;
+		margin: auto
+	}
+	header.hero>div.hero-div>div.hero-body {
+		margin-left: 0px;
+		margin-right: 0px;
+	}
+	header.hero>div.hero-div>div.hero-right {
+		position: static;
+		width: 100%;
+	}
+
+	div.product {
+		width: 100%;
+		position: relative;
+		min-height: 100px;
+	}
+	div.product>div>div.product-img {
+		position: absolute;
+		left: 0px;
+	}
+	div.product>div {
+		margin-left: 100px;
+	}
+
+	div.product:nth-child(4n), div.product:nth-child(4n+2), div.product:nth-child(4n+3) {
+	    margin-left:0px;
+	}
+}
+

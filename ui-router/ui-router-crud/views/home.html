@@ -1,0 +1,13 @@
+<button type="submit" ui-sref="create">create user</button>
+<div ng-repeat="x in data | limitTo:10">
+	<div>
+		<p><strong>Body: </strong>{{x.body}}</p>
+		<p><strong>Id: </strong>{{x.id}}</p>
+		<p><strong>Title: </strong>{{x.title}}</p>
+		<p><strong>User Id: </strong>{{x.userId}}</p>
+		<button ui-sref="detail({id: x.id})">get in detail</button>
+		<button ui-sref="detail({id: x.id})">update</button>
+		<button ng-click="deleteUser(x)">delete</button>
+		<hr>
+	</div>
+</div>

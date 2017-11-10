@@ -1,0 +1,23 @@
+Here we use Observables to handle asynchronous functioning
+> Generally to have asynchronous execution we use setTimeout etc in
+javascript and jquery.
+> when we use such kind of callbacks to handle asynchronous execution in jquery and javascript
+when callbacks are more, we get a callback hell and it gets difficult to manage more
+calbacks, to handle multiple callbacks we use OBSERVABLES
+	for that we need to import 
+		import {Observable} from 'rxjs/Rx';
+
+		var streams = Observable.fromEvent($('input#search'), 'keyup');
+			fromEvent -> is the method used to mention from which the stream is going
+			to generate and from which event, here the event is 'keyup' and the place is
+			from the input element having 'id' as 'search'
+
+		the 'debounceTime' -> method is used to delay the function execution for sepcified
+		duration mentioned inside of it
+
+		we use distinctUntilChanged() -> is used to prevent execution of subscribe function, when the 
+		input is same, i.e sunscribe funciton is executed only once for each different input value.
+		Ex: if input is 'xyz' and sunscribe executes, later when we put the same input, the subscribe function will not be executed because already we made a request with that same input 'xyz'	
+
+-------------
+

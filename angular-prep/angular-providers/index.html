@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Providers</title>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="constCtrl"></div>
+		<div ng-controller="valCtrl"></div>
+		<div ng-controller="serviceCtrl"></div>
+		<div ng-controller="chocCtrl"></div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+		<script>
+			var app = angular.module('myApp', []);
+			app.constant('const_key', 'const_val');
+			app.value('val_key', 'val_val');
+			app.config(function($provide){
+				$provide.decorator('val_key', function($delegate){
+					return $delegate + 'val changed';
+				});
+			});
+			app.controller('constCtrl', ['$scope', 'const_key',
+			 function($scope, const_key){
+
+				console.log(const_key);
+			}]);
+			app.controller('valCtrl', ['$scope', 'val_key',
+			 function($scope, val_key){
+
+				console.log(val_key);
+			}]);
+			app.controller('serviceCtrl', ['$scope', 'personService', 
+				function($scope, personService){
+				console.log(personService.person);
+			}]);
+			app.controller('chocCtrl', ['$scope', 'chocFactory', 
+				function($scope, chocFactory){
+				console.log(chocFactory);
+			}]);
+			app.service('personService', function(){
+				this.person = {
+					name: 'xyz',
+					age: 1000
+				};
+			});
+			app.factory('chocFactory', function(){
+				return {
+					name: 'snickers'
+
+				};
+			});
+			app.provider('human', function(){
+				var newName;
+				return {
+					setName: function(name){
+						newName = 'set ' + name;
+					},
+					$get: function(name){
+						return newName + name;
+					}
+				};
+			});
+		</script>
+	</body>
+</html>

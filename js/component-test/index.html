@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+	</head>
+	<body ng-app="myApp">
+		<table-comp></table-comp><br>
+		<table-comp></table-comp>
+
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script>
+			angular.module('myApp', [])
+					.component('tableComp', {
+						templateUrl: 'views/table.html',
+						controller: tableCtrl
+					});
+
+					function tableCtrl(){
+						var vm = this;
+						//vm.name = 'mad';
+						vm.tasks = [];
+						vm.id = 0;
+						vm.addTask = function(){
+							vm.id++;
+							vm.tasks.push({id: vm.id, name: vm.name, priority: vm.priority});
+							vm.name = ""; vm.priority = "";
+						};
+
+						vm.removeTask = function(id){
+							//alert(id);
+							vm.tasks = vm.tasks.filter(function(elem, index){
+								if(elem.id != id) return true;
+							});
+						};
+
+					}
+		</script>
+	</body>
+</html>

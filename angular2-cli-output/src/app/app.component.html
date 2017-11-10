@@ -1,0 +1,9 @@
+<h1>
+ App
+</h1>
+<app-output-test 
+    *ngFor="let email of mails" 
+    [text]="email.name" 
+    [id]="email.id"
+    (update)="onUpdate(email.id, $event)"></app-output-test>
+

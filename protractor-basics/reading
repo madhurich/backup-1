@@ -1,0 +1,170 @@
+set up of protractor environment.
+> already node and npm must be installed.
+> open command prompt
+    run
+        npm install -g protractor
+> after protractor is installed, it also comes with this 'webdriver-manager'
+    run 
+        webdriver-manager update
+> then start the webdriver by running
+        webdriver-manager start
+            this starts the selenium webdriver
+> open one more command prompt
+    go to 
+       cd C:\Users\madhu\AppData\Roaming\npm\node_modules\protractor\example
+> then run
+    protractor config.js
+        this runs the default test of angular written in 'example-spec.js' file within
+        the same path as above (C:\Users\madhu\AppData\Roaming\npm\node_modules\protractor\example)  
+> if everything goes well, you should see the test passed with 0 failures          
+REFER https://www.youtube.com/watch?v=57134cHJlAs&list=PLw5h0DiJ-9PCGYuOY8PTqN67w-A2T9fsb
+---------------------
+Next, create the folder structure
+    protractor-basics
+        -- app
+            -- index.html
+        -- test
+            -- e2e
+                -- index
+                    -- index.spec.js
+        -- protractor.config.js
+        -- server.js
+You used this kind of folder structure, to get used to it.
+within server.js, to serve the file 'index.html' you used
+    app.use(express.static(path.join(__dirname, app)));
+        //since within 'app' folder you have index.html
+> make sure to install express
+> to run the test cases
+    within the project-folder   
+        protractor test/protractor.config.js
+        protractor pathToConfigFile
+> without writing any tests within config it will throw you an error.
+> Before actually running the test cases, make sure to start the server
+    within project folder   
+        node server.js
+         or 
+        node server
+> then run protractor test/protractor.config.js
+    describe('learning protractor', function(){
+        describe('index', function(){
+            it('should display correct title', function(){
+                browser.get('/');
+                expect(browser.getTitle()).toBe('titleOfYourPage');
+
+            });
+        });
+    });                                        
+
+IMPORTANT
+You got an error saying getInstance is not a function
+    var ptor = protractor.getInstance();
+Even you searched over the net, no proper solution for this.
+then you used 
+    browser.get('/') instead of ptor.get('/');
+    browser worked fine.
+> Also if Angular is not included, it gives you an error, 
+since the commands that your running using protractor e2e tests
+are basically for angular, so MAKE SURE TO INCLUDE angular in the index.html
+> Now run 
+    protractor test/protractor.config.js
+> it should give you a passing test, if the title you mentioned is same    
+-----------------
+> to get an instance of an element, we use
+    var exElem = element(by.id('idOfElement'));
+
+    //'text' is just a variable name, but name inside parentheses of binding
+    must be same as the one you used to render in the view Ex: {{varNameInController}}
+    var text = element(by.binding('varNameInController'));
+BEFORE running the test cases, first start the webdriver by running
+                    webdriver-manager start  
+       in another cmd prompt run the server
+                    node server
+       in another
+                    protractor test/protractor.config.js
+---------------------
+Here we are creating a page object, that has all the methods to interact and page
+related actions (getText, click, load etc...). So we are creating an object that has all these
+methods, so now instead of using each method seperately, we are putting them in an object and using that object
+to execute these methods.
+
+BEFORE CHANGE
+describe('learning protractor', function(){
+    //var ptor = protractor.getInstance();
+    describe('index', function(){
+        it('should say hello', function(){
+            browser.get('/');
+            expect(browser.getTitle()).toBe('Learning protractor');
+        });
+
+        it('should replace the text', function(){
+            var btn = element(by.id('btn'));
+            var text = element(by.binding('text'));
+            btn.click();//executes click action 
+            expect(text.getText()).toBe('mad');
+        });
+    });
+});       
+---------------
+AFTER CHANGE
+function IndexPage(){
+    this.button = element(by.id('btn'));
+    this.text = element(by.binding('text'));
+    this.getBoundText = function(){
+        return this.text.getText();
+    }
+
+    this.loadPage = function(){
+        browser.get('/');
+    }
+
+    this.getPageTitle = function(){
+        return browser.getTitle();
+    }
+
+    this.clickButton = function(){
+        this.button.click();
+    }
+}
+describe('learning protractor', function(){
+    //var ptor = protractor.getInstance();
+    var page = new IndexPage();
+    beforeEach(function(){
+        page.loadPage();
+    });
+    describe('index', function(){
+        it('should say hello', function(){
+            expect(page.getPageTitle()).toBe('Learning protractor');
+        });
+
+        it('should replace the text', function(){
+           
+            page.clickButton();//executes click action 
+            expect(page.getBoundText()).toBe('mad');
+        });
+    });
+});
+REFER https://stackoverflow.com/questions/31354559/using-node-js-require-vs-es6-import-export
+import and export differences,
+if you are using ES6 we use import to get the functions from other files, but
+after transpilation these import statements will be converted to commonJS require statements.
+-----------------------
+We can do tests in the command line, provided by protractor for use
+to do that, go to 
+C:\Users\madhu\AppData\Roaming\npm\node_modules\protractor\bin
+in the command line and 
+run elementexplorere.js and our page which is serving on http://localhsot:3000
+run 
+    node elementexplorer.js http://localhsot:3000
+> now the element explorer is started and we can test the application
+> now press tab and check what all the commands you can use.
+> element(by.id('btn'));
+> its possible to assign these to other variables and check just like in the
+spec folder.
+> Now to use the ids and class names that are defined in inde.html file, 
+we again need to run our elementexplorer, because when we run this 
+explorer, we will be able to access those classes and ids which are defined at that time
+> to make use of latest classes or ids, we need to start our explorer again
+by running 
+    node elementexplorer.js http://localhost:4000
+---------------
+RUNNING protractor on mulitple browsers.         

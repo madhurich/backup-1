@@ -1,0 +1,37 @@
+angular.module('myApp', []);
+		.config(function($provider){
+			$provider.provide('hello', function(){
+				this.$get = function(){
+					return function(){
+						alert('hello');
+					}
+				}
+			});
+		});
+
+
+angular.module('myApp', [])
+		.factory('facName', function(){
+				return "abc" ;
+			}
+		});	
+
+//factory can return any data type (object, array, function, null, undefined)
+angular.module('myApp')
+		.controller('myCtrl',['$scope', 'facName', function($scope, facName){
+				$scope.users = facName.getUsers();
+		}]);
+
+
+angular.module('myApp')
+		.config(function($provider){
+			$provider.provide('facName', function(){
+				this.$get = function(){
+					return function(){
+						return ['a', 'b', 'c', 'd'];
+					}
+				}
+			})
+		})		
+
+

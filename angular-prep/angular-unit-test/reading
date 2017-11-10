@@ -1,0 +1,95 @@
+to create a new file in windows use
+1. type nul > filename.extn
+  this will create a filename.extn file with 0bytes.
+2. echo.>filename.extn
+  this will create a filename.extn file with a empty line in it.
+
+  REFER http://stackoverflow.com/questions/30011267/windows-equivalent-of-touch-i-e-the-node-js-way-to-create-an-index-html
+
+
+app.use(bodyParser({extended: true}));
+this means the result containind in the request url will be in the form of
+{key: value} pairs or in the form of JSON Data.
+refer below for details
+REFER http://stackoverflow.com/questions/39870867/what-does-app-usebodyparser-json-do
+
+--app
+	--services
+		--users
+			--users.js
+			--users.spec.js
+--index.html
+--app.js
+--style.css	
+--server.js
+
+npm install express body-parser morgan path --save
+npm install --save-dev karma karma-jasmine karma-chrome-launcher jasmine-core
+npm install -g karma-cli
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+app.use(function(req, res, next){
+	res.setHeader('Acc');
+});
+
+app.use(morgan('dev'));
+app.use(express.static(__dirname + '/app/index.html'));
+app.use()
+
+describe('kjghkf', function(){
+	it('lkfdjfd', function(){
+		expect(2+2).toBe(4);
+	});
+});
+
+describe('lkfdj', function(){
+	beforeEach(angular.mock.module('myApp'));
+	beforeEach(inject(function(_Users_){
+		Users = _Users_;
+	}));
+	it('exists', function(){
+		expect(Users).toBeDefined();
+	});
+
+	describe('.all', function(){
+		it('exists', function(){
+			expect(Users.all).toBeDefined();
+		});
+	});
+});
+
+-------------------
+declare different modules for different usage.
+Ex: create a module for a controller
+	create a module for service
+these modules are different from your main angular app module.
+i.e angular.module('myApp', ['ui.router']);-->this is different from below
+	angular.module('components.users', []);-->this is for components of users
+	angular.module('services.users', []);-->this is for services.
+
+	Now include these modules in their respective spec files to test them.
+IMPORTANT -> you got an error when you dint declare seperate modules for each of them, i.e you used the same myApp module to define a controller and included
+that myApp in the spec file of controller and, you wrote this statement
+
+Userscontroller = $controller('usersController', {});
+outside of the inject function. This should ALWAYS BE INSIDE OF the inject function where you injected the controller.
+
+beforeEach(inject(function(_$controller_){
+	$controller = _$controller_;
+	UsersController = $controller('usersController', {});
+}));
+-----------------------
+to compare objects are equal or not use 'toEqual' method of jasmine, NOT 'toBe' it will not
+give same since it is shallow compairing the objects.
+you got an error here when you used 'toBe' instead of 'toEqual'.
+----
+one more thing here to note is in express.static specify only folder names and dont specify
+filenames like 'index.html' etc, you mentioned index.html that is the reason you got this
+'Unexpected token >' error in console.
+
+-----------
+https://www.google.com/search?q=mock+the+data+from+a+service+angular&oq=mock+the+data+from+a+service+angular&aqs=chrome..69i57.9126j0j7&sourceid=chrome&ie=UTF-8
+
+https://www.sitepoint.com/author/rkiran/

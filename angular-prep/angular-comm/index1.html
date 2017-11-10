@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>mod-comm</title>
+	</head>
+	<body ng-app="myApp1">
+		<div ng-controller="app1Ctrl"></div>
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+		<script>
+			//here if we don't include 'myApp2' in the dependency array 'app2Service' of 'myApp2'
+			//will not work. And 'app1' is one module and 'app2' is another, here we are making communication
+			//between app1 and app2, the service declared in 'myApp2' is used in 'myApp1' by injecting 'myApp2' inside of the depency array of 'myApp1'
+			var app1 = angular.module('myApp1', ['myApp2']);
+			app1.controller('app1Ctrl', ['$scope', 'app2Service', 
+				function($scope, app2Service){
+					console.log(app2Service.nameService);
+			}]);
+			var app2 = angular.module('myApp2', []);
+			app2.service('app2Service', function(){
+				this.nameService = 'app2Service';
+			});
+		</script>
+	</body>
+</html>

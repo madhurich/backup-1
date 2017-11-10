@@ -1,0 +1,54 @@
+Setting up karma
+> npm install karma-cli phantomjs -g
+> npm install --save-dev karma jasmine
+Within your app, (src folder here)
+> bower init
+> bower install angular angular-mocks
+---------
+You got an error saying module is not defined, you got this
+because, you dint install PhantomJs while setting up karma
+karma init--> within the test folder.
+> select phantomjs instead of chrome browser.
+----
+test file
+describe('testing app', function(){
+	describe('testing controller', function(){
+		module('myApp');//bringing in the module to test the controller
+		var ctrl, scope = {};//bringing in the scope
+
+		inject(function($controller){//this is how we inject controller and scope, our scope variable is assigned to the '$scope'.
+			ctrl = $controller('myCtrl', {$scope:scope});
+		});
+
+		it('should have addDestination', function(){
+			expect(ctrl.addDEstination).toBeDefined();
+		});
+	})
+});
+
+> each describe is called a suite and each 'it' is a spec.
+
+describe('testing app', function(){
+	beforeEach(module('myApp'));//include myApp, module before each test suite (i.e each describe)
+
+	
+	describe('testing ctrl', function(){
+	var ctrl, scope;//these varibales are used within the test of controller, so they are declared here within the describe of 'ctrl'
+
+		//before each test spec (ie each 'it' block) we are injecting the controller adn teh scope to be used.
+		beforeEach(inject(function($controller, $rootScope){
+			scope = $rootScope.$new();
+			ctrl = $controller('controllerName', {$scope:scope});
+		}));
+
+		//here we can use afterEach blocks to have clean up codes
+
+		it('method name to be defined', function(){
+			//when you are using controller As, syntax, using
+			'ctrl.propertyName' works, if you are using $scope then 'scope.propertyName' works
+			expect(ctrl.methodName).toBeDEfined();
+		})
+	});
+})
+
+

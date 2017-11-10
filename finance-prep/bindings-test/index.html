@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body ng-app="myApp">
+		<my-comp title="{{vm.title}}"></my-comp>
+		
+
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script>
+			angular.module('myApp', []);
+			angular.module('myApp')
+					.component('myComp', {
+						bindings: {
+							title: '<'
+						},
+						template: '<h1>{{title}}</h1>',
+						controller: myCompCtrl
+					});
+
+			function myCompCtrl(){
+				var vm = this;
+				vm.title = 'hello';
+			}		
+		</script>
+	</body>
+</html>

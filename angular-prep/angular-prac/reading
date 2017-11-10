@@ -1,0 +1,33 @@
+Angular 1.2 -older like IE 8
+1.4 popular
+2 some are usng
+
+ng-model --> view to model chnages are observed
+ng-bind --> model to view changes are observed
+
+------
+One way data binding
+when we decalre a variable inside of the controller
+$scope.name ="hello";
+this can be dispalyed in the view using ng-bind="name", that means
+we have a value decalred as a part of model and that is displayed on the view
+which is just ONE way, there's no way that if we chnge the value in view that doesn't
+change the value in the model.
+
+Two way data binding
+When we use ng-model="name" in the view, 
+first when it is diaplayed on the page it will display the value that is declared in the
+model which is "hello", later then when we change that input box that will also change the value in the model
+
+REFER http://stackoverflow.com/questions/16125872/angularjs-why-ng-bind-is-better-than-in-angular
+
+REFER https://docs.angularjs.org/api/ng/directive/ngCloak
+
+REFER https://www.sitepoint.com/understanding-angulars-apply-digest/
+study this to know what is $digest, $apply, digest cycle....
+
+REFER http://stackoverflow.com/questions/28800426/what-is-on-in-angularjs
+for $broadcast and $on
+
+REFER https://www.ng-book.com/p/The-Digest-Loop-and-apply/
+for $watch...

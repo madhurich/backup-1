@@ -1,0 +1,127 @@
+Mandatory: HTML5/CSS3, JQuery, JSP
+
+Nice to have: Bootstrap, REST Webservices (Jersey), AJAX, Java Script, JSTL 
+
+
+Jira/Agile -> to organize meetings, performance issues, team activities
+Axosoft--on time scrum -> to manage backlogs
+
+Environments Used?
+BAcklog management?
+JQuery Plugins
+
+----------
+> getting values in jquery
+html()
+val()
+text()
+
+>remove()--> removes everything related to it (child elemetns, events and all)
+>detach()--> removes the element and child nodes , BUT pertains the data and events for later use
+>empty() -->this just empties the content from the selected element
+
+------
+$('#p1').on('click', data, function, map);
+you dont have 'map' option in live()
+
+
+module.exports = {
+	entry: './main.js',
+	output: {
+		path: './',
+		filename: 'bundle.js'
+	},
+	devServer: {
+		inline: true,
+		port: 4000
+	},
+	module: {
+		loaders: [
+			{
+				loader: 'babel',
+				exclude: /node_modules/,
+				test: /\.jsx?$/,
+				presets: ['es2015', 'react']
+			}
+		]
+	}
+}
+
+@media (min-width: 320px) and (max-width: 480px){
+	
+}
+
+@media(min-width: 481px) and (max-width: 768px){
+	
+}
+
+@media(min-width: 768px) and (max-width: 990px){
+	
+}
+
+@media(min-width: 991px) and (max-width: 1200px){
+	
+}
+
+@media (min-width: 1200px){
+	
+}
+
+<meta name="viewport" content="width='device-width', initial-scale=1.0"></meta>
+------
+JS supports over riding, but it dont support overloading.
+Ex: function func1(a, b){
+	return a + b;
+}
+
+function func1(a, b, c){
+	return a + b + c;
+}
+console.log(func1(3, 4));//NaN
+
+
+So now when you call func1(a, b)--> THIS WILL USE THE RECENTLY DECLARED
+FUNCTION WHICH IS THE SECOND ONE, THE SECOND FUNCTION OVER RIDES THE FIRST ONE
+
+REFER 
+1. https://egghead.io/lessons/angularjs-sharing-data-between-controllers
+2. https://www.codementor.io/angularjs/tutorial/angularjs-interview-questions-sample-answers
+3. http://stackoverflow.com/questions/19389200/javascript-sleep-delay-wait-function
+4. https://appendto.com/2016/05/angular-bootstrap-explained-3-examples/
+
+REQUEST HEADERS
+Origin
+Access-Control-Request-Headers
+Access-Control-Request-Method
+
+RESPONSE HEADERS
+Access-Control-Allow-Headers
+Access-Control-Allow-Origin
+Access-Control-Allow-Method
+Access-Control-Allow-Credentials
+Access-Control-Max-Age
+Access-Control-Expose-Headers
+
+STRING METHODS
+slice(start, end)
+txt.search('some')
+txt.indexOf('some')
+txt.substring(start, end);-->will notnaccept negative values
+txt.substr(start, number of chars)
+txt1.concat(txt2)
+to convert string to array--> txt.split('')
+
+-------------------------------------
+
+>live, 
+>bind only for current,
+>on --> parent (its like event delegation), current and future element
+
+>A page can be divided can be into multiple parts
+>images-inline block (multiple elements side by side and widht and height)(YES)
+>inline- width and height(NO)
+-------------------
+1. Is your project completed? When is the last date of your project?
+2. Highest education? year? from which college?
+3. 
+

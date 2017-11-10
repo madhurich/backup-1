@@ -1,0 +1,23 @@
+first you got empty response
+while posting the data ie, creating a new record
+so you cleared the request, and then tried again by clicking on
+three vertical dots available, at the request input
+
+REFER https://stackoverflow.com/questions/20796714/how-do-i-start-mongo-db-from-windows
+
+-----
+Using ARC
+Content-type: aplication/json
+also in index.js
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}));
+
+REFER https://stackoverflow.com/questions/40859299/axios-post-request-body-is-empty-object
+-------
+node debugger
+
+npm install -g node-inspector
+node-debug filename.js (inside of the project directory)
+a new chrome browser will be opened, just like normal js file chrome
+dev tool

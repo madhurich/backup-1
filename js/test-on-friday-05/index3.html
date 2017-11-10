@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl as mc">
+			<p ng-if="!mc.edit" ng-dblclick="mc.onDblClick()">{{mc.name}}</p>
+			<input type="text" ng-model="mc.name" ng-if="mc.edit">
+			<button ng-if="mc.edit" ng-click="mc.onSave()">Save</button>
+		</div>
+		
+
+		
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script>
+			//editable input field check
+			(function(){
+				'use strict';
+				angular.module('myApp', [])
+						.controller('myCtrl', myCtrl);
+				myCtrl.$inject = ['$scope'];
+				
+				function myCtrl($scope){
+					var vm = this;
+					vm.name = 'mad';
+					vm.edit;
+					vm.onDblClick = function(){
+						vm.edit = true;
+					}
+
+					vm.onSave = function(){
+						vm.edit = false;
+						vm.name = vm.name;
+					}
+				}
+
+
+			})();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+	</head>
+	<body ng-app="myApp">
+		<input type="text" ng-model="name">
+		<div ng-controller="myCtrl1">
+			<input type="text" ng-model="name">
+			{{name}}
+		</div>
+		<div ng-controller="myCtrl as mc">
+			<p ng-bind="::mc.name"></p>
+			<p ng-bind="mc.name"></p>
+			<input type="text" ng-model="mc.name">
+			
+		</div>
+		
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script>
+			angular.module('myApp', [])
+					.controller('myCtrl', myCtrl)
+					.controller('myCtrl1', myCtrl1);
+
+			myCtrl1.$inject = ['$scope'];		
+			function myCtrl(){
+				var vm = this;
+				vm.name = 'mad';
+			}	
+
+			function myCtrl1($scope){
+				//$scope.name = 'xyz';
+			}
+
+			/*
+				.ng-cloak, [data-ng-cloak], .x-ng-cloak, [x-ng-cloak], ng-cloak, [ng\:cloak]{
+					display: none !important;
+				}
+			*/	
+		</script>
+	</body>
+</html>

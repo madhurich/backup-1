@@ -1,0 +1,31 @@
+REFER https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Web_applications_and_ARIA_FAQ
+
+WAI-ARIA
+Web Accessibility Initiative - Accessible Rich Internet Application
+is something where the accessability of a web page is enhanced or improved for the persons with
+disabilites.
+For example some of the works like drag and drop can't be done for people who cant use mouse
+for such kind of problems the work that must be done using drg and drop, can also be done by implementing
+this aria feature in the web application. This is in short of what is ARIA.
+
+How to implement ARIA for browsers that dont support HTML5
+
+POINT TO BE NOTED BEFORE PROCEEDING
+> In HTML5 we have some new semantic elements that overlap with the roles of an aria attribute's value, for
+such kind of elements in HTML5 we dont need to specify the 'role' attribute.
+
+Now to implement the aria feature for older browsers
+first we can do this using JavaScript, instead of putting directly inside of the markup.
+See this is essential because when we assume that the browser supports HTML5 and write the code, when
+we validate the code against W3C standards, that will not be validated because these validations are implemented using HTML4 and XHTML4 standards, So that is the reason when we write our code in HTML5 it will
+not be validated.
+
+Since Javascript is supported in all kind of browsers, it's better to implement this 'aria' feature
+using JavaScript, for older browsers. However we can use HTML5 for browers that support HTML5.
+
+> the HTML5 aria elements will have a 'value' attribute instead of 'role'.
+So for older borwsers we need to set 'role', 'aria-valuemax', 'aria-valuemin', 'aria-valuenow' attribute using JasvaScript
+
+Testing ARIA 
+windows - NVDA (free), Object Inspector
+MAC - Accessibility inspector, Voice OVer is buit in to MAC OSX

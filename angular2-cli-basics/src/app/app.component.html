@@ -1,0 +1,18 @@
+<h1>
+  {{title}}
+</h1>
+<app-custom-form
+  *ngFor="let email of email.allMails"
+  [email]="email.text" (update)="onUpdate(email.id, $event.text)">
+
+</app-custom-form>
+<h4>Check for email, enter yes/no</h4>
+<input type="text" #mail><button (click)="checkEmail(mail)">check</button>
+<h3>{{message}}</h3>
+<h4>{{nameHere}}</h4>
+<h4>All Emails</h4>
+<ul>
+  <li *ngFor="let email of email.allMails">{{email.text}}</li>
+</ul>
+
+<p>mad</p>

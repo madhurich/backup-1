@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Angular.bootstrap</title>
+</head>
+<body>
+	<div id="app-one">
+		<div ng-controller="appOneCtrl">
+			{{message}}
+		</div>
+		<div ng-controller="appTwoCtrl">
+			{{message}}
+		</div>
+		<div ng-controller="appThreeCtrl">
+			{{message}}
+		</div>
+	</div>
+	
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	<script>
+		var appOne = angular.module('appOne', []);
+		appOne.controller('appOneCtrl', ['$scope', function($scope){
+			$scope.message = "app one using angualr.bootstrap";
+		}]);
+
+		var appTwo = angular.module('appTwo', []);
+		appTwo.controller('appTwoCtrl', ['$scope', function($scope){
+			$scope.message = "Second App";
+		}]);
+
+		angular.module('appThree', []);
+		angular.module('appThree', []).controller('appThreeCtrl', ['$scope', function($scope){
+			$scope.message = "app thre";
+		}]);
+		
+
+		angular.bootstrap(document.getElementById('app-one'), ['appOne', 'appTwo', 'appThree']);
+	</script>
+
+</body>
+</html>

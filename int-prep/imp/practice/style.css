@@ -1,0 +1,14 @@
+#box{
+	width: 100px;
+	height: 100px;
+	background-color: pink;
+	animation-name: box_animation;
+	animation-duration: 5s;
+	animation-iteration-count: 3;
+
+}
+
+@keyframes box_animation{
+	from{background-color: blue}
+	to{background-color: yellow}
+}

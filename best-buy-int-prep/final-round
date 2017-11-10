@@ -1,0 +1,50 @@
+> Explained about their project, scenario, 
+three lines of product status to be delivered to the customers.
+> POLAR software internally that has all features to be implemented and conditions are 
+put in that internal software. these cant be seen by the customers.
+THREE MEMBERS IN A PANEL
+1. how would you analyse the task if given? EX: if you are asked to edit the details of these all
+ in the columns, what kind of documentation you need? you need a pictured design wireframe? are you
+ comfortable designing the wireframes have you ever done this? (root scope, variables to bee seen)
+2. How are promises done, explain a highlevel scenario of promises to be used? (said about $q and nodeJS)
+3. 1,2,cat,dog,5,cat,7,8,cat,10,11, ?? (what is next?)
+4. 5 == '5', 5 === '5'
+5. Pair programming have you ever done that?
+6. Explain about your work in previous project(said about React, Node, lifecycle, angular)
+7. Why do you think angular is more useful? ok what if i have conditional rendering? is'nt that ok? in these scenario how is angular better?
+8. avoiding quirks, elements here and there? how do you avoid this?(said about css3, bootstrap)
+9. how do you avoid that without using bootstrap or css3 media queries? (said about visiblity, hidden and none)
+10.how are you commenting? at a time?
+11. change or modify the code (given already written code and asked to modify print the sequence, if multiples of 3 print cat, if multiples of 4 print dog, if multiples of both print cat and dog)
+12. checking the method lines to be not more than 50 or 60, is that a standard? how did you arrive at this bottom line? is that a company line, your line? or your team line?
+13. Have you ever done pair programming?
+14. Any questions? (asked about the technology, team size?)
+(17 as a team, 6QA, 3UI developers..... dont remember)
+15. Why do you use a callback? why do you have to use a callback?
+Explain briefly?
+16. what is REST?
+17. 404, 400, 401, 403
+400 -> bad request
+404 -> not found
+403 -> forbidden
+500 -> server error
+401 -> authentication failed
+18. What does status code 201 mean?
+-----------
+Entered the hall, vendor has arrived asked lot of questions
+given a visitors pass and checked in
+1. How long have you been working?
+2. when did you move from MN?
+3. why did you have to move?
+4. How many are in a team?
+5. where did you live here? how many are you in a room?
+6. Have you been to xxxx? (dont remember the place name)
+7. When did you graduate?
+8. how come you are working then?(working parallel while I was studying)
+9. Status of stay (OPT, CPT.....)
+10. Are you married? do you have children? or are you single?
+11. Did you bring your resume? 
+12. It's kind of process, background check everything takes time...etc
+13. Do you know anyone here? in best buy
+14. Do you have your firends? how many do you know here?
+15. Have you explored? around

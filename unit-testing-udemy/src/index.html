@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>unit testing</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body ng-app="myApp">
+        <div ng-controller="myCtrl as mc">
+            <h2>Places</h2>
+            Enter city: <input type="text" ng-model="mc.city"/>
+            Enter state: <input type="text" ng-model="mc.state"/> 
+            <button ng-click="mc.addDestination()">Add</button> 
+            <ul>
+                <li ng-repeat="destination in mc.destinations">{{destination.city}}, {{destination.state}}
+                    <button ng-click="mc.remove(destination.id)">Remove</button>
+                </li>
+            </ul>  
+            <button ng-click="mc.getPosts()">get posts</button>   
+            <h3>Posts</h3>
+            <ul ng-if="mc.titles"><li ng-repeat="x in mc.titles">{{x}}</li></ul> 
+        </div>
+        
+
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+</html>

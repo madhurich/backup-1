@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body ng-app="myApp">
+	<p><strong>root level</strong><input type="text" ng-model="nameHere"></p>
+	<div ng-controller="firstCtrl as fc">
+		<input type="text" ng-model="fc.nameHere">
+		{{fc.data}} <br>
+		{{fc.cost | number:3}}<br>
+		<!-- display elements from 3rd(inclusive) to two elements from 3rd. -->
+		<span ng-repeat="x in fc.arr | limitTo:3:2">{{x}}<br></span><br>
+		<input type="text" ng-model="hello"><br>
+		<span ng-repeat="x in fc.arr | filter:hello">{{x | reverse}}<br></span><br>
+		<span>{{fc.text | reverse | uppercase}}</span>
+
+	</div>
+	
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	<script>
+		var app = angular.module('myApp', []);
+
+		app.controller('firstCtrl', function(){
+			//$scope.nameHere = "madhuri";
+			var firstCtrl = this;
+			firstCtrl.nameHere = "madhuri";
+
+			firstCtrl.data = {
+				name: 'mad',
+				age: 22,
+				gender: 'f'
+			};
+
+			firstCtrl.cost = 45;
+			firstCtrl.arr = ["mad", "man", "dad", "mom"];
+			firstCtrl.text = "madhuri";
+		});
+
+		app.filter('reverse', function(){
+			return function(data){
+				if(data){
+					return data.split('').reverse().join('');
+				}
+			};
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>angular prac</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+		<input type="text" ng-model="myName">{{myName}}<br>
+		Name here using :: <span ng-bind="::myName"></span><br>
+		Name using just ng-bind <span ng-bind="myName"></span>	
+	</div>
+	<p><strong>Root scope value </strong>{{greet}}</p>
+	<div ng-controller="digestCtrl">
+		<p><strong>Killer</strong>{{killer}}</p>
+		
+	</div>
+
+	
+	<div ng-controller="firstCtrl">
+		<input type="text" ng-model="nameHere">
+		<input type="button" value="send name to secondCtrl" ng-click="register()">
+
+		<p>Email watching</p>
+		<input type="email" ng-model="email" placeholder="enter email">
+
+		<p>Disable the button</p>
+		<input type="checkbox" ng-model="checked">
+		<input type="button" ng-disabled="checked" value="gets disabled on checked">
+
+		<p>Options here</p>
+		<select ng-model="person" ng-options="x.name for x in people">
+			<option value=""></option>
+		</select>
+	</div>
+
+	<div ng-controller="secondCtrl">
+		<input type="text" ng-model="nameHere">
+	</div>
+
+	<div ng-controller="hideCtrl">
+		<p ng-hide="para">some content some content</p>
+		<input type="button" value="hide the para" ng-click="hidePara()">
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	 <script>
+	 	var app = angular.module('myApp', []);
+	 	app.controller('myCtrl', ['$scope', function($scope){
+	 		$scope.myName = "mad";
+	 	}]);
+
+	 	app.controller('digestCtrl', ['$scope', '$rootScope', '$timeout', '$interval', '$window',  
+	 		function($scope, $rootScope, $timeout, $interval, $window){
+	 		$scope.killer = "just killer";
+	 		$rootScope.greet = "hi";
+	 		console.log("scope object ", $scope);
+	 		
+	 		setTimeout(function(){
+	 			console.log("timeout function executing");
+	 			$scope.killer = "changed killer";
+	 			$rootScope.greet = "hi to hello";
+	 			$scope.$apply();//this checks and updates for changes from the root scope level to the
+	 			//children 
+	 			//$scope.$digest();//this checks and updates the changes from the current scope
+	 			//to the it's children down
+	 		}, 3000);
+
+	 		// $timeout(function(){
+	 		// 	console.log("timeout function executing");
+	 		// 	$scope.killer = "changed killer";
+	 		// 	$rootScope.greet = "hi to hello";
+	 		// }, 2000);
+
+	 		
+	 			$scope.$watch('killer', function(newVal, oldVal){
+		 			if(newVal == oldVal){
+		 				console.log("value is same");
+		 			}else{
+		 				console.log("value is changed to ", newVal);
+		 			}
+	 			});
+	 		
+	 		
+
+	 		var cancelInterval = $interval(function(){
+	 			console.log('should log for every 3s');
+	 		}, 1000);
+
+	 		$timeout(function(){
+	 			$interval.cancel(cancelInterval);
+	 		}, 5000);
+	 		
+
+	 		console.log($window);
+
+	 	}]);
+
+	 	app.controller('firstCtrl', ['$scope', '$rootScope', function($scope, $rootScope){
+	 		$scope.email = "";
+	 		$scope.register = function(){
+	 			$rootScope.$broadcast('SEND', $scope.nameHere);
+	 		};
+
+	 		$scope.$watch('email', function(newVal, oldVal){
+	 			if($scope.email !== ""){
+	 				console.log('value started changing');
+	 			}
+	 		});
+
+	 		$scope.people = [
+	 			{
+	 				name: 'mad',
+	 				age: 22
+	 			},{
+	 				name: 'man',
+	 				age: 24
+	 			},{
+	 				name: 'dad',
+	 				age: 11
+	 			}
+	 		];
+
+	 		//we are doing this to display the first value 'name' -> 'mad' 
+	 		//if we dont write this, after the page is loaded we can't see anything in that box
+	 		//it will be empty
+	 		$scope.person = $scope.people[0];
+	 	}]);
+
+	 	app.controller('secondCtrl', ['$scope', function($scope){
+	 		$scope.$on('SEND', function(event, args){
+	 			event.preventDefault();
+	 			console.log(event);
+	 			
+	 			$scope.nameHere = args;
+	 		});
+	 	}]);
+
+	 	app.controller('hideCtrl', ['$scope', function($scope){
+	 		$scope.para = false;
+	 		$scope.hidePara = function(){
+	 			//$scope.para = !$scope.para;//this is for toggling
+	 			$scope.para = true; //this is just to hide element
+	 		};
+	 	}]);
+
+	 </script>
+</body>
+</html>

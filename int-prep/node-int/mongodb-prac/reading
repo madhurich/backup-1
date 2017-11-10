@@ -1,0 +1,72 @@
+REFER https://scalegrid.io/blog/getting-started-with-mongodb-and-mongoose/
+to get into details of what you wrote in index.js
+---------
+(4, 5, 6, 12, 14(dont know), 18(dont know), 21(unablw to tell properly), 27, 28(unable to tell))
+1. event propagation?
+event bubbling?(from child to parent)
+event capturing?(from parent to child)
+2. What is an event?
+can't tell what is an event handelr?
+3. == and ===
+
+4. "this" keyword 
+5. refer this using call apply and bind
+
+6. closure is a argument inside a function whcih can access the variables of the function????just liek nesting.
+7. hoisting?
+
+var func2 = function(){
+	console.log('hi');
+}
+
+function func1(){
+	console.log('hello');
+}
+8. event delegation
+9. typeof(typeof(NaN))
+10. what is a window in JS?
+11. how to use global variables?
+12. callback? 
+13. diffrent types of datatypes in JS
+14. Whats new keyword (different ways of creating an object)
+15. use strict?
+16. within a function declare a variable without var keyword?
+17. Scope
+18. how do we create a class in javascript? -- similar to functional
+19. minification? (how do we convert it?)
+20. What is CDN? contains images, 
+21. how to decalre an object? 
+22. setInterval, setTimeout
+23. detect browser in JS
+24. how to add an attibute to an element in JS
+25. how to deelte and add property 
+26. what is an array nad typeof it, how to get sub part in array map? forEach? diffrence
+27. undeclared and undefined?
+28. What is a prototype?
+29. how to access cookie in JS
+
+undefined,
+boolean (ture, false)
+0, NaN, null
+
+TRUTHY
+{}, [], 
+
+logical operators
+
+REsponsive- Same layout is changed according to the differenct screen sizes
+Adaptive - WE have different layouts, for different screens and each layout is independennt
+and one is not touched untill unless unliss the page is opened in it's corresponding
+width's screen
+REFER http://mediumwell.com/responsive-adaptive-mobile/
+
+Prototype is an empty porperty of an object, every object in Js has this prototype as the
+property and if we want to assign any global properties that are needed to be used by all the objects that are being created from this object, we assign such kind of global properties to this prototype "property" and these will be utilised as the global properties by all the global objects that are instantiated out of this.
+
+inline-block- side by side, do respect width and height properties
+block - line by line, do respect widht and height
+inline - side by side, DONT respect width and height
+
+undefined, null, NAN, "", 0 false--FALSY values
+{} && [] --> []
+

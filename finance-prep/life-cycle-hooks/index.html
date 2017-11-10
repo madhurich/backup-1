@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+	</head>
+	<body ng-app="myApp">
+		<comp></comp>
+
+
+
+		<script src="https://code.angularjs.org/1.5.0-rc.1/angular.min.js"></script>
+		<script>
+			angular.module('myApp', [])
+		        .component('comp', {
+		            controller: compOneCtrl,
+		            template: '<ul><li ng-repeat="x in $ctrl.users"></li></ul>'
+		            
+		        });
+
+			function compOneCtrl(){
+			    var self = this;
+			    self.$onInit = function(){
+			        self.users = ['mad', 'man', 'dad', 'mom'];
+			    };
+			}       
+		</script>
+	</body>
+</html>

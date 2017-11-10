@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>$q over $http</title>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="firstCtrl"></div>
+		
+
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+		<script>
+			var app = angular.module('myApp', []);
+
+			// app.controller('firstCtrl', ['$scope', 'dataFac', function($scope, dataFac){
+			// 	dataFac.getData().success(function(data){
+			// 		console.log(data);
+			// 	}).error(function(err){
+			// 		console.log(err);
+			// 	});
+			// }]);
+
+				//use .then, instead of success
+			// app.factory('dataFac', function($http){
+			// 	return {
+			// 		getData: function(){
+			// 			return $http.get('https://api.github.com/users/madhurich/repos');
+			// 		}
+			// 	};
+			// });
+
+			app.controller('firstCtrl', ['$scope', 'dataFac', function($scope, dataFac){
+				dataFac.getData().then(function(){
+					console.log('after successfull getting of data');
+				}).catch(function(err){
+					console.log('log the error after catch ', err);
+				});
+					
+			}]);
+
+			app.factory('dataFac', function($http, $q){
+				return{
+					getData: function(){
+						var deferred = $q.defer();
+						$http.get('https://api.github.com/users/madurich/repos').success(function(data){
+							deferred.resolve(
+									data.forEach(function(repo){
+										console.log(repo.name);
+									})
+								);
+						}).error(function(err){
+							deferred.reject(
+									console.log('error occured ', err)
+								);
+						});
+						return deferred.promise;
+					}
+				};
+			});
+
+			app.factory('dataFac', function($http){
+				return {
+					getData: function(){
+						return $http.get('https://api.github.com/users/madhurich/repos').then(function(data){
+							console.log(data.data);
+							data.data.forEach(function(repo){
+								console.log(repo.name);
+							});
+						}, function(err){
+							throw 'error occured' + err;						
+						});
+					}
+				};
+			});
+		</script>
+	</body>
+</html>

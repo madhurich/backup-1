@@ -1,0 +1,55 @@
+1. commerce, cart check out, java backened, client side apps, single page apps, react app, backbone apps
+2012-2013
+2013
+2. react ES6, redux, react router, interceptor, token, 
+3. NodeJs, MongoDB
+4. unit testing, karma, mocha, test runner, jasmine,enzyme, 
+
+
+1. differences between Angular/React
+less integration effort with angular, estimated no of watches 2000
+
+performance best react, Virtual DOM
+redux comparisions, shallow comparisions
+-----
+
+2. challenges faced in testing
+load the modules, simulate the actions, before they are tested, we need to mock it
+for EX: for AJAX calls
+
+spice, dumb components to be tested, we can spy them, if something has to be disabled
+
+3. Team structures
+7 developers -> 1, 3, 5, 7 and 13
+
+14 people, 2 BA, 1 product owner, people from testing
+------
+
+3. How do you receive and track requirements,
+track -> JIIRA
+we have Product owner
+designer -> mockups given
+
+any changes, we comment on JIIRA
+
+I was a designer, i was interacting with BA's to get the things done
+
+here we interact with BA and product owners
+----
+
+4. Design of APIS, did you work with that?
+url structures?
+what kind of implementation
+req, res msg format
+status code
+trying to 
+----
+
+5. Any questions fro me?
+its 25 to 30 people
+8 front, 6 back, split into two equal size team size sprint each has 15 people
+technologies -> transitioning to react/redux state management, JAVa and groovy with comcat
+best buy -> node, peers, for use cases.
+
+looking for front end developer fro commerce related things, its complex and client heavy
+looking for javascript developers for that

@@ -1,0 +1,183 @@
+Switch, is used to conditionally render the elements
+<li (click)='viewMode = "someVal"'></li>
+
+<div [ngSwitch]="viewMode">
+	<template [ngSwitchWhen]="someVal">content here</template>
+</div>
+
+> here when the template is rendered when viewMode value is 'someVal'
+we can only see the content inside of the template, the template element
+cant be seen
+> we can also specify the default view at the beginning when the app is 
+loaded, by uing 'ngSwitchDefault', without the square braces around and quotes
+and you need to specify the value inside the class, the initial view value that is to be
+shown when default case
+-----
+leading asteric
+<div *ngFor="#course of courses", #i=index>
+	{{course}}
+</div>
+
+this will be converted to
+<template ngFor [ngForOf]='varNameInClass' #varNameInLoop #i=index>
+	{{varNameInLoop}}
+</template>
+---------------
+PIPES
+> pipes are just like filters in angular 1
+> to filter data we specify the 'pipe' (|) symbol
+and mention what filter we wanted to use after that
+
+Ex: {{price | currency:'symbol_you_want_use':'true/false':'range'}}
+here price -> will be the variable you metnioned inside of the class
+> next after the pipe symbol specify the type of filter you want to use without any quotes (here currency)
+> after that if you want any specifications for that currency you can do that by specifying the arguments followed by 'colons' after each argument
+Ex: {{price | currency:'INR':'3.2-3'}}
+
+'symbol_you_want_use' -> for this argument you can use your own symbol you want later if you dont specify the boolean value, it defaults to 'true' and will display the symbol of 'INR' (not letters 'INR' but the symbol of rupee), later
+
+'range' -> here you can specify how many digits you need before the decimal and after the decimal
+(number-of-digits-to-appear).(min-digits-max-digits)
+> we have different pipes available to filter the data, those are
+	--> number (if we have a specific number to format it with required commas)
+	--> currency
+	--> longDate
+	--> shortDate
+	--> json
+> Inside of new Date() if we dont mention any arguments then it eill display current date.
+	--> new Date(year, month-number, date)
+
+	REFER https://angular.io/docs/ts/latest/guide/pipes.html
+	for more details on pipes
+
+	REFER http://stackoverflow.com/questions/2243824/what-is-the-difference-between-string-slice-and-string-substring
+	(DIFFERENCE BETWEEN substring and slice methods)
+
+> IMPLEMENT CUSTOM PIPES
+
+import {Pipe, PipeTransform} from 'angular2/core';
+
+@Pipe({
+	name: 'nameOfPipe'
+})	
+export class PipeName implements PipeTransform{
+	transform(value: string, args: string[]){
+		return value.slice(0, 15) + '....'
+	}
+}
+
+> here we need to import 'PipeTransform' as well inorder to use the 'transform' method inside of the class while implementing it.
+
+inside of the transform we have 
+		'value' -> this specifies for what kind of value we are applying our pipe to, here we see that 'para' is a string so we need to mention 'value:string' as the first argument.
+
+		'args' -> we have 'args' inside of it we can arguments while we apply the filter to the value, these arguments can be used to modify the data and still customize the data after applying the filter
+
+		---> LOOk into switch.component.ts where we applied this filter to, we can see that '5 and 7' are passed as arguments after applying the filter without the 'quotes' 
+
+		{{para | summary:5:7}} --> 5 and 7 are arguments
+
+		parseInt() --> converts the string to a number
+-------
+ngClass
+
+inorder to apply conditional classes, previously we did [class.className] ='someVal'
+and 'className' class will be applied to the element when 'someVal' is true,
+but his kind of approach makes it difficult when we have more classes, so to avoid that
+we have [ngClass] where its an object having key-value pairs as 'classNames' and their corresponding
+variables.
+		here 'className1' class will be applied to the element when 'someVal' is true
+	[ngClass] = "{
+		'className1' : 'someVal',
+		'className2' : 'someOtherVal'	
+	}"
+
+	DONOT FORGET TO SURROUND THE OBJECT WITH QUOTES,
+	you got an error when you dint surround them with quotes, saying
+		EXCEPTION: Template parse errors:
+Unexpected closing tag "span" ("-star' : initialVal,
+			'glyphicon-star-empty' : !initialVal
+		} (click)='initialVal = !initialVal'>[ERROR ->]</span>
+	"): 
+
+	AND REMEMBER THAT in javascript we wont be able to use hyphens, as a key value, so surround that with quotes
+------
+ngStyle
+
+when we have multiple styles to be applied based on a condition, we can prefer ngStyle attribute
+just like ngClass, unlike having inline styles.
+
+[ngStyle] = "{
+	styleName1: expresion-that-makes styleName1 true,
+	styleName2: expresion-that-makes styleName2 true
+}"	
+----
+ELVIS operator
+to conditionally render the statments we use this
+			'?.' -> elvis operator
+ELVIS operator is a combination of ternary, in javascript
+
+EX: {{obj.fav?.food}} 
+		--> here it checks first 'obj.fav', if that is truthy then it evaluates
+		'obj.fav.food' else it gives ''(empty string)
+	{{obj.fav?.food?.dish}}
+		--> here it checks 'obj.fav' if its truthy, then evaluates 'obj.fav.food'
+		but at food again we have a condition, it checks 'obj.fav.food' if its truthy
+		THEN it completely evaluates 'obj.fav.food.dish'. If either of them (fav or food)
+		is falsy then it will give EMPTY string	
+------------
+<ng-content>
+
+WE will be able to insert elements fromt the host component to the child component (here, app is the host component and 'bs-panel' is the child component).
+
+in the app.component.ts
+		<bs-panel>
+			//what ever the content is here will be displayed in teh place of <ng-content></ng-content> inside of 'bootstrapComponent'
+		</bs-panel>		
+
+in bsPanel.component.ts
+		<div>
+			<ng-content></ng-content>//here at this place the content inside of bs-panel will be displayed
+		</div>
+> we can also specify in 'bsPanel.component.ts'
+	DONOT FORGET TO PUT DOT before the class name inside of select
+	<div select=".head">
+		<ng-content></ng-content>
+		//now here the content from the host component will be displayed only when it finds an element with class named 'head'
+	</div>
+> in app.component.ts
+	<bs-panel>
+		<div class="head">some content(this content will be displayed because it has a class called 'head')</div>
+	</bs-panel>	
+
+> IMPORTANT	
+when we have two or more elements with classes named 'head' those all elements will be displayed in the place of ng-content	
+
+---------------
+INPUT PROPERTIES
+when ever you wnated to use particular attributes specific to a component
+first declare them inside of the component
+
+Ex: inside of 'oneComponent.ts' (jsut an example)
+
+@Input() attrName : dataType;
+
+then to use that in 'twoComponent.ts' (this is the host component i.e its just like app.component.ts)
+
+<one attrName="some name here"></one>
+this 'some name here' will be displayed in 'one.component.ts' where we specified
+{{attrName}} //--> some name here 
+--------------------------
+
+When ever a component is receiving values from other component, 
+inside of receiveing component we need to declare 'input' variables.
+THIS input variable is used in the component where we send the value to the receiving
+component.
+
+here we have 'contactComponent' as receiving componnet
+so we declare 'input' variable here.
+
+then we have 'contactListComponent' as giving component, here
+we use that 'input' variable name in square braces to be set
+
+look into contact.component.ts and contact-list.component.ts

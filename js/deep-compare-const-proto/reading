@@ -1,0 +1,12 @@
+REFER http://stackoverflow.com/questions/6137298/what-is-the-difference-between-returning-a-function-and-using-function-innerfunc
+
+REFER the link above to understand function calls, just for clarity
+
+REFER https://teamtreehouse.com/community/what-is-the-difference-between-a-constructor-and-a-prototype-or-class
+to check the difference between constructor and prototype
+----------------
+DIFFERENCE BETWEEN CONSTRUCTOR AND PROTOTYPE
+
+Every object's (Ex: obj1) prototype has a property called 'constructor' which is the
+created object(obj1) itself and it will be called automatically when a new object (Ex: obj2) is created is
+created out of (obj1)

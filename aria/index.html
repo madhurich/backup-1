@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>aria usage</title>
+	</head>
+	<body>
+		<ul>
+			<li><a href="#main">skip to main</a></li>
+		</ul>
+		<progress id="progress-element" value="0" max="100"></progress>
+		<button id="set-percent">set the percent of the progress bar</button>
+
+		<p id="test"></p>
+		<button id="append-text">append</button>
+		<div id="content">
+			lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+			lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+		</div><hr>
+
+		<div id="main">
+			lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+			lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+		</div>
+
+		
+
+
+		<script>
+			var progressElement = document.getElementById('progress-element');
+
+			document.getElementById('append-text').addEventListener('click', function(){
+				document.getElementById('test').textContent = 'text here';
+			});
+		
+			
+			//if the browser supports the progress element then right side value will be 'true'
+			var supportsProgressElement = (typeof(HTMLProgressElement) !== 'undefined');
+
+			function setProgressElement(){
+				console.log(HTMLProgressElement);
+				console.log(progressElement);
+				if(!supportsProgressElement){
+					progressElement.setAttribute('role', 'progressbar');
+					progressElement.setAttribute('aria-valuemax', 100);
+					progressElement.setAttribute('aria-valuemin', 0);				
+				}
+				else {
+					progressElement.setAttribute('value', 0);
+				}
+			}
+
+			function updatePercent(percent){
+				if(!supportsProgressElement){
+					progressElement.setAttribute('aria-valuenow', percent);
+				}else{
+					progressElement.setAttribute('value', percent);
+				}
+
+				progressElement.textContent = percent + '% complete';
+			}
+
+			function putProgress(){
+				setProgressElement();
+
+				document.getElementById('set-percent').addEventListener('click', function(){
+					updatePercent(45);
+				});
+			}
+
+			putProgress();
+		</script>
+	</body>
+</html>

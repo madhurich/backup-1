@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+	</head>
+	<body ng-app="myApp1">
+		<div ng-controller="myCtrl1 as mc">
+			<input type="text" ng-model="mc.name">
+			<button ng-click="mc.alertName()">click</button>
+		</div>
+		<div ng-controller="myCtrl2 as mc">
+			<input type="text" ng-model="mc.task">
+			<button ng-click="mc.addTask()">add</button>
+			<ul>
+				<span ng-repeat="task in mc.tasks">
+					<li>{{task}}</li>
+					<button ng-click="mc.removeTask(task)">remove</button>
+				</span>
+				
+			</ul>
+		</div>
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script>
+			angular.module('myApp1', ['myApp2'])
+					.controller('myCtrl1', myCtrl1)
+					.controller('myCtrl2', myCtrl2);
+
+			myCtrl2.$inject = ['$scope'];
+
+			myCtrl1.$inject = ['dataService2'];	
+
+			function myCtrl2(){
+				var vm = this;
+				vm.tasks = [];
+				vm.addTask = function(){
+					vm.tasks.push(vm.task);
+					console.log(vm.tasks);
+					vm.task = "";
+				};
+
+				vm.removeTask = function(task){
+					var res = [];
+					vm.tasks.forEach(function(elem, index){
+						if(elem != task){
+							res.push(elem);
+						}
+					});
+					vm.tasks = res;
+				};
+			}	
+			function myCtrl1(dataService2){
+				var vm = this;
+				vm.alertName = function (){
+					alert(vm.name);
+				};
+				console.log(dataService2.users);
+			}		
+
+			angular.module('myApp2', [])
+					.factory('dataService2', dataService2);
+
+
+			function dataService2(){
+				var users = ['mad', 'man', 'dad', 'mom'];
+				return {
+					users: users
+				};
+
+			}
+
+			/*
+				
+Reply with a private chat messageKarthik k
+
+Homework 35
+ -- create a todo app
+  -- for every task (collect below data from input 
+   -- task name
+   -- priority (number)
+  -- show list of tasks and priority (have a remove button for every task)
+  -- order them by priority number (use angular filter -- orderBy filter)
+  -- be able to remove the taks as well.
+
+			*/	
+
+			//https://demisx.github.io/angularjs/directives/2014/11/25/angular-directive-require-property-options.html
+	
+		</script>
+	</body>
+</html>

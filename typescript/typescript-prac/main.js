@@ -1,0 +1,10 @@
+//console.log('hello');
+var myNameArr;
+var age;
+var myBool;
+var myTuple;
+myNameArr = ['mad'];
+myBool = true;
+age = 0xfdd;
+myTuple = ['killer', 43, 43, 23, 'killer'];
+console.log(myNameArr, myBool, age, myTuple);

@@ -1,0 +1,158 @@
+1. State Vs Props
+2. Can we put type restrictions for props, how to do that if we can? Syntax?
+3. Life cycle methods
+4. Stateless Components? and stateful components?
+5. Container components? and functional components, presentational components,
+dumb components?
+6. Why we need to use components
+7. What are higher order components?
+8. what is redux?
+9. Explain detail about redux
+10. What is a reducer?
+11. What is a store?
+12. Dispatch? Subscribe? What happens in a reducer?
+13. Why we need to manage state with redux
+14. What is redux thunk?
+15. Ajax calls and interceptors in axios
+16. what is isomorphic react
+17. react router?
+18. What are nested routes and how to configure them?
+---------------------------
+1. virtual DOM.
+2. JSX
+
+performance -> react
+development time and application scehme -. angularJS 
+
+npm install react react-dom --save
+npm install --save-dev webpack webpack-dev-server babel babel-core babel-loader babel-preset-react babel-preset-es2015
+------------
+************IMPORTANT****************
+USE webpack version 1.x instead of 2.x
+you got an error saying main.js cant be resolved and cant find file 'index.js' in node_modules-->webpack-dev-server-->index.js
+
+------------------
+
+REFER https://hackernoon.com/react-stateless-functional-components-nine-wins-you-might-have-overlooked-997b0d933dbc#.87uszwn5v
+
+https://thinkster.io/understanding-react-state
+
+1. State Vs Props
+State is always managed by the component itself and it doesnt have to depend on other components.
+
+Props is something which has to deal with more than one component to get the data from one to another. Props is generally used to pass in the data from a parent component to the child component.
+
+And it's always better to put the states in the Higher order components HOC and manage the child components by passing in the new state as props to the child.
+which is the main component here 'Main'.
+
+->By having the state in HOC, instead of child components we can redeclare the child components without using 'class'
+
+After Changing:
+const AppName = (props) => {
+	return(
+		//......
+	)
+};
+
+Before Changing:
+
+class AppName extends React.Component{
+	render(){
+		return(
+			//......
+		)
+	}	
+};
+
+By changing the components in this manner these components are STATELESS FUNCTIONAL COMPONENTS and the HOC which is the main component 'Main' is the STATEFULL component
+all the state management is done inside of 'Main' and here is the place where it gets connected to a 'reducer' and is also called as SMART COMPONENT, since it is connected to the reducer and the satemanagement can be done.
+
+-> It's always better to redefine the stateless component as shown above 'after changing' because here we define the component as a plain function (es6 fat arow function), when we use this we dont need to bind the 'this' of a function inside of this component. Because es6 fat arrow function will use it's 'this' as a value in which it is wrapped and we don't need to write the longest syntax using 'bind', to bind the 'this' of that function.
+
+-> it's also simple and easy to understand by changing the component in this form, which also increases the performance of the application.
+
+----containers
+		--xx.js
+		--xx.js   //all these are 'Smart 
+				  //components' which has to deal with state and may be connected to a reducer.
+----components
+		--xx.js
+		--xx.js	   //these are basically the
+					//'presentational components' and just used for the purpose of showing the data also called as 'Dumb components'
+
+********IMPORTANT**********
+A Statefull component is the place where we can have lifecycle methods, we can't have these methods in a 'dumb/stateless functional component'
+
+--> it is not a goodidea to change the props of a component by itself.
+
+--> FUNCTIONAL COMPONENT
+	afunctional component is the one which is decalred using plain javascript functions
+
+	Ex: function App(props){
+		return '<h1>hello</h1>';
+	}//--> this is a functional component
+
+	ReactDOM.render(<App/>, document .getElementById('app'));
+
+	----the same can be done using a class
+	class App extends React.Component{
+		render(){
+			return '<h1>hello</h1>';
+		}
+	};//but this is a Classical Component
+
+--> it's always better to have reusable pieces of components in the app, which increases the performance
+
+REFER https://facebook.github.io/react/docs/components-and-props.html
+
+IMPORTANT 
+All React components must act like pure functions with respect to their props.
+
+REFER https://facebook.github.io/react/docs/state-and-lifecycle.html
+
+-->POINTS TO REMEMBER WHILE USING state
+1. Donot change the state directly
+instead use 'this.setState'
+2. State changes are merged and updated
+3. donot use this.state and this.props to decide the next state, because they are asynchronous and even before then are executed the this.setState is executed, by the time this.setState is executed, this.state and this.props are not yet executed, so that is the reason our next state should not depend on 'this.state' and 'this.props' instead it must depend on 'prevState'
+
+REFER https://facebook.github.io/react/docs/state-and-lifecycle.html#using-state-correctly
+
+this.setState({
+	somename: this.state.name + this.props.othername
+})	//THIS IS WRONG
+
+this.setState((prevState, props) => {
+	somename: prevState.name + props.othername
+});
+
+LOOK INTO THESE
+REFE https://facebook.github.io/react/docs/components-and-props.html#extracting-components
+To better understand why we need multiple components in our App.
+
+----------
+refs
+--> refs are used to grab input values of the DOM
+
+1. previous method
+<input type="text" ref={'refName'}/>
+
+now to access that 
+console.log(this.refs.refName);
+
+2. Current method
+<input type="text" ref={(input) => this.refName = input}/>
+
+to access it,
+console.log(this.refName);//LOOK CAREFULLY HERE WE DONT NEED 'refs' to access the input element
+--------------------
+var obj1 = {name: 'teja', tech : 'java'}; 
+undefined
+var obj2 = Object.assign({}, obj1);
+undefined
+obj2.tech = 'javascript';
+"javascript"
+obj1 == obj2 
+false
+--------------------
+

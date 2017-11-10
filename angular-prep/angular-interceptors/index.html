@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>Interceptors</title>
+	</head>
+	<body ng-app="myApp">
+		
+
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+		<script>
+			var interceptor = function($q){
+				return {
+					request: function(config){
+						console.log(config);
+						config.url = config.url.replace('madhurich', 'madhurich7');
+						return config;
+					}, 
+					response: function(result){
+						console.log('result here ', result);
+						result.data.forEach(function(repo){
+							console.log(repo.name);
+						});
+						return result;
+					},
+					responseError: function(reject){
+						if(reject.status == 404){
+							console.log('forbidden, see you are right user but not authorized to access');
+							//return $q.reject(reject);						
+						}
+					}
+				};	
+			};
+			var app = angular.module('myApp', []);
+			app.config(function($httpProvider){
+				$httpProvider.interceptors.push(interceptor);
+			});
+			app.run(function($http){
+				$http.get('https://api.github.com/users/madhurich/repos').success(function(){
+					console.log('success function');
+				}).then(function(){
+					console.log('then function');
+				});
+			});
+		</script>
+	</body>
+</html>

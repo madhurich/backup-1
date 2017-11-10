@@ -1,0 +1,50 @@
+What are the expectations from the role?
+
+Expert in advanced JavaScript.
+
+Experience in NodeJS (Express.js)
+
+Experience in no-SQL Db (mongo DB, Dynamo DB etc.)
+
+Experience in security and data protection
+
+Understanding differences between multiple delivery platforms, such as mobile vs. desktop, and
+-----------------------------------------------------------
+What is the experience required?
+
+Overall experience 7-8 years.
+
+Min 2 years’ experience in Node JS development
+
+Exposing REST endpoints using express nodejs.
+
+Integration of third party modules
+
+Interaction with databases like Mongo DB
+
+Connecting to webservices from the Nodejs servers
+
+Strong consulting skills, ability to establish strong customer relationship
+
+Excellent written, presentation and oral communication skills
+----------------------------------------------------
+1. To list the globla dependencies in node
+npm ls -g
+2. to update a package
+npm update
+REFER http://bigspaceship.github.io/blog/2014/05/14/how-to-create-a-rest-api-with-node-dot-js/
+
+to know what are clusters
+REFER https://www.sitepoint.com/how-to-create-a-node-js-cluster-for-speeding-up-your-apps/
+---------
+Node has "process" and "global" objects unlike "document" and "window"
+in regular Javascript.
+
+REFER https://www.youtube.com/watch?v=pU9Q6oiQNd0 (intro to node)
+REFER https://www.youtube.com/watch?v=X3C2peMLW34 (how it is non blocking?)
+
+An API is said yo be RESTful, when it is
+		> Client-Server
+		> Stateless
+		> Cacheable
+REFER https://www.sitepoint.com/developers-rest-api/		

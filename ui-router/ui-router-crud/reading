@@ -1,0 +1,6 @@
+> npm install -g nodemon
+> start the server  
+	nodemon script
+	(in your project your starting point is script)
+
+	INHERITANCE?????

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body ng-app="applyAndDigest">
+		<p><strong>{{myDet}}</strong></p>
+
+		<div ng-controller="firstCtrl">
+			<p>Initial values <strong>{{myName}}, </strong><strong>{{myDet}}</strong></p>
+			
+		</div>
+		
+		<div ng-controller="secondCtrl">
+			<p><strong>Var1</strong>{{var1}}</p>
+			
+		</div>
+
+		<div ng-controller="thirdCtrl">
+			<p><strong>Var2</strong>{{var2}}</p>
+			
+		</div>
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script>
+		/*"use strict";*/
+			var app = angular.module('applyAndDigest', []);
+			app.controller('firstCtrl', ['$scope', '$rootScope', function($scope, $rootScope){
+				$scope.myName = "mad";
+				$rootScope.myDet = "strong";
+
+				setTimeout(function(){
+					alert('executing timeout');
+					$scope.myName = "my name is changed to madhuri";
+					$rootScope.myDet = "perfectly strong";
+
+					$scope.$digest();
+				}, 500);
+			}]);
+
+			app.controller('secondCtrl', ['$scope', function(killer){
+				killer.var1 = "this is variable one";
+			}]);
+
+			app.controller('thirdCtrl', function($scope){
+				$scope.var2 = "this is variable two";
+			});
+		</script>
+	</body>
+</html>

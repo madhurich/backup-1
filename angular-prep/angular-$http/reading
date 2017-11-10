@@ -1,0 +1,12 @@
+$http returns promise
+
+When only $http is used without a promise
+>When we define a service to get the data from the server using $http, it returns 
+a promise and this promise is given to the controller and this returned promise handled
+in the controller, and the response is handled in the controller itself
+
+When $http used with $q
+>When a factory is defined using $q, all the error handling is done inside of this
+service itself and this response after it is refined is given to the controller
+and then the controller don't need to handle the response if there's is any error.
+This is more better option to define a request.

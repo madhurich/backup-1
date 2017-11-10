@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Grab inputs</title>
+</head>
+<body>
+	<form>
+	input one
+		<input type="text" ><br>
+	input two
+		<input type="text" ><br>
+	input three
+		<input type="text" ><br>
+	input four
+		<input type="text" ><br>
+	input five
+		<input type="text" ><br>
+	<button type="submit">submit</button>		
+	</form>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script>
+		var inputValues = [];
+		var inputsObj = {};
+		$('button[type="submit"]').click(function(e){
+			e.preventDefault();
+			var inputs = document.querySelectorAll('input');
+			// for(var i=0; i < inputs.length; i++){
+			// 		if(inputs[i].value){
+			// 			console.log(inputs[i].value);
+			// 		}else{
+			// 			alert('enter valid inputs');
+			// 		}
+			// 	//console.log(inputs[i].val());
+			// }//this is using for
+			//console.log(inputs[0].value);
+			$(inputs).each(function(i, e){
+				console.log($(this).val(), i);
+				inputValues.push($(this).val());
+				inputsObj["input"+(++i)] = $(this).val();
+				
+			});//this is using each
+			//console.log($(inputs[3]).val());
+			console.log("inputValues " + inputValues);
+			console.log(inputsObj);
+		// 	$.ajax({
+		// 		url: 'http://rest.learncode.academy/api/johnbob/friends',
+		// 		method: 'POST',
+		// 		data: inputsObj,
+		// 		success:function(){
+		// 			console.log("object added");
+		// 			$.ajax({
+		// 				url: 'http://rest.learncode.academy/api/johnbob/friends',
+		// 				method: 'GET',
+		// 				success: function(data){
+		// 					console.log(data);
+		// 				}
+		// 			});
+		// 		}
+		// 	});
+		});
+	</script>
+</body>
+</html>
+<!-- Here inputs[i].val() doesnt give the value because that inputs[i] doenst have the function called 
+val() to get the value, to get the value grab that in dollar like $(input[i]).val() then you 
+will be able to get those values, else if you want to use inputs[i] then use value to get the value
+like inputs[i].value
+REFER http://stackoverflow.com/questions/32788015/jquery-get-input-val-from-input-array
+http://stackoverflow.com/questions/29845871/typeerror-val-is-not-a-function
+ -->

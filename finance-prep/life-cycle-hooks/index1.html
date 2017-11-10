@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+	</head>
+	<body ng-app="myApp">
+		<comp-on-change name="hello"></comp-on-change>
+
+		
+
+
+		 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script>
+			angular.module('myApp', [])
+					.component('compOnChange', {
+						template: '<h1>{{$ctrl.name}}</h1>',
+						bindings: {
+							name: '<'
+						},
+						controller: changeCtrl
+					});
+
+			function changeCtrl($element){
+				console.log($element);
+				this.$onInit = function(){
+					var handler = function(){
+						alert('clicked');
+					};
+					$element.on('click', handler);
+				};
+				this.$onChanges = function(changesObj){
+					var prefix;
+					console.log(changesObj);
+					if(changesObj.name){
+						(changesObj.name.currentValue === 'hello') ? prefix = 'yes' : prefix = 'no';
+						this.name = this.name + " " +prefix;
+					}
+					
+				};
+				this.$onDestroy = function(){
+					$element.off('click', handler);
+				};
+			}
+			//https://blog.thoughtram.io/angularjs/2016/03/29/exploring-angular-1.5-lifecycle-hooks.html
+			//https://www.youtube.com/watch?v=OMgluYddSV8
+
+		</script>
+	</body>
+</html>

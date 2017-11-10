@@ -1,0 +1,177 @@
+Controllers can be declared externally and these controllers should be
+included in the script tag in the index.html file and also as a directive
+inside of the body to make it work in the Web page.
+
+Always use this order
+1.Vendors
+2.Modules
+3.Controllers
+4.Directives
+
+SCOPE AND ROOTSCOPE
+>A property declared using $rootScope unlike $scope can be accessed in the entire document i.e in the entire body even though it is declared in one particular controller.
+>if a property is declared using $scope in a particular controller, then we need to attach that controller to the element in the view to access that property's value declared in this controller and this property value CANT be accessed outside of this controller, BUT if it si declared using $rootScope it can be acessed in the entire document.--look into index3.html.
+
+DATA BINDING
+REFER "http://www.angularjshub.com/examples/basics/twowaydatabinding/"
+>When ever we use ng-bind it just changes the property value in the view, but it does NOT change the value in the model, if it is changed in hte view.
+>If ng-model is used the property value WILL be changed both in the view as well as in the model, if we change the value in the view it reflectss the change in the model too.
+
+Note: "ng-bind" is same as "{{}}" the binding expression that we use to display values from controllers on to the view. --look into index4.html for databinding example
+
+
+NESTING CONTROLLERS IN VIEW
+controller nesting is possible in view
+>if in one ng-controller another ng-controller is defined then in the child ng-controller the updated value of var1 is seen which is different from var1 value in parent ng-controller--look into index5.html variable called "mom"
+
+>ONE MORE thing to note here is when a controller is inside another controller, if we change same input in the child controller it DOESN'T REFLECT THE CHANGE IN PARENT CONTROLLER THAT CHANGE WILL BE SELF TO THE CHILD BUT IF YOU CHANGE THE INPUT IN THE PARENT CONTROLLER IT REFLECTS IN THE CHILD CONTROLLER TOO. --look line 10 and 15 in index.html
+
+$DIGEST AND $APPLY
+>if we use $scope.$apply() in a function, the updated values decalred in the function will be displayed in the entire document along with the properties decalred using "$rootScope".
+
+>if $scope.$digest() is used then it updates only the properties that are decalred using $scope in the entire document and the initial vlaue declared using $rootScope variable will remain same and doesn't reflect the change
+
+BUT BUT BUT this happens only when the property declared using $rootscope is outside of the controller in the view, if it is inside of the ng-controller div then using $digest also updates the property decalred using $rootScope along with the property decalred using $scope.--LOOK INTO index6.html
+
+REFER "https://www.youtube.com/watch?v=LgDgazlr_Kw" 
+
+SCOPE SOUP
+when ever we declare a controller using $scope syntax then the varibales declared inside of it will be available in the controller. We can also use controller as syntax to decalre a controller without using $scope then if we use same variable names inside of THIS controller any changes to this varibale doesn't effect the same variable outside of it this is called SCOPE SOUP.
+
+If we declare a controller with "controller as" syntax, then if a model is changed
+out of the controller, the changes will not be reflected for the same model inside of the
+controller.
+
+BUT, if we decalre a controller with $scope, i.e without using controller as syntax, then
+any chnages that are made to the model out of the controller will ALSO effect the
+model with the same name inside of the controller.
+
+REFER karthik's class on 9/14/2016 
+
+CUSTOM DIRECTIVES
+>We can defien our own custom directives uisng
+
+angular.module('myApp').directive('nameOfDirective', function(){
+	return {
+		restrict: 'E',
+		template: '<p>I am a custom directive with isolated scope.</p>',
+		scope:{
+
+		}
+	}
+});
+
+and mention that <name-of-directive></name-of-directive>
+in the view to render that element.
+
+The restrict can be 
+			'E', 'A', 'C'
+			if it's E then it cna be used only as element
+			if 'A', it cna be used as attribute
+			if 'C', it is used as class='name-of-directive'
+			inside of the element what ever you use in the view.
+
+	POINTS TO REMEMBER:
+		>When we render mutlpile directives on the view, with same input elements
+		having the same models, then if we change one of the input elements
+		all other inputs with the same model name, will be changed and all will have the 
+		same value that we entered in the first model.
+
+		>So inorder to avoid this repetetion, we can make each input element
+		individual to other, by definfing ISOLATED SCOPE, just by including a 
+		property called 'scope', with value {}, inside of the return statement.
+
+		>We can also read the values through the attributes of the directives mentioned
+		in the view, by specifying
+			scope: {
+				m1: '@'
+			}		-->if "@" is specified here for m1, if we have an attribute called "m1"
+						for our directive with some value like m1="hello", then we can print this value
+						in the template of our directive, by specifying {{m1}}, that just gives us 
+						what ever the value that is given to 'm1' attribute.
+			scope: {
+				m1: '='
+			}		--> if "=" is specified here for an attribute, then we can get the refernce value
+						of for example an <input ng-model="nameHere">
+						and in our custom directive m1="nameHere"--to refer to the value entered
+						inside of the input we can write {{m1}} in the template of our directive.
+						so that in that place, we can see the input value that is entered inside of our
+						input box.
+				scope: {
+					m1: '&'
+				}		We can also refer to the functions decalred inside of a controller, and 
+				assigning these functions to the attributes of the custom directives in the view and refer
+				-ing them in the template of custom directive
+
+FACTORY AND SERVICE
+
+app.service('serviceName', function(){
+	this.method1 = function(){
+
+	};
+
+	this.method2 = function(){
+
+	};
+});
+
+app.factory('factoryName', function(){
+	return function(){//do not write $scope inside of the parenthesis
+		method1: function(){
+
+		},
+		method2: function(){
+
+		}
+	}
+});
+
+THE MAIN DIFFERENCE BETWEEN "factory" and "service" is (what you observed)
+factory returns an object that has properties inside of it which may be functions
+or values or whatever, and these can be used as "factoryName.method1()" to use
+inside of the controller after injecting in the controller array dependencies.
+
+A service in turn has mutliple methods or values or what ever that are declared
+using the "this" keyword, all the methods or values to be used are attached to this
+"this" keyword, and this can be used as "serviceName.method1()" inside of the controller
+after injecting in the controller array dependencies.
+
+to look more REFER "http://stackoverflow.com/questions/23074875/angularjs-factory-and-service"
+
+	YOU GOT THIS ERROR REFERENCE "https://docs.angularjs.org/error/$injector/unpr?p0=$scopeProvider%20%3C-%20$scope%20%3C-%20calculator" when you wrote $scope inside of the
+	parenthesis of the factory function (look into line 111 in this file or the code line 55 in index7.html)
+
+POINTS TO REMEMBER
+>Factory and services are singletons, and if any modifications are
+made for these services or factories inside of the cotroller then the newly
+defined values or functions will overwrite the old one's and the changes are reflected 
+globally.	
+
+
+WAYS TO DEFINE A CONTROLLER
+
+method1 
+	--app.controller('ctrlName', ['$scope', function($scope){
+		$scope.var1 = "var1";//-->in minification this may be converted to
+		//some other name let say a.var1 or b.var1 the value of var1 doesn't change
+		//because the $scope in the array is being mapped to the argument passed
+		//inside of the function following the order here.
+}]);
+
+method2
+	--app.controller('ctrlName', function($scope){
+		$scope.var2 = "var2";//-->here when it tries to minify, since it doesn't see
+		//any mapping variables to map the argument "$scope" within the parenthesis
+		//it is forced to use $scope even after minification which leads to larger
+		//varibale size here. 
+	});
+
+See when angular code is compiled, it minifies the code, so when it is trying to
+minify the code, for instance if we have used method1, then when it tries
+to minify, the varibales that are declared using $scope	can be replaced with another
+shorter name.
+
+	SO IT'S ALWAYS BETTER TO USE "method1" type of declaring controllers
+	to have a minifed code.
+
+

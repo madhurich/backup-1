@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>resource</title>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="resCtrl">
+			<button ng-click="getData()">getData</button>
+			<div ng-repeat="x in data | limitTo:10">
+			<div ng-click="getInDetail($event,x.id)">
+				<p><strong>Body: </strong>{{x.body}}</p>
+				<p><strong>Id: </strong>{{x.id}}</p>
+				<p><strong>Title: </strong>{{x.title}}</p>
+				<p><strong>User Id: </strong>{{x.userId}}</p>
+				<button>get in detail</button>
+				<hr>
+			</div>
+			</div>
+		</div>
+		
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-resource.min.js"></script>
+		<script>
+			var app = angular.module('myApp', ['ngResource']);
+
+			app.controller('resCtrl', ['$scope', 'resFac', function($scope, resFac){
+				$scope.getData = function(){
+						resFac.query(function(data){
+						console.log(data);
+						$scope.data = data;
+					});
+				};
+
+				$scope.getInDetail = function(e,id){
+					
+						console.log(id);
+					
+				};
+				// $scope.getById = function(id){
+				// 	resFac.get({id: id}, function(data){
+				// 		console.log(data);
+				// 	});
+				// };
+				
+			}]);
+
+			app.factory('resFac', function($resource){
+				return $resource('https://jsonplaceholder.typicode.com/posts/:id', {id: '@_id'});
+			});
+		</script>
+	</body>
+</html>

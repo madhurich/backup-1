@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+	<audio controls="">
+		<source src="" type="audio/ogg">
+		
+	</audio>
+	<div id="box">
+		
+	</div>
+	<canvas id="drawHere"></canvas>
+	<canvas id="circle"></canvas>
+
+	<input type="button" value="open">
+
+	<script>
+		var ctx = document.getElementById('drawHere');
+		var gt_ctx = ctx.getContext('2d');
+		gt_ctx.moveTo(1,3);
+		gt_ctx.lineTo(400,500);
+		gt_ctx.stroke();
+
+		var circle = document.getElementById('circle');
+		var gt_circle = circle.getContext('2d');
+		gt_circle.beginPath();
+		gt_circle.arc(50, 40, 20, 0, 2 * Math.PI, false);
+		gt_circle.stroke();
+
+		var geolocation = navigator.geolocation;
+		console.log(geolocation.getCurrentPosition);
+
+		console.log(window.navigator);
+		console.log(navigator.javaEnabled());
+
+		document.getElementsByTagName('input')[0].addEventListener('click', function(e){
+			window.close();
+		});
+		
+		// window.close();
+		// window.moveTo();
+		// window.resizeTo();
+	</script>
+
+</body>
+</html>

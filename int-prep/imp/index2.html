@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div style="border: 1px solid red">
+		Enter color
+		<input type="text">
+	</div>
+	<input type="button" value="submit" style="position: fixed;float: right;"><br>
+	Enter your DOB
+	<input type="date"><input type="button" value="submit DOB"><br>
+	Enter account info
+	<input type="number"><input type="button" value="submit number">
+	
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script>
+		
+		//var # = $.noConflict();
+
+		//to change the color of input based on entered value
+		$('div input[type="text"]').on('change', function(){
+			var color = $('div input[type="text"]').val();
+			$('div input[type="text"]').css('background-color', color);
+		});
+
+		//to get the age of user
+		$('input[value="submit DOB"]').click(function(){
+			var today = new Date();
+			var today_year = today.getFullYear();
+			var today_month = today.getMonth();
+			var dob = $('input[type="date"]').val();
+
+			if(dob){
+				var dob_obj = new Date(dob);
+				var dob_year = dob_obj.getFullYear();
+				var dob_month = dob_obj.getMonth();
+				console.log("no of years ",today_year - dob_year);
+			}else{
+				alert("enter valid input");
+			}				
+			
+		});
+
+		$('input[value="submit number"]').click(function(){
+			var acc_num = $('input[type="number"]').val();
+			console.log(acc_num.split("").join("#"));
+
+		});
+		
+		//to fix the height of all divs to 100px
+		$('div').css('height', '100px' );
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+states of input fields
+	>$touched
+	>$untouched
+	>$pristine
+	>$dirty
+	>$required
+	>$valid
+	>$invalid
+
+classes of input fields
+	>ng-touched
+	>ng-untouched
+	>ng-pristine
+	>ng-dirty
+	>ng-required
+	>ng-valid
+	>ng-invalid

@@ -1,0 +1,41 @@
+One thing you need to understand here is
+> when ever you are re-defining the entire variable or obbject passed to a function,
+inside of it, then it will NOT change the original variable value or original object outside of
+this function.
+> But when you are modifying the object inside of the function, for Ex: when you changed any property 
+value insdie of this function the original object is being changed as well.
+
+REFER http://nsono.net/javascript-pass-by-value-or-pass-by-reference/
+REFER https://www.youtube.com/watch?v=vZYcC9lHDcw
+
+> From my understanding, only objects and arrays are passed by reference,
+primitives like 'undefined', 'null', 'boolean', 'strings' and 'numbers' are passed by value, these kind of pass by value will cannot be modified inside of the function.
+-----------------------
+COPY BY REFERENCE
+var obj1 = {
+				author: 'jk',
+				book: 'harry potter'
+			};
+			var obj2 = obj1;
+			obj2.author = 'other jk';
+			console.log(obj1 == obj2);
+
+			here we are assigning the refernce of obj1 to obj2
+			they are referncing to the same object in the memory so 
+			the changes done to either obj1 or obj2 they are reflected on both
+			since they both are pointing to the same memory refernce.	
+------------------
+COPY BY VALUE
+var arr1 = [1, 2, 3];
+var arr2 = [1, 2, 3];
+console.log(arr1 == arr2);	
+
+			here you are copying the vaue of arr1 to arr2 and assigning the same
+			value to arr2, BUT arr1 points to a memory locaiton say EX: 00
+			and in that location we have [1, 2, 3], now arr2 is pointing to a different
+			memory location say Ex: 11 whose value is also [1, 2, 3]
+			in javascript values will be same ONLY when they point to the same
+			memory location, here since arr1 and arr2 are pointing to different locations
+			they will NOT be same		
+
+			

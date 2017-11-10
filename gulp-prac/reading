@@ -1,0 +1,53 @@
+//to define the task called 'message'
+gulp.task('taskName', function(){
+    return console.log('do something');
+});
+
+//defining the task called 'copyHTML'
+gulp.task('copyHTML', function(){
+    gulp.src('src/*.html')
+        .pipe(gulp.dest('dist'));
+});
+
+//defining default task
+gulp.task('default', function(){
+    return console.log('default gulp task..');
+});
+
+gulp.task('images' function(){
+    gulp.src('src/images/*.png')
+        .pipe(imagemin())
+        .pipe(gulp.dest('dist/images'));
+});
+
+gulp.task('jsmin', function(){
+    gulp.src('src/js/*.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('dist/js'));
+});
+
+//what it does is, it takes all the '.js' files inside of 
+//src->js and combines all if them and places them in a file called 'main.js'
+//then this concatenated file is put in dist->js folder
+gulp.task('concat', function(){
+    gulp.src('src/js/*.js')
+        .pipe(concat('main.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('dist/js'))
+});
+
+
+//what this does is, when 'gulp' is run it runs the default task and this
+default task is run with all the defined tasks mentioned in the array
+jsmin, message, images, copyHTML ..all of them 
+gulp.task('default', ['jsmin', 'message', 'images', 'copyHTML']);
+
+
+gulp.task('watch', function(){
+    gulp.watch('src/js/*.js', ['jsmin']);
+    gulp.watch('src/*.html', ['html']);
+    gulp.watch('src/images/*', ['images']);
+});
+
+to run a task 
+gulp taskName

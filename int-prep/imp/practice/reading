@@ -1,0 +1,60 @@
+1. Doctype declaration
+		mode--> strict (no presentational or deperecated elements like font)
+				transitional (allows presentational like font)
+				Frameset (same like transitional but allows frameset)
+
+2. <bdi></bdi> Bi directional Isolation Tag.
+<li>User: <bdi>someuser info</bdi>: 40 points</li>	
+
+3. var c = document.getElementById('canvas');
+var ctx = c.getContext('2d');
+ctx.moveTo();
+ctx.lineTo();
+ctx.stroke();
+
+ctx.beginPath();
+ctx.arc(x, y, radius, start angle, end angle, clock or anti);
+
+ondragstart=""
+e.dataTransfer.setData()
+e.dataTransfer.getData()
+draggable="true"
+
+position.coords.latitude
+navigator.getLocation()
+
+<html manifest="some.appcache">
+CACHE MANIFEST
+NETWORK
+FALLBACK	
+5MB limit on cached data
+
+var msg = new EventSource('file.php');
+onmessage
+onopen
+onerror		
+------------------
+C: hit enter
+cd path
+gem install sass
+gem install compass
+
+sass --watch yourfile.scss:yourfile.css
+----
+window.innerWidth || document.body.clientWidth || document.documentElement.clientWidth
+---
+setTimeout() -- clearTimeout(name)
+setInterval() -- clearInterval(name)
+----------
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function(){
+	if(this.readyState == 4 && this.status == 200){
+		//do something
+	}
+	xhttp.open('GET', 'filename.extn', true);
+	xhttp.send();
+
+	DONOT put false, else it will immediately be executed without
+	checking the server response is ready or not.
+}
+----------

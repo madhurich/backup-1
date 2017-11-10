@@ -1,0 +1,18 @@
+Here you connected, Header and Home components to redux, hence they are
+considered to be 'smart components' and are placed inside of 'containers' folder.
+
+--> you can also do like inside main put these 'header' and 'home' and just connect
+'Main' to redux, then only Main will be inside of 'containers' folder and
+Header, Home will be inside of 'components' folder 
+
+
+IMPORTANT POINTS TO REMEMBER
+before all these, npm install --save react-redux redux redux-logge
+
+here you included 'redux-logger' in devDependencies thinking that 
+logger is only for development purpose and not for testing.
+
+	logger ---> redux-logger
+	{createStore, applyMiddleware, combineReducers} ----> redux
+	{connect} ----> redux
+	{Provider} ---> react-redux

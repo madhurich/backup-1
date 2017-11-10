@@ -1,0 +1,95 @@
+ROUTING IN ANGULAR2
+To enable routing the three things we need to do are
+1. include the 'router' script in the index.html
+2. specify the <base href="/"> (this depends on from where you launch)
+3. import 'ROUTER_PROVIDERS' from 'angular2/router'
+4. specify this 'ROUTER_PROVIDERS' in the array after bootstraping
+bootstrap(AppComponent, [ROUTER_PROVIDERS]) in boot.ts file
+
+TO CONFIGURE ROUTES
+import {RouteConfig} from 'angular2/router';
+
+RouteConfig([
+	{path: '/albums', name: 'Albums', component: AlbumsComponent, useAsDefault: true},
+	{path: '/*other', name: 'Other', redirectTo: ['Albums']}
+
+])
+
+POINTS TO REMEMBER
+1. while mention the 'other' route, inside of 'redirectTo' property, we mention the route 'name'
+to which it should be redirectTo, not the path 'albums'
+2. Same as Component Decorator, we have 'RouteConfig' decorator, in which we specify the routes
+or configure the routes, just like $routeProvider in angular1
+
+*********IMPORTANT*************
+you got an error saying 
+Error: XHR error (404 Not Found) loading http://localhost:3000/rxjs/observable/fromPromise
+to resolve this you changed the version of 'rxjs' from 
+ "rxjs": "5.0.0-beta.0" -------->  "rxjs": "5.0.0-beta.2"
+and just imported the Observable, remaining keep them as it is
+-------------------
+enabling 'links' to click to go to that path specified.
+
+to do that
+<a href="">Home</a> --> here when we mention href="/home" this will load the entire page, 
+but we need only a part of page to be laoded, to do that we have 'routerLink' (first letter is small here)
+
+<a [routerLink]="['Albums']"></a> ---> here we sepcify the 'name of the route' NOT the 'path'
+
+we also need to import this module from 'angular2/router';
+import {RouterLink} from 'angular2/router';
+--> and also in the directives. But when we do this it gets messy some times
+so we can just do import {ROUTER_DIRECTIVES} and mention this in the 'directives' property.
+
+this ROUTER_DIRECTIVES has 'RouterLink' and 'RouterOutlet' , so we can ommit these and just write 
+ROUTER_DIRECTIVES.
+
+> when your using [routerLink], import ROUTER_DIRECTIVES at the top
+and also include this in the directives list of that componnet
+directives: [ROUTER_DIRECTIVES]--->else you will get error
+
+saying ***********************IMPORTANT ****************
+Template parse errors:
+Can't bind to 'routerLink' since it isn't a known native property ("
+        <ul>
+            <li *ngFor="#album of albums">
+                <a [ERROR ->][routerLink]="['Album', {id: album.id}]">
+                    {{ album.title }}
+                </a>
+
+To get the routeParams like 'id' from the component to other component
+we need to import RouteParams from angular2/router
+import {RouteParams} from 'angular2/router';
+and include this in the consturctor of the component where we need to receive this 'id'
+
+constructor(private _routeParams: RouteParams){
+	
+}   
+
+now to use this params, we need to use 'this._routeParams.get('id')' 
+
+------IMPERATIVE ROUTING--------------
+to have imperative routing, i.e when we want to redirect to certian component,
+we cna do that using 'routerLink' as well but with imperative routing we can directly have acces to 
+router object. 
+
+to do imperative routing, from which component you want to redirect, in that component you need to do
+import {Router} from 'angular2/router';             
+
+constructor(private _router: Router){
+	
+}
+
+someFunc(){
+	this._router.navigate(['nameOfThePath']); //inside RotueConfig([
+
+														{path: '', name: 'nameOfThePath'}
+																	])
+}
+
+***********IMPORTAN******
+to redirect to another route, if route is not found, mention the path 'name' configured
+NOT the component name, its the path 'name' . YOU GOT AN ERROR SAYING RouteConfig not found.
+You got this because you mentioned the compoennt name inside the parenthesess of navigate,
+you SHOULD MENTION THE PATH NAME inside the navigate parenthesses
+

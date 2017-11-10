@@ -1,0 +1,58 @@
+Explained about the project scenario
+> brief intro about yourself?
+> challenges faced?
+> popups? unexpectd results? how do you manage
+> 
+
+--------------
+var items = [
+  { name: 'Edward', value: 21 },
+  { name: 'Sharpe', value: 37 },
+  { name: 'And', value: 45 },
+  { name: 'The', value: -12 },
+  { name: 'Magnetic', value: 13 },
+  { name: 'Zeros', value: 37 }
+];
+function ret(arr, val){
+ // var res = [];
+  var res = arr.map(function(elem, index){
+    if(elem.value > val){
+      return elem;
+    }
+  })
+  console.log(res);
+  return res;
+}
+
+//ret(items, 30);
+
+function fil(arr, val){
+  var filtered = arr.filter(function(elem){
+    return elem.value > val;
+  });
+  return filtered;
+}
+
+//fil(items, 30)
+
+function mapfil(arr, val){
+  var filtered = arr.map(function(elem){
+    if(elem.value > val){
+      return elem;
+    }
+  })
+  return filtered;
+}
+
+mapfil(items, 30);
+--------------------------------
+level-2
+1. tell me the technologies you know?
+2. Have you worked with ES6? React?
+3. Can you tell me what are closures?
+4. How would you do given a task? (maintainability, reusability)
+5. Worked with Gulp? grunt? have you configured grunt? (register task, jshint, htmlmin)
+6. have you worked with angular2? (said yes)
+7. Can you work with new technologies? (yes)
+8. Promises, how would you handle?
+9. Observables? Rxjs 

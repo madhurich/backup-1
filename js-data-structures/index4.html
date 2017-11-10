@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	
+
+
+	<script>
+		function getPrimes(a, b){
+		  var count = 0;
+		  for(var i = a; i < b; i++){
+		    if(i > 2){
+		      for(var k = 2; k <= i-1; k++){
+		        if(i % k !== 0 && i % i === 0 && i % 1 === 0){
+		          count++;
+		        }
+		      }
+		      if(i-2 === count){
+		        console.log(i, 'is a prime');
+		        count = 0;
+		      }else{
+		        console.log(i, 'is not a prime');
+		      }
+		    }else if(i === 2){
+		      console.log(i, 'is a prime');
+		    }else{
+		      console.log(i, 'is not a prime');
+		    }
+		  }
+		}
+		getPrimes(1, 10);
+	</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+> splice returns a new array of removed elements
+> the original array will be effected when we do splice
+> to empty an array we can use splice, length = 0, and arr = [];
+> pop returns the popped element and dcreases the length by one

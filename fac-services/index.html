@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl"></div>
+		
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+		<script>
+			angular.module('myApp', [])
+			.factory('facName', function(){
+					return ['a', 'b', 'c'];
+				});
+				
+
+		//factory can return any data type (object, array, function, null, undefined)
+		angular.module('myApp')
+				.controller('myCtrl',['$scope', 'servName', function($scope, servName){
+						$scope.users = servName.getUsers();
+						console.log($scope.users);
+				}]);
+
+		angular.module('myApp')
+			.service('servName', function(){
+
+					this.getUsers = function(){
+						return ['a', 'b', 'c'];
+					};
+				});		
+
+		</script>
+	</body>
+</html>

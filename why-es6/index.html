@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>es6</title>
+	</head>
+	<body>
+		<script>
+			var obj = {
+				foo: 'madhuri',
+				func1: function(){
+					var self = this;//both self and this referes to the object 'obj'
+					console.log(self.foo);//madhuri
+					console.log(this.foo);//madhuri
+					(function(){
+						console.log(self.foo);//madhuri
+						console.log(this);//window
+						console.log(this.foo);//undefined
+					}).call(obj);
+				}
+			};
+			console.log(obj.func1());
+			// var obj1 = {
+			// 	foo: 'madhuri',
+			// 	func1: () => {		
+			// 		console.log(this.foo);
+			// 		console.log(self.foo);
+			// 		(() => {
+			// 			console.log(this.foo);
+			// 			console.log(self.foo);
+			// 		})();
+			// 	}
+			// };
+			var arr = [7, 2, 9, 0, 1];
+			function getMax(arr){
+				var result = arr.sort();
+				return result[result.length - 1];
+			}
+			getMax(arr);
+
+			// var people = [{
+			// 	name: 'mad',
+			// 	age: 1000
+			// }, {
+			// 	name : 'man',
+			// 	age: 1000
+			// }];
+			//this returns the first repeated index of name
+			// function getIndex(arr, name){
+			// 	for(var x in arr){
+					// if(name === arr[x].name ){
+					// 	return x;
+					// }
+			// 	}
+			// }
+
+			var people = [{
+				name: 'mad',
+				age: 1000
+			}, {
+				name : 'man',
+				age: 1000
+			},{
+			  name: 'man',
+			  age: 1000
+		    },{
+		    	name: 'ma',
+		    	age: 394
+		    }];
+    		
+    		//this returns the last repeated index of name;
+			function getIndex(arr, name){
+				var index = -1;
+				
+				//var result = arr2.toString();
+				for(var x in arr){
+					if(name === arr[x].name){
+						index = x;
+						//console.log(x);
+				    }
+				}
+				console.log("index here " + index);
+			}
+			getIndex(people, 'man');
+
+			//swap variables using temp
+			var a = 24, b = 57;
+			var temp = a;
+			a = b;
+			b = temp;
+			console.log(a, b);
+
+			//swap variables without using temp
+			var a = 24, b = 54;
+			var a = a + b;
+			var b = a - b;//value of a inside of b
+			console.log(a, b);
+			a = a - b;//now b has value of a then we get value of b inside of a
+			console.log(a, b);
+
+			//using destructuring in ES6
+			// var a = 24, b = 54;
+			// var [a, b] = [b, a];
+			// console.log(a, b);
+
+
+		</script>
+	</body>
+</html>

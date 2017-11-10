@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>1.4</title>
+	</head>
+	<body ng-app="myApp">
+		<my-dir title="mad title">
+			transclued content here
+		</my-dir>
+		<my-dir title="mad title2">
+			two
+		</my-dir>
+		<my-dir title="mad title3">
+			three
+		</my-dir>
+		<hr>
+		<my-dir></my-dir> <!-- default transclusion -->
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script>
+			var app = angular.module('myApp', []);
+			app.directive('myDir', function(){
+				return {
+					restrict: 'E',
+					bindToController: {
+						title: '@'
+					},
+					controller: angular.noop,	
+					scope: {}, //default
+					transclude: true, //donot forget to specify the transclude prop to true, transclude will not compile if you forget and you'll get an error
+					controllerAs: '$ctrl', //default
+					template: '<div><strong>Title</strong>{{$ctrl.title || "no title"}}</div>' +
+							'<div><ng-transclude>default content here</ng-transclude></div>' 
+				};
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>Add users name and age and delete them when you click on button</title>
+	</head>
+	<body>
+		enter name
+		<input type="text" id="name">
+		enter age
+		<input type="text" id="age">
+		<button id="add">Add</button>
+
+		<ul id="users">
+			
+		</ul>
+			
+		<script>
+			var id = 0 ;
+			document.getElementById('add').addEventListener('click', function(){
+				id++;
+				var nameElem = document.getElementById('name');
+				var ageElem = document.getElementById('age');
+				var name = nameElem.value;
+				var age = ageElem.value;
+				var button = document.createElement('BUTTON');
+				var buttonText = document.createTextNode('remove');
+				button.appendChild(buttonText);
+				button.setAttribute('id', id);
+				var userList = document.getElementById('users');
+				var li = document.createElement('LI');
+				var liVal = document.createTextNode('Name is ' + name + ' age is ' + age + ' ');
+				li.appendChild(liVal);
+				li.appendChild(button);
+				userList.appendChild(li);
+				ageElem.value = "";
+				nameElem.value = "";
+			});
+
+			var userList = document.getElementById('users');
+			userList.addEventListener('click', function(e){
+				userList.removeChild(document.getElementById(e.target.id).parentElement);
+			});
+			 
+		</script>
+	</body>
+</html>

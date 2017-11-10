@@ -1,0 +1,103 @@
+you got this error, 
+TypeError: search.valueChanges.debounceTime is not a function
+
+Then you added operators from rxjs explicitly, the error was gone.
+import 'rxjs/add/operator/debounceTime';
+REFER http://stackoverflow.com/questions/38358815/typeerror-search-valuechanges-debouncetime-is-not-a-function
+
+someObservable.debounceTime(3000);
+
+debounceTime -> what it does is it will emit the values for every metnioned seconds (here 3 seconds) and it will omit those values which occur in between, ie. time gap bettween first second and third second it does nothing, only after every three seconds it will emit the values
+REFER https://www.learnrxjs.io/operators/filtering/debouncetime.html
+------------
+Observable.fromArray([1,2,3]);//this gives us three elements having each array element.
+
+Observable.of([1,2,3]);//this gives us one single element, which is an array.
+------------
+flatMap
+
+--> when we use 'map', what it gives us each element fromt he observable.Works for observable like [1, 2, 3, 4, 5, 6]
+using map for above observable gives 
+1
+2
+3...
+--> BUT when we use map for an observabe of observables
+like [[1, 2, 3], [1, 2, 3], [1, 2, 3]]--> this itslef gives us the observable like [1, 2, 3]-->is observable not element
+So to split each element from observable of observables
+we use 'flatMap'.
+
+REFER http://reactivex.io/documentation/operators/flatmap.html
+-----------
+FORKJOIN
+forkJoin()--> method is used to run more than one observable in parallel and it returns the combined result, when we subscribe to it.
+
+var user = Observable.of({
+	user:'mad',
+	age: 23
+});
+
+var stream = Observable.fromArray([1,2,3]);
+Observable.forkJoin(user, stream)// here forkJoin what it does is combines both the observables and gives them as an array when we subscribe to it.
+			.map((joined) => new Object({
+				userObj: joined[0],
+				stream: joined[1]
+			}));
+handling errors
+
+while we are making AJAX calls, it may cause soem errors
+to handle them we have 'error' callback as teh second argument 
+
+Ex: create a voluntary error
+var observable = Observable.throw(new Error('some error'));
+
+now to handle this
+observable.subscribe((x) => console.log(x),
+(err) => console.log(err));
+-----------------
+when ever an error occurs for an observable, it throws an error
+and the subscribe methods first function will not run and the 'error' callback runs.
+
+BUT if we want to give an alternate result when an error occurs, we can 'catch' that error and give another observable stream
+
+EX: var observable = Observable.throw(new Error('some error'));
+observable
+		.subscribe((x) => console.log(x),
+		(err) => console.log(err)); //here it will log error.
+
+but 
+observable
+		.catch((err) => {
+			return Observable.of([1, 2, 3]); //an alternate observable when the above observable throws an error
+		})
+		.subscribe((x) => {
+			console.log(x); //here it wont log error, but it will give the observable stream
+		}, (err) => {
+			console.log(err);
+		});
+------------
+when ever an operation occurs it may take some time, at times it may be longer than expected, but when this happens	we dont want to make the user to wait for that reason we use 'timeout' method to stop that waiting process.
+
+var stream = Observable.fromArray([1, 2, 3]).delay(8000);
+
+stream
+	.timeout(1000) //here when we dont mention the timeout, we have to wait for '8s' to get the result from the array
+	.subscribe((x) => {
+		console.log(x);
+	}, (err) => {
+		console.log(err);
+	});		
+
+we specify timeout(1000) -> here it waits only for 1 second, and if the result is not ready in one second, then it will log the error in the console	
+
+---------------
+
+In the observable stream when there's an error occured, then the corresponding statements after the error will not be executed and the observer is also not complete.
+
+Now even though error occurs if we want to safely complete the Observer. Then we need to catch that error and return an Observable created out of that err, before
+
+var arrStream = Observable.throw(new Error('some error'));
+    	arrStream
+    			.catch((err) => Observable.of(err))
+    			.subscribe(x => console.log(x), 
+    				(err) => console.log(err),
+    				(complete) => console.log('completed'));	

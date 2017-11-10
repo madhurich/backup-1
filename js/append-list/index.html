@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>add list items</title>
+    
+  </head>
+  <body>
+    <input type="text">
+    <button>click</button>
+  
+    <script>
+      var c = 0;
+      document.getElementsByTagName('button')[0].addEventListener('click', function(){
+        c++;
+        //alert(c);
+        var ul, li, liVal;
+        var inp = document.getElementsByTagName('input')[0];
+        var val = inp.value;
+        alert(val);
+
+        if(c == 1){
+          ul = document.createElement('UL');
+          li = document.createElement('LI');
+          liVal = document.createTextNode(val);
+          li.appendChild(liVal);
+          ul.appendChild(li);
+          
+          document.body.appendChild(ul);
+          inp.value = "";
+        }else if(c >= 2){
+          li = document.createElement('LI');
+          liVal = document.createTextNode(val);
+          li.appendChild(liVal);
+          document.getElementsByTagName('ul')[0].appendChild(li);
+          
+          //document.body.appendChild(ul);
+          inp.value = "";          
+        }
+        
+        
+  
+    });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>Editable users</title>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl as mc">
+			enter name
+			<input type="text" ng-model="mc.name">
+			enter age
+			<input type="text" ng-model="mc.age">
+			<button ng-click="mc.addUser()">Add</button>
+
+			<ul>
+				<li ng-repeat="user in mc.users">
+					<div ng-show="!user.edit">
+						<span ng-dblclick="mc.onEdit(user.id)">
+							Name is {{user.name}} and age is {{user.age}}
+							<button ng-click="mc.removeUser(user.id)">remove</button>
+						</span>
+					</div>
+
+					<div ng-show="user.edit">
+						Edit Name
+						<input type="text" ng-model="user.name">
+						Edit Age
+						<input type="text" ng-model="user.age">
+						<button ng-click="mc.onSave(user.name, user.age, user.id)">Save</button>
+					</div>
+					
+				</li>	
+			</ul>
+			
+		</div>
+		
+
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script>
+			angular.module('myApp', [])
+					.controller('myCtrl', myCtrl);
+
+			myCtrl.$inject = ['$scope'];
+			
+			function myCtrl($scope){
+				var vm  = this;
+				vm.users = [];
+				vm.id = 0;
+				
+				vm.addUser = function(){
+					//alert('');
+					vm.id++;
+					
+					vm.users.push({name: vm.name, age: vm.age, id: vm.id, edit: false});
+					console.log(vm.users);
+					vm.name = ""; vm.age = "";
+				};
+
+				vm.removeUser = function(id){
+					var res = [];
+					vm.users.forEach(function(elem, index){
+						if(elem.id != id){
+							res.push(elem);
+						}
+					});
+
+					vm.users = res;
+				};
+
+				vm.onEdit = function(id){
+					vm.users.forEach(function(elem, index){
+						if(elem.id == id){
+							vm.users[index].edit = true; 
+						}
+					});
+					
+				};	
+
+				vm.onSave = function(name, age, id){
+					//alert('on save' + name + " " + id);
+					
+					vm.users.forEach(function(elem, index){
+						if(elem.id == id){
+							//alert(id);
+							vm.users[index].name = name;
+							vm.users[index].age = age;
+							vm.users[index].edit = false;
+						}
+					});
+					
+				};
+			}		
+		</script>
+	</body>
+</html>

@@ -1,0 +1,292 @@
+https://egghead.io/lessons/javascript-redux-implementing-store-from-scratch?course=getting-started-with-redux
+//console.log('RxJS Boiler Running...');
+//Observables from events
+
+// var btn$ = Rx.Observable.fromEvent($('#btn'), 'click');
+// btn$.subscribe(function(e){
+// 	console.log(e);
+// });
+
+// var inp$ = Rx.Observable.fromEvent($('#inp'), 'keyup');
+// console.log(inp$);
+// inp$.subscribe((e) => {
+// 	$('ul li').html(e.target.value);
+// 	//$('#output').append(e.target.value);
+// });
+
+
+// Rx.Observable.fromEvent(document, 'mousemove')
+// 				.subscribe((e) => {
+// 					//$('#output').append('<ul><li>X:' + e.clientX + ',' + 'Y:' + e.clientY + '</li></ul>');
+// 					$('#output').text('X:' + e.clientX + ',' + 'Y:' + e.clientY );	
+// 				});
+
+-------------
+
+//Observables from Arrays
+
+var arr = ['mad', 'man', 'dad', 'mom'];
+var arr$ = Rx.Observable.from(arr);
+console.log(arr$);
+
+arr$.subscribe((elem) => {
+	console.log(elem);
+},
+(err) => {
+	console.log(err);
+}, 
+(compplete) => {
+	console.log('complete');
+});
+-----------------
+POINTS TO BE REMEMBERED
+
+When ever we create an observable from events, these CANT be completed, because event may occur any time and can't be predicted.
+That's the reason these cant be completed.
+Here it doesn't execute the 'complete' block, as it cant be completed.
+
+BUT when an observable is created from an Array or object, these
+can be completed because it reaches the end of the object/array by reaching the last element hence it executes the 'complete' block
+inside of the subscribe function.
+
+When an Observable is created from the scratch
+
+var obs = new Rx.Observable(); //this creates a new Observable called 'obs'.
+
+Now when ever you want to emit some values or data from these observables, we use a method called 'next()'. Within the parenthessees of next, we can pass in the data that we wanted to emit and can be subscribed in the subscribe block.
+
+NOW THESE WILL NOT BE COMPLETED UNTILL YOU EXPLICITLY COMPLETE THEM AFTER EMITTING THE DATA INSIDE OF THE OBSERVABLE CREATION.
+
+specify --> observer.complete() //to complete
+this statement is responsible to exeute the 'complete' block inside of the subscribe function.
+var obs = new Rx.Observable((observer) => {
+	observer.next('some val here');
+});
+
+In the observable stream when there's an error occured, then the corresponding statements after the error will not be executed and the observer is also not complete.
+
+Now even though error occurs if we want to safely complete the Observer. Then we need to catch that error and return an Observable created out of that err, before subscribing to it.
+
+obs$.catch((err) => Rx.Observable.of(err))
+	.subscribe((value) => {console.log(value)},
+	(err) => {
+		console.log(err);
+	}, 
+	(complete) => {
+		console.log(complete);
+	});
+
+Herewe are catching the error and creating an observable out of it using 'of' method
+----------------------
+Observable from scratch
+const obser$ = new Rx.Observable((observer) => {
+	console.log(observer);
+	observer.next('first val');
+	observer.error(new Error('some error'));
+	
+	observer.next('after error');
+	
+	setTimeout(() => {
+		observer.next('second val');
+		observer.complete();
+	}, 2000);
+	
+});
+
+obser$
+	.catch((err) => {
+		console.log('error here', err);
+		Rx.Observable.of(err);
+	})
+	.subscribe((value) => {
+		console.log(value);
+	}, (err) => {
+		console.log(err);
+	}, (complete) => {
+		console.log('complete');
+	});
+
+//console.log(obser$);
+--------------------
+CREATING OBSERVABLES FROM PROMISES
+
+
+------------------------
+var exProm = new Promise((resolve, reject) => {
+	console.log('creating a Promise');
+	setTimeout(() => {
+		resolve('Promise resolved');
+	}, 2000);
+});
+
+var exProm$ = Rx.Observable.fromPromise(exProm);//creating an observable from promise
+
+//the resolvedVal's value will be whatever we returned from resolved here it is 'Promise resolved'
+exProm$.subscribe((resolvedVal) => {
+	console.log(resolvedVal);
+});
+-------------------------
+
+function getRepos(){
+	return $.ajax({
+		method: 'GET',
+		url: '',
+		dataType: 'jsonp'
+	}).promise();
+}
+
+var data$ = Rx.Observable.fromPromise(getUsers());
+data$.subscribe((dataFromPromise) => {
+	console.log(dataFromPromise);
+});
+
+----same but with values------
+function getRepos(user){
+	return $.ajax({
+		method: 'GET',
+		url: 'https://api.github.com/users/' + user,
+		dataType: 'jsonp'
+	}).promise();
+}
+
+var getUser$ = Rx.Observable.fromEvent($('#user'), 'keyup');
+
+getUser$.subscribe((e) => {
+	var data$ = Rx.Observable.fromPromise(getRepos(e.target.value));
+	data$.subscribe((dataFromPromise) => {
+
+		console.log(dataFromPromise.data.name, dataFromPromise.data.public_repos, dataFromPromise.data.blog);
+	});
+
+});
+
+-------------------
+timer, interval, range
+
+.interval(timeNumberHere)//will output values for every specified time 
+var interval$ = Rx.Observable.interval(3000);//it starts counting from 0 and outputs other values after 3 seconds, each number will be outputted with gaps of 3 sec
+interval$.subscribe((x) => {
+	console.log(x);
+});
+
+.timer(toStart, intervalGap)//after the page is loaded, after the specified time 'toStart' the vlaues will be outputted with a gap of 'intervalGap'
+var timer$ = Rx.Observable.timer(5000, 2000);
+timer$.subscribe((x) => {
+	console.log(x);
+});
+
+IMPORTANT 
+The timer and interval functions will go on untill we specify till which value we want to run
+them, by specifying 'take()' method
+
+var range$ = Rx.Observable.range(from, to);//will output the values from 'from' and extends till (from+to)
+//Ex: range(23, 100) starts from 23 and gives 100 values after 23
+range$.subscribe((x) => {
+	console.log(x);
+});
+----same but, below is the code you written-------
+/*var interval$ = Rx.Observable.interval(300).take(7);//it starts counting from 0 and outputs other values after 3 seconds, each number will be outputted with gaps of 3 sec
+
+interval$.subscribe((x) => {
+	console.log(x);
+}, (err) => {
+	console.log(err);
+}, (complete) => {
+	console.log('complete');
+});*/
+
+
+
+/*var timer$ = Rx.Observable.timer(5000, 2000).take(8);
+timer$.subscribe((x) => {
+	console.log(x);
+}, (err) => {
+	console.log(err);
+}, (complete) => {
+	console.log('complete');
+});*/
+
+
+var range$ = Rx.Observable.range(10, 30);//will output the values from 'from' and extends till (from+to)
+//Ex: range(23, 100) starts from 23 and gives 100 values after 23
+range$.subscribe((x) => {
+	console.log(x);
+}, (err) => {
+	console.log(err);
+}, (complete) => {
+	console.log('complete');
+});
+----------same------------
+MAP and PLUCK
+
+we can have multiple maps for the same observable and the first map's result will be given to the second map's
+argument, we can have any number of maps here.
+
+Pluck is a method where we will be able to pluck,the properties that we need.
+Ex: {name: 'xyz', age: 32} //if we dont use pluck we may use 'map()' and in that we can return
+obj.age, to get only the 'age' property, but if we use pluck we can do
+.pluck('age')//to get only 'ages'
+.pluck('name')//to get only 'names' from obj
+
+---written code for map and pluck---------------
+var interval$ = Rx.Observable.interval(200).take(8)
+		.map((val) => {
+			return val * 2;
+		})
+		.map((val) => {
+			return val + 1; 
+		});
+
+interval$.subscribe((x) => {
+	console.log(x);
+});
+
+var arr = [
+	{
+		name: 'mad',
+		age: 23
+	}, {
+		name: 'man',
+		age: 25
+	}, {
+		name: 'dad',
+		age: 10000
+	}, {
+		name: 'mom',
+		age: 3000
+	}
+];
+var obj$ = Rx.Observable
+			.from(arr)
+			.pluck('age');
+obj$.subscribe((age) => {
+	console.log(age);
+});			
+--------------
+
+var interval$ = Rx.Observable.interval(200)
+							.merge(Rx.Observable.interval(1000))
+							.take(9)
+							.subscribe((x) => {
+								console.log(x);
+							});
+---------------------
+MERGE AND CONCAT
+
+we can merge the observable values from one to another.
+merge merges in between depending on the time.
+
+Concat combines the observable streams one after the other.							
+
+
+var source1$ = Rx.Observable.range(1, 6);
+var source1$ = Rx.Observable.range(10, 6);
+Rx.Observable.concat(source1$, source2$)
+				.subscribe((x) => {
+					console.log(x);
+				});
+
+			here it will concat source1$ with source2$. source2$ will be added after the source1$
+
+
+

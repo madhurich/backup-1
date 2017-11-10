@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Learning protractor</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body ng-app="myApp">
+        <div ng-controller="myCtrl as mc">
+            <button id="btn" ng-click="mc.getText()">click</button>
+            <p>{{mc.text}}</p>
+            <h2>Element explorer</h2>
+            <button id="fillInp" ng-click="mc.fillInput()">get text</button>
+            <input type="text" ng-model="mc.inpText"/>
+        </div>
+        
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+        <script>
+            angular.module('myApp', []);
+            angular.module('myApp')
+                .controller('myCtrl', myCtrl);
+
+            myCtrl.$inject = ['$scope'];
+            function myCtrl($scope){
+                var mc = this;
+                mc.getText = getText;
+                mc.fillInput = fillInput;
+                // mc.onInpChange = onInpChange;
+                function getText(){
+                    mc.text = 'mad';
+                }
+
+                function fillInput(){
+                    mc.inpText = 'hello'
+                }
+
+                // function onInpChange(newText){
+                //     mc.inpText = newText;
+                // }
+
+                
+            }    
+        </script>
+    </body>
+</html>

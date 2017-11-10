@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Power</title>
+	</head>
+	<body>
+		<script>
+
+			// function power(a, e){
+			//   var res = 1;
+			//   while(e > 0){
+			//     res = a * res;
+			//     e--;
+			//   }
+			//   return res;
+			// }
+			// function sumDigPow(a, b) {
+			//   var each, res = [], sum, arr = [], power;
+			//   // Your code here
+			//   for(var i = a; i <= b; i++){
+			//     arr.push(a);
+			//     each = arr.toString().split('');
+			//     sum = each.reduce(function(acc, elem, index){
+			//       return acc + power(elem, (index+1));
+			//     }, 0);
+			//     if(sum == each.join('')){
+			//       res.push(sum);
+			//     }
+			    
+			//   }
+			//   return res;
+			// }
+
+			// console.log(sumDigPow(1, 100));
+
+			// var count = 0, res, arrnum;
+			// function persistence(num) {
+
+			//   //code me
+			//   arrnum = num.toString().split('');
+			//   if(arrnum.length > 1){
+			//      for(var i = 0; i <= arrnum.length-1; i++){
+			//        arrnum[i] = arrnum[i] * arrnum[i+1];
+			       
+			//      }
+			//      res = arrnum[i];
+			//      count++;
+			//      persistence(res);
+			//     // return count;
+			//   }else{
+			//     return count;
+			//   }
+
+			   
+			// }
+			// var num = 39;
+			// persistence(num);
+
+			var res = 1;
+			function fact(n){
+			  if(n === 0){
+			   res = res * 1;
+			  }
+			  res = res * n;
+			  return fact(n-1);
+			}
+
+			fact(5);
+		</script>
+	</body>
+</html>

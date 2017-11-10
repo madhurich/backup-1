@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl">
+			<input type="text" ng-model="name">
+			<!-- <my-dir m1="name"></my-dir> -->
+			<my-dir m1="mad"></my-dir>
+		</div>
+		
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script>
+			var app = angular.module('myApp', []);
+			app.controller('myCtrl', ['$scope', function($scope){
+				$scope.myFunc = function(){
+					alert('your name');
+				};
+				
+			}]);
+			app.directive('myDir', function(){
+				return {
+					restrict: 'E',
+					scope: {
+						m1: '@'
+					},
+					template: '<div>{{m1}} directive here</div>'
+				};
+			});
+		</script>
+	</body>
+</html>

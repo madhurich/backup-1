@@ -1,0 +1,10 @@
+var obj = {};
+Object.defineProperty(obj, 'propname', {
+	get: function(){
+		return 'propval';//here when you are returning directly the value, you wont be able to change the value in future
+	},
+	set: function(newPropVal){
+		propname = newPropVal;
+	}
+
+});

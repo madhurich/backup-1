@@ -1,0 +1,59 @@
+Why we need 'State' for a component??
+
+-> look into main.js, where we declared a functional component called 'clock' and rendered that, now in the page this particular view shows us a timer.
+Which is done by executing the 'tick()' function, the 'clock' itself is not running the timer. WE are making the 'tick' function to be executed for every one second.
+
+setInterval(tick, 1000);
+
+Here 'tick' component is executed for every second, not the 'clock' component.
+
+BUT BUT we need a component that updates it's time and that component must be re-rendered for every second. THIS IS THE place where we actually need to define our state.
+
+This can be done by redefining the 'Clock' component as a classical component, where it offeres us a object called 'state' to be defined inside of the constructor.
+
+class Clock extends React.Component{
+	constructor(){
+		super();
+		this.state = {
+
+		};
+	}
+};
+
+> now we defined the state of the 'clock' component. 
+> Now we need to change the state of 'clock' for every one second.
+> To do that we need to run a 'setInterval' function that changes the state of 'clock' for every one second.
+> So after the 'Clock' is rendered for the first time, is the place where we need to run this 'setInterval'. 'ComponentDidMount' is the exact place where we can run this setInterval.
+> now seperately define the timer function that sets the state whihc is the 'date' value.
+
+timer(){
+	this.setState({
+		date: new Date()
+	});
+}
+
+Now we need to run this 'timer' inside of setInterval
+
+setInterval(() => {
+	this.timer()
+}, 1000);
+
+which is inside of 'componentDidMount' function.
+> Now we also need to clear this interval function when the component is about to die.
+
+for that reason, we assigned this setinterval function to a variable, and specify that varible inside of clearInterval.
+
+this.toClear = setInterval(() => {
+	this.timer()
+}, 1000);
+
+Though we are assigning the 'setInterval' to a varibale, that will be executed, we are just assigning it to some variable.
+
+now inside of 
+componentWillUnmount(){
+	clearInterval(this.toClear);
+}
+
+
+give a reading to 
+REFER https://facebook.github.io/react/docs/state-and-lifecycle.html#the-data-flows-down

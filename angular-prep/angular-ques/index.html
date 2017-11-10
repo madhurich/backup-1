@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Questions</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+		<example>should be in transclude</example><hr/>
+		<example m1="hello()"></example><hr>
+		<input ng-model="someArr" ng-list>
+		<p><strong>Array</strong>{{someArr}}</p>	
+		<p><strong>ngStyle</strong>
+			<p ng-style="style1">style1 style here</p>
+			<p class="ng-style:style2">style2 style here</p>
+		</p>	
+	</div>
+	<parent>
+		
+	</parent>
+	
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	<script>
+		var app = angular.module('myApp', []);
+		app.controller('myCtrl', ['$scope', function($scope){
+			$scope.hello = function(){
+				alert('hello function');
+			};
+			$scope.someArr = ['mad', 'man', 'dad'];
+			$scope.style1 = {color: 'red'};
+			$scope.style2 = {color: 'yellow'};
+			
+		}]);
+		app.directive('example', function(){
+			return{
+				restrict: 'E',
+				transclude: true,
+				scope: {
+					m1: '&'
+				},
+				template: '<div>content in example</div>'+
+						 '<div ng-transclude></div>'+
+						 '<ng-transclude></ng-transclude>'+
+						 '<button ng-click="m1()">click</button>'
+			};
+		});
+
+		app.directive('parent', function(){
+			return{
+				restrict: 'E',
+				template: '<div>Parent directive {{name}}<child></child></div>',
+				controller: function(){
+					this.name = "dad";
+				},
+				 
+					link: function(scope, element, attr, ctrl){
+					scope.name = ctrl.name;
+					
+				}
+			
+			};
+		});
+		app.directive('child', function(){
+			return{
+				restrict: 'E',
+				require: '^parent',
+				template: '<div>I am {{child}} and my parent is {{parent}}</div>',
+				link: function(scope, element, attr, ctrl){
+					scope.child = "me";
+					scope.parent = ctrl.name;
+					//scope.parent = scope.name;
+				}
+			};
+		});
+		
+	</script>
+</body>
+</html>

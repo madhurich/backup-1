@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<div id="p1">
+			parent1
+			<div id="p2">
+				parent2
+				<p id="c1">child1</p>
+
+			</div>
+		</div>
+		
+		<a id="anchor" href="https://www.google.com">google</a>
+
+
+		<script>
+			
+
+			document.getElementById('c1').addEventListener('click', function(){
+				alert('c1 is clicked');
+			});
+
+			document.getElementById('p1').addEventListener('click', function(){
+				alert('p1 is clicked');
+			}, true);
+
+			document.getElementById('p2').addEventListener('click', function(e){
+				//e.stopImmediatePropagation();
+				alert('p2 is clicked');
+			}, true);
+
+			document.getElementById('p2').addEventListener('click', function(e){
+				//e.stopPropagation();
+				alert('p2 is clicked again');
+			}, true);
+
+			document.getElementById('anchor').addEventListener('click', function(e){
+				//e.preventDefault();
+			});
+
+			
+
+		</script>
+	</body>
+</html>

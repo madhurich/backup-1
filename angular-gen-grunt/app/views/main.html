@@ -1,0 +1,13 @@
+<div class="row marketing">
+  <ul>
+    <li ng-repeat="suggest in main.suggestions">{{suggest.name}}
+      <a ng-href="#!/comments/{{suggest.id}}">See comments</a>
+    </li>
+
+  </ul>
+</div>
+
+<form ng-submit="main.addSuggestion()">
+  <input type="text" ng-model="main.newSuggestion">
+  <button>Add</button>
+</form>

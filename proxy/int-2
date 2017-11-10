@@ -1,0 +1,11 @@
+1. Tell me about yourself? projects etc
+2. live and bind in jquery?
+3. Routing in Angular how do you do that?
+4. React, start from differences? React and Redux
+5. implement calculator ?
+6. Inheritance? Explained about prototype chain
+7. HTML5 local storage?
+
+-----------
+live() method attaches events for current and future elements
+bind() attaches events to only curernt elements

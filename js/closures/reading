@@ -1,0 +1,12 @@
+var a = 5;
+
+function f1(){
+	var b = 10;
+	function f2(){
+		var c = 44;
+	}
+}
+
+function f3(){
+	var a = 30;
+}

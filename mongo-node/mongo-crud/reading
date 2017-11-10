@@ -1,0 +1,22 @@
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
+
+var url = 'mongodb://localhost:27017/test';
+MongoClient.connect(url, function(err, db){
+	assert.equal(null, err);
+	console.log('connected');
+	db.close();
+});
+
+while using id, use it carefully
+var ObjectID = require('mongodb').ObjectID; //this should be capital i and d, look at the case carefully.
+
+var objectId= new ObjectID(req.params.id);
+var obj = {"_id": objectId}
+
+REFER https://stackoverflow.com/questions/28146491/angular-http-returns-state-object
+when you directly injected factory and called it, it gave you 
+$$state, since its an I/O operation its a promise returned. So you need
+to chain it to get the result.
+
+REFER https://stackoverflow.com/questions/11282617/how-to-embed-table-rows-in-div-or-something-else-and-do-not-broke-jquery-fadein

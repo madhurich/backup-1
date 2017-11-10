@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>About DI</title>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="firstCtrl">
+			<button ng-click="greet()">greet</button>
+			<button ng-click="wish()">wish</button>
+			<button ng-click="introduce()">introduce</button>
+		</div>
+		
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+		<script>
+			var app = angular.module('myApp', []);
+			app.provider('myProvider', function(){
+				var text = 'defalut text val';
+				this.setText = function(val){
+					text = val;
+				};
+				this.$get = function(){
+					return function(name){
+						alert('my provider ' + name + text);
+					};
+				};
+			});
+			app.config(function($provide, myProviderProvider){
+				//when you comment this line the first alert on the page will
+				//be 'text'-->default and 'name' --> given val, if you dont comment
+				//this line then the 'text' value will be overidden with 'set text'
+				myProviderProvider.setText('set text');
+				$provide.provider('greeting', function(){
+					this.$get = function(){
+						return function(name){
+							alert("hello " + name);
+						};
+					};
+				});
+
+				$provide.factory('wish', function(){
+					return function(name){
+						alert('wish ' + name);
+					};
+				});
+
+				$provide.value('introduce', function(name){
+					alert('introduce ' + name);
+				});
+			});
+			app.run(function(myProvider){
+				myProvider('given val');
+			});
+			app.controller('firstCtrl', ['$scope', 'greeting', 'wish', 'introduce', '$injector',
+				function($scope, greeting, wish, introduce, $injector){
+				$scope.greet = function(){
+					greeting('madhuri');
+				};
+				$scope.wish = function(){
+					wish('madhuri');
+				};
+				$scope.introduce = function(){
+					introduce('madhuri');
+				};
+
+				// $scope.greetCopy = function(greeting){
+				// 	greeting('greet copy');
+				// };
+				// $injector.invoke(greetCopy);
+				// var greet1 = $injector.get('greeting');
+				// greet1('greet copy');
+			}]);
+		</script>
+	</body>
+</html>

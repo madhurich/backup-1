@@ -1,0 +1,96 @@
+> npm init
+> npm install -g webpack
+
+
+webpack input.js output.js
+webpack input.js output.js --watch
+		--> watches the file
+
+when this is done, all the app.js is converted into bundle.js and this is the final 
+file that is included in the index.html and is recongnised by the browser.
+
+$.each(people, function(index, elem){
+	//IMPORTANT, here for 'each' method first argument is the array, we
+	//wanted to iterate and second one is the function, that takes first argument
+	//as the index and the SECOND will be the value.
+});		
+
+
+*************IMPORTANT***************
+To include styles through javascript, we cna do that by requiring
+css-loader and style-loader modules in app.js file. To do that first install them
+
+npm install --save-dev css-loader style-loader
+		//this SHOULD be a devDependency
+		//YOU GOT AN ERROR, THAT LOADER IS NOT FOUND OR RESOLVED WHEN YOU INSTALLED
+		//THEM AS JUST DEPENDENCY THROUGH '--save' flag. So you need to install them 
+		//as devDepencies with '--save-dev' flag.
+
+to include them in a js file,
+	require(!style-loader!css-loader!./style.css);
+		-- with this statement at the top the style.css can be activated 
+		(look into exclamations carefully)
+
+--------------
+create a webpack.config.js file
+
+module.exports = {
+	entry: './app.js',
+	output: {
+		path: __dirname,
+		filename: 'bundle.js'
+	},
+	module: {
+		loaders: [
+				{test: '/\.css$/', loader: 'style-loader!css-loader'}
+			]
+	}
+};	
+NOTE: DONOT PUT test: '/\.css$/', this in quotes. you got error that style.css is not compiled
+PUT THAT WITHOUT QUOTES --> test: /\.css$/
+after this run
+	webpack, you should see the same	
+-----
+creating all the input and output files wihtin the same directory
+is not a good practice so that's the reason we put them in different folder
+	--src
+	  --js
+	 	--app.js
+	  --css
+	  	--style.css	 
+	--dist
+		--bundle.js	 
+
+later you changes the package.json file
+removed the script and replaced it with
+"build" : "webpack"
+
+now to start
+	npm run build
+		//this will in turn run the command "webpack" of build property in package.json file.
+we can now specify the input and output file in "start" prperty of pkg.json
+"start" : "webpack-dev-server --entry ./src/js/app.js --output-filename ./dist/bundle.js"
+			"webpack-dev-server --entry entryPathAlongWithFileName --output-filename outputPathAlongWithFileName"
+
+install webpack-dev-server by running
+npm install --save-dev webpack-dev-server
+
+now to start the server, run
+npm start
+
+--> while developing we can use 
+			npm start
+--> while viewing 
+			npm run build
+
+Now to set up the environment to ue ES6, run
+npm install --save-dev babel babel-core babel-loader babel-preset-es2015
+
+then inside of webpack.config.js file, include this object along with
+the existing one in loaders array.
+{test: /\.js$/, exclude: /node_modules/, query:{presets:['es2015']}, loader: 'babel-loader'}						
+
+
+
+
+

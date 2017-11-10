@@ -1,0 +1,19 @@
+> install git
+> to check whether its installed
+	git --version
+> pwd 
+	gives the present working directory
+> ls -la
+	lists all the files along with hidden files
+> ls
+	lists all the files (not hidden)
+> to initialize
+	git init
+> to get the current status
+	git status
+----------
+> to configure an account
+	git config --global user.name "yourName(username of your github)"
+	git config --global user.email "your email(email of your github)"
+> to see the list of config
+	git config --list							

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+		<style>
+			.highlightError{
+				border: 5px solid rgb(255,0,0);
+			}
+			.highlightSuccess{
+				border: 5px solid rgb(0,255,0);
+			}
+			.messageError{
+				color: rgb(255,0,0);
+			}
+		</style>
+	</head>
+	<body>
+		<h2>Add a User:</h2>
+		<input type="text" name="username" placeholder="name">
+		<input type="email" name="email" placeholder="email">
+		<div id="error"></div>
+		<div id="serverError"></div>
+		<button>add user</button>
+		<h2>Users:</h2>
+		<ul id="users"></ul>
+
+
+		<script>
+			
+			
+			/*
+Assignement:
+
+# HTML
+Complete the HTML to have semantic and compliant markups.
+
+# PURE JAVASCRIPT
+Dynamically add a user to the users list.
+1. Highlight the email input when a user enters an invalid email address and display following message: "please enter a valid email address" in red.
+2. Use the addUser function to submit the user's data.
+3. If the ajax request returns an error, display the error message in red.
+4. Display the newly added user in the users list when the request was successful. 
+
+# BONUS
+- make WCAG compliant
+- add some CSS3 properties
+
+*/
+
+
+// START YOUR CODE HERE
+var inpEmail = document.querySelectorAll('input[name="email"]')[0];
+  var errorDiv, emailSuccess, email, username, userNameElem;
+  inpEmail.addEventListener('keyup', function(){
+  	//reset the error message
+	if(serverError.getAttribute('class')){
+  	serverError.classList.remove('messageError');
+    serverError.innerHTML = "";
+  }
+  email = inpEmail.value;
+    if(!validateEmail(email)){
+      console.log('enter valid email');
+      inpEmail.setAttribute('class', 'highlightError');
+      errorDiv = document.getElementById('error');
+      errorDiv.setAttribute('class', 'messageError');
+      errorDiv.innerHTML = 'please enter a valid email address';
+    }else{
+      inpEmail.setAttribute('class', 'highlightSuccess');
+      errorDiv.innerHTML = '';
+
+      //alert('email succes');
+      email = inpEmail.value;
+      userNameElem = document.querySelectorAll('input[name="username"]')[0];
+      username = userNameElem.value;
+      document.querySelectorAll('button')[0]
+          .addEventListener('click', execAddUser);
+    }
+});
+function execAddUser(){
+  	addUser(username, email, function(data){
+			//console.log(data);
+        if(data.success){
+            var liNode = document.createElement('LI');
+            var liVal = document.createTextNode(data.user.username + ', ' + data.user.email);
+            liNode.appendChild(liVal);
+            document.getElementById('users').appendChild(liNode);
+          }else{
+            var serverError = document.getElementById('serverError');
+            serverError.setAttribute('class', 'messageError');
+            serverError.innerHTML = data.error;
+          }
+          inpEmail.value = "";
+          userNameElem.value = "";
+          //reset Email error message
+          inpEmail.setAttribute('class', null);
+			});							
+} 
+
+function validateEmail(email) {
+	var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	return re.test(email);
+}      
+
+// END YOUR CODE HERE
+
+
+
+
+// Do not modify this function. Add user service wrapper.
+function addUser(username, email, callback) {
+    var xhr = new XMLHttpRequest();
+    var response;
+    var success = (!!Math.round(Math.random()));
+    
+    if (!success){
+        response = JSON.stringify({
+            success: success,
+            error: "Oups, something went wrong!"
+        });
+    } else {
+        response = JSON.stringify({
+            success: success,
+            user: {
+                username: username,
+                email: email
+            }
+        });   
+    }
+    
+    xhr.open("POST", "/echo/json/");
+    xhr.onload = function () {
+    		if (xhr.status === 200) {
+        		callback(JSON.parse(xhr.responseText));
+        }
+    };
+    xhr.send("json=" + response);
+}
+		</script>
+	</body>
+</html>

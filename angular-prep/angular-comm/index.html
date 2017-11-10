@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Comm</title>
+</head>
+<body ng-app="myApp">
+	{{msg}}
+	
+		<div ng-controller="firstCtrl">
+		{{msg}} {{broad_msg}}
+			<div ng-controller="secondCtrl">
+				
+			</div>
+		</div>
+		<div ng-controller="thirdCtrl">
+			<button ng-click="onClick()">send data</button>
+			<div ng-controller="fourthCtrl">
+				
+			</div>
+		
+		</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	<script>
+		var app = angular.module('myApp', []);
+		app.run(function($rootScope){
+			$rootScope.$on('event_name', function(event, data){
+				console.log(event, data);
+				$rootScope.msg = data;
+			});
+		});
+		app.controller('firstCtrl', ['$scope', function($scope){
+			$scope.$on('event_name', function(event, data){
+				console.log(event, data);
+				$scope.msg = data;
+			});
+
+			
+		}]);
+
+		app.controller('secondCtrl', ['$scope', function($scope){
+			$scope.$emit('event_name', 'event_data');
+			
+		}]);
+
+		app.controller('thirdCtrl', ['$scope', function($scope, $rootScope){
+			$scope.onClick = function(){
+				$scope.$broadcast('broad_event', 'broad_data');	
+			};
+			
+		}]);
+
+		app.controller('fourthCtrl', ['$scope', function($scope, $rootScope){
+			$scope.$on('broad_event', function(event, data){
+				console.log(event, data);
+				$scope.broad_msg = data;
+			});
+		}]);
+		//before the fourth controller is loaded you are trying to send the data and console log it
+		//so wait till the fourth controller is loaded and then try to receive the data, then you will
+		//not get any error.
+		//define the broadcast event in a function and then try to send the data
+		//940-384-6500
+	</script>
+
+</body>
+</html>

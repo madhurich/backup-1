@@ -1,0 +1,201 @@
+1. scope chain and prototype chain
+REFER https://www.toptal.com/javascript/javascript-prototypes-scopes-and-performance-what-you-need-to-know
+
+2. Error handling
+REFER https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch
+
+3. Web sockets
+REFER https://developer.mozilla.org/en-US/docs/Web/API/WebSocket
+
+
+
+--------------------Prototype chain---------------
+
+function Prent(){
+	this.hello = "hello"
+}
+var child1 = new Parent();
+child1.hello //will give "hello" from Parent
+but if we do child1.hello = "some other val";
+now if we do child1.hello //will give "some other val"
+since JS looks this hello property first inside of child1, it already found that there, if that
+is not found in child1, then it will look up to it's prototype chain which is the Parent's prototype
+
+var child2 = new Parent();
+
+----------------------
+function Parent(){
+	
+}
+
+var child = new Parent();
+child.prototype.method1 = function(){
+	//....
+};
+
+child.prototype = Object.create(Parent.prototype);
+now the method1 of child can't be accessed, because it is overridden by Parent's prototype.
+since we assigned Parent's prototype to child's prototoype after declaring the method1 for child
+that will be overridden.
+
+--------------------Scope chain-----------------------
+in Js when we start writing the code, it creates a global scope, when we declare funcitons 
+and start invoking them then it creates a new context scope within that which will take precedence
+over the global scope.
+
+Ex:
+	<script>
+		var a = "hello";
+		function firstFunc(){
+			var a = "hi";
+			console.log(a);//this will log "hi"
+			//because it is found in the nearest scope.
+			//if there's no variable "a" declared inside of this firstFunc then
+			//"hello" will be logged.
+		}
+	</script>
+
+---------Responsive Vs Adaptive-----------
+In responsive design we write conditional CSS in a single CSS file, and the same file will
+be used to render the CSS on what ever the device the website is viewed.
+BUT, in Adaptive design each device has it's own CSS styling and one CSS in idependent of each other
+each CSS is different from other when it is viewd on different devices.
+
+---------Multiple version of JQuery---------------	
+REFER https://www.servage.net/blog/2015/09/14/use-multiple-versions-of-jquery-simultaneously/
+REFER https://api.jquery.com/jquery.noconflict/
+
+We use multiple versions of Jquery, in a scenario where we need a functionality specific to a version.
+Here conflict may arise while using $ sign, to avoid that
+we can use 
+$.noConflict(); or
+jQuery.noConflict();
+
+---------------WebSockets------------------
+Web socket is an API where it gives a websocket connection, through which the server will be able to
+receive or send data.
+
+Websocket Websocket(
+	url
+	otpions
+);
+url is the mandatory parameter, and the options is the string options where we defien the protocols
+for the server how to provide the response, if it is not given then it is considered as the empty string and
+it will throw an exception.
+
+these websockets has readyStateChange constants, like
+connecting - 0
+open - 1
+closing - 2
+closed - 3
+
+and event listeners
+onclose
+onopen
+onerror
+onmessage
+
+var socket = new WebSocket('url-here');
+
+socket.addEventListener('open', function(){
+	socket.send('send something');
+});
+
+socket.addEventListener('close', function(){
+	console.log('connection closed');
+});	
+
+------------------difference between JSON and JSONP------------------
+REFER http://json-jsonp-tutorial.craic.com/index.html
+
+whenever we are trying to make a request from one domain the restriction of the browser
+is it expects the server also to be on the same domain, but we are trying to make a request to a different
+domain, then to allow CORS Allow-Access-Control-Origin, we specify a callback parameter in the request url, as a query parameter and specify the function name, as a value of callback, and this function must be declared in the server to receive this callback function from the request, then the Json response is wrapped inside of ths
+function (this is called JSON with Pading or JSONP) now this JSONP response is given to the browser and it is treated as if it is a raw JSON object as if it made request fromt the same domain.
+
+
+before adding callback
+var url = 'https://one@domain1.com/' ;
+$.getJSON(url, function(JSON){
+	$('#put-data').html(JSON.stringify(json, null, 2));
+});
+
+after adding callback
+var url = 'https://one@domain1.com/' + 'jsonp?callback=functionname' ;
+$.getJSON(url, function(JSON){//note here the resonse will be plain JSON insted of JSONP
+	$('#put-data').html(JSON.stringify(json, null, 2));
+});
+
+-----------------CORS--------------------------
+REFER http://stackoverflow.com/questions/14521108/dynamically-load-js-inside-js
+REFER https://github.com/drewzboto/grunt-connect-proxy
+
+When ever a browser is requesting for a resource from domain1 to a domain2 server then the
+general behaviour is this will be rejected, so inorder to have cross origin resource sharing
+we configure the server by setting the property Access-Control-Allow-Origin : * then the domain1
+will be able to get the resource from domain2 server.
+
+BUT this is only done in modern browsers, this CORS is not implemented in older browsers
+So inorder to attain this functionality of cross origin resource sharing even in older browsers
+we use something called as JSONP, so JSONP is nothing but the code in the client side
+is converted to a <script></script> tag.
+now you might be wondering how this is converted to <script> and why we need to convert that to a script
+The reason is that generally the scripts are allowed to load the content from any resource if that is
+different domain from the requesting domain. So we need to convert our client side code to a script tag.
+To do that we append our requesting url, with a query parameter called as "callback" and this callback
+will have a value of a function decalred on our client side.
+
+Before url = 'https://domain.a.com'
+After url = 'https://domain.a.com?callback=functionName'
+this is how we write our url then our client side code is seen as a script tag by the server and it
+responds to our request by calling the function called functionName that we mentioned in the url, and the
+result will be passed as a parameter to this function.
+Then we can get this result on our client side within this functionName definition.
+
+function functionName(result){
+	console.log(result);
+}
+
+and this result will be in the form of JSON, though we did JSONP (JSON with padding, since result is wrapped
+inside of the function we call that as JSON Padding).
+
+Now this kind of JOSNP converting our code to a script tag is only responsible for
+GET Requests, this type of configuration doesnt help us for PUT, POST and DELETE.
+So for that we need somehting called as Proxy Server configuration.
+
+So in our client side we request for a url of domain2 from domain1, as this domain2
+doesnt respond generally, to make it respond we configure a local server in domain1 then this
+local server is responsible to get the corresponding data from domain2 server (since servers are
+accessible even if they are of different domain here we configure our own local server). Then
+the data given by domain2 server is hold by domain1(our domain) server and our server gives this
+data to the client in domain1. So this is called as "Proxy server configuration".
+
+now how we need to create and configure our own local server???
+this can be done using Grunt or Gulp with a task called as 'connect' 
+
+------------------------2D tranformations---------------
+transform: 
+rotateX();
+rotateY();
+rotateZ();
+-------3D-------------
+transform: 
+translate(10px, 30px);
+rotate(90deg);
+skewX(20deg);
+skeyY(20deg);
+scale(1, 2);
+matrix(scaleX(), skewX(), skewY(), scaleX(), translateX(), translateY());
+--------------
+Bootstrap well and Jumbotron
+REFER http://stackoverflow.com/questions/20557610/jumbotron-wells-in-twitter-bootstrap
+
+if you dont want the jumbotron to extends to the extrems of the screen then put that
+div in a div with class= "container"
+jumbotron -> extends the div element to the edge of the screen with rounded corners and having a
+grey background, it doesnt fit in a grid.
+
+well -> has rounded coreners and grey background but it fits in a grid, it adds padding to the contetn
+inside of it.
+
+

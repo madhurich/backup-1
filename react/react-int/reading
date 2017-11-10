@@ -1,0 +1,99 @@
+Masters/Bachelors or foreign equivalent degree in Computer Science, Computer or Electronic Engineering, Information Technology or a related field
+5+ years of experience designing and developing web applications using HTML, JavaScript, CSS, and Ajax.
+5+ years Hands on Experience using jQuery, JavaScript frameworks and libraries such as React, Angular, Backbone.
+Strong experience with UI development. HTML5, CSS, , React , Redis
+Experience with implementing browser based modeling application.
+Experience with OO programming. Java, ObjectOriented JavaScript
+Experience implementing clear, consistent, simple to use API. Java, JavaScript, C#, swagger, YAML
+Experience with relation, non-relational data stores. Redis.
+Experience with Git/Stash is MUST
+Excellent communication skills required.
+Leadership skills and experience be able to provide back-up support for Lead
+Excellent Technical (e.g., systems design) and/or analytical skills
+Working knowledge of project management concepts
+Excellent business knowledge and interpersonal skills
+In-depth knowledge of information systems concepts
+--------------------
+1. When did you pass out?
+2. Where did you do your bachelors? in which year? from which college? location? city?
+3. how many years of exp in angular? in react? 
+4. What is your skill set?
+5. What did you do with angular?
+6. No not that? tell me about controllers? services? directives?
+7. Difference between service and a factory? give me an example of when can you use factory and
+when can you service?
+8. do you know what are lifecycle components in react?
+9. Do you have any questions ?
+10. Do you know what is $digest(), $apply()
+11. What is REST web service?
+12. What are promises?
+13. Presentational components and container components?
+14. What is $http and $q?
+------------
+REST means its Reperesentational State Transfer.
+REST ful menas its an implementation.
+it works based on the url, and its based on 'http' protocol
+where we we will be able to use methods like
+GET, PUT, POST, and delete
+GET -> to retrieve the data
+POST -> to create a new record
+PUT -> to update the existing record
+DELETE -> to delete a record.
+
+and we can identify the status of the data
+400 -> bad request
+404 -> not found
+500 -> internal server error
+501 -> not configured
+200 -> OK
+401 -> unauthorized
+403 -> Forbidden
+
+we will be able to manipulate the data, with the help of url
+with 'query' parameters, 'path' parameters
+'http://localhost:3000?id=24&name=mad' -> query
+'http://localhost:3000/:id/:name'
+'http://localhost:3000/24/mad'
+----
+> difference between service and factory?
+A factory returns any data type,
+A factory uses the return keyword and can be used to share data between the controllers
+
+A service returns an object, its an instance of the object (new keyword behind the scenes)
+its a constructor function and is defined with 'this' keyword, services like $http, $q are 
+implemented here and reused.
+--
+> What is React, how tdo you use it
+React is used to build components, its based on ES6 
+A component is something a user will be able to see
+
+A component has somehting called state and Props
+state is private to a particular component and for
+a component's state it dont have to depend on other component
+Props is used to pass in the data from a parent component to a child component
+
+A component has life cycle methods
+componentWillMount()--> setting state, 
+componentDidMount() --> setting timers, this is the place where we can do AJAX calls
+componentWillReceiveProps()
+shouldComponentUpdate()--> the component re-reneders only when this returs 'true'
+--> here when we use forceUpdate()--> event though it returns 'false' due to force update, the component
+re-renders
+componentWillUpdate()
+componentDidUpdate()
+componentWillUnmount() --> can be used to remove timers, clean up the resources etc
+
+A container component has many other components inside of it,
+Presentational components are just for the sake of view, css styles
+HOC -> the top level components where this is the right place to connect to redux
+---
+> What is $q
+$q is a service used to implement asynchronous functionality in the application,
+it can be implemented by creating a deferred object, and this returns a promise
+and it has a 'resolve block' and 'reject block', where resolve block is executed 
+when the promise is successfully done and reject is executed if it is not fullfilled, 
+basically it returns a promise which can then be chained with other promises, using
+'.then()' this function will only be executed only if the previous promise is resolved, if
+it is rejected then the rejection can be caught using '.catch()' while chaining the promise.
+
+

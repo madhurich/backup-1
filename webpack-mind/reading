@@ -1,0 +1,89 @@
+"build": "webpack entrypath outputpath",
+    this says the entry and output files generally used in development 
+and the comand used is
+    npm run build
+
+"build:prod": "webpack entrypath outputpath -p"  
+    this is used for production purpose, since "-p" flag is used to minify the bundle.js file
+    and every new line, comments etc are removed here. (basically to improve the performance and efficiency)
+
+
+to get the innerHTML of an element
+    element.innerHTML --> we can get the text inside (Ex: <p id="para">this text</p>)
+    var paraText = document.querySelector('#para').innerHTML
+            console.log(paraText) --> will give "this text"
+to set the text
+        document.querySelector('#para').innerHTML = "other text";
+
+-------
+WEBPACK DEV SERVER
+while running 
+    npm run build
+        or
+    npm run build:prod
+our index is served from 'file' protocol
+to serve our files, is important to use a server that uses http protocol
+to do that we use  'WEBPACK-DEV-SERVER'
+
+npm install --save-dev webpack-dev-server
+when we do this the original webpack is wrapped by this  webpack-dev-server, and there's no need
+of bundle.js physicaly in our project folder, since when we do webpack-dev-server it automatically creates
+a 'bundle.js' in the memory and is served from there, but this will happen only when we explicitly metnion
+the entry and output paths which is what in the package.json file
+
+INSTEAD OF this
+"build": "webpack-dev-server src/js/app.js dist/bundle.js",
+here when we run "npm run build" we get an error saying bundle.js is not found 
+DO this
+"build": "webpack-dev-server --entry ./src/js/app.js --output-filename dist/bundle.js", 
+                        when you do this mention the entry path relatively './src/js/app.js' instead of '/src/js/app.js'
+here when we run "npm run build" we get DONT get an error saying bundle.js is not found   
+because we metnioned which is the entry and output path   
+
+
+---------
+BEFORE USING 'PATH' AND 'WEBPACK' DONT FORGET TO IMPORT THEM AT THE BEGINNING IN THE 
+webpack.config.js file
+
+module.exports = {
+    entry: './src/app.js',
+    output: {
+        path: path.resolve(__dirname, 'dist');//this is the absolute path, if relative path is provided
+                                                //webpack dont understand that
+        filename: 'bundle.js',
+        publicPath: '/dist' //if we specify this, then we dont get error saying 'bundle.js' is not found
+                            //since we deleted the 'bundle.js' file the dev server eventhough it has in its
+                            //memory, its unable to get bundle.js. There fore we need to specify the publicPath
+                            //then run 'npm run build' we dont get any error
+    },
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-laoder']
+            }
+        ]
+    },//this module part is to tell webpack that how 'css or js' files must be loaded and imported to other js files
+    //and one more thing to note here is the order of loaders mentioned in the array 'use' the 'css-loader' is laoded first 
+    //and then the 'style-loader' (reverse order). Also observe that these css files will be appropriately
+    //loaded into js files when they are imported at the top of js file and they dont need to be included
+    //in the index.html via link tag, since they will be directly available in js file after they are imported at the top
+    plugins: [
+        new webpack.optimize.UglifyJsPugin({
+            //.....
+        })
+    ]// plugins are mentioned in the form of an array and here we can minify the development code
+    //observe that when this plugin is not used the development code is 'bundle.js' is not minified
+    //but when its included this is minified (observe in sources to see the file and newtwork tab to see the file size)
+}   
+
+---------------
+***********IMPORTANT*********
+when 'import' is used to import other files we DONT NEED to mention, file extension
+Ex: import {people} from './people';
+import {varName} from './fileName'; 
+
+when 'require' is used to import other files, we NEED to mention the file extension
+Ex: require('./people.js') //this is an object that has keys as the variable names present in that file
+
+REFER https://stackoverflow.com/questions/31354559/using-node-js-require-vs-es6-import-export       

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>1.5</title>
+	</head>
+	<body ng-app="myApp">
+		<first-comp title="madhuri">
+			
+		</first-comp>
+		<first-comp title="madhuri two">
+			
+		</first-com>
+		<first-comp title="madhuri three">
+			
+		</first-com>
+		<hr>
+		
+		<div ng-controller="lazyCtrl">
+			<p lazy-ng-if="lazy">load this div</p>
+		</div>
+
+
+		<script src="node_modules/angular/angular.min.js"></script>
+		<script src="bower_components/lazy-ng-if/lazy-ng-if.js"></script>
+		<script>
+			var app = angular.module('myApp', []);
+			var compOptions = {
+				bindings: {
+					title: '@'
+				},
+				transclude: true,
+				template: '<div><strong>Title</strong>{{$ctrl.title || "no title"}}</div>' +
+							'<div><ng-transclude>default content here</ng-transclude></div>'
+			};
+			app.component('firstComp', compOptions);
+			
+			app.controller('lazyCtrl', ['$scope', '$timeout', function($scope, $timeout){
+				$scope.lazy = false;
+				
+				
+				
+			}]);
+			//console.log($ctrl);
+		</script>
+	</body>
+</html>

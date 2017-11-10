@@ -1,0 +1,52 @@
+1. Difference between angular expressions and javascript expressions.
+REFER https://www.quora.com/Explain-what-is-Angular-Expression-Explain-what-is-key-difference-between-angular-expressions-and-JavaScript-expressions
+REFER http://www.techstrikers.com/AngularJS/angularjs-$eval-method-of-scope.php
+
+****Important*****
+REFER http://www.jvandemo.com/the-nitty-gritty-of-compile-and-link-functions-inside-angularjs-directives/
+
+2. $window, $log
+REFER http://www.tutorialsteacher.com/angularjs/angularjs-log-service
+$log.log
+$log.error
+$log.info
+$log.warn
+$log.debug
+
+3. link, pre-link and post-link
+link: function(scope, element, attr, ctrl){
+	
+}
+
+controller-->first
+pre-link-->second
+post-link-->third
+
+if we specify link functions for a directive, first the link will be executed and then the template
+will be rendered.
+>if we have a scenario where we have parent directive and the child directive, we have link functions
+in both the directives then the link function of child will be executed and then the link function
+of parent is executed (link by default is treated as post-link)
+>so if there's a scenario where we want to get some data from parent to child directive through this
+link functions, the child link will be executed first and the parent will be the next, so here we
+wont be able to access the data defined in the link of parent. So inorder to solve this problem
+we have something called pre-link.
+>convert the link of parent to pre and then put the remaining to same, now the parent link
+will be executed and then the child link will b executed.
+>but this is bad practice, so we have controller method.
+DEcalre the controller in parent directive and put the data there, specify the argument "ctrl" in the link of 
+parent function and require the parent controller by 
+require: '^parent_directive_name'
+
+IMPORTANT
+>After creating the directive, Angulr compiles the directive and creates a new scope
+instance of that directive and makes this scope available as a parameter to the link functions.
+the compile function has 'template-element' and 'attribute' as arguments.
+>Only after the directive is compiled it's corresponding link functions will be executed.
+REFER TO http://www.jvandemo.com/the-nitty-gritty-of-compile-and-link-functions-inside-angularjs-directives/
+to get into details
+
+REFER https://www.undefinednull.com/2014/07/07/practical-guide-to-prelink-postlink-and-controller-methods-of-angular-directives/
+
+REFER http://stackoverflow.com/questions/26752030/rootscope-broadcast-vs-scope-emit
+for emit, broadcast
