@@ -11,18 +11,23 @@ constructor(){
 	new ownService;
 } 
 
-but when we do this the 'own.component' is bound to 'own.service' and it gets difficult to unit test i.e we wont be able to mock the api to test the service, hence we should not instantiate this serivce like this instead we need to do the following process.
+but when we do this the 'own.component' is bound to 'own.service' and it gets difficult to unit test i.e we wont be able to mock 
+the api to test the service, hence we should not instantiate this serivce like this instead we need to do the following process.
 
 constructor(ownService: OwnService){//(serviceName: ServiceType) type is here the same name but in CallCase
 	this.hobbies = ownService.getHobbies();
 }
 
 So our component is no longer tightly coupled to the service
-and we should also let our component know that we are using this service, so we need to inject this using the property called 'providers' inside the decorator and include the service 'OwnService'
+and we should also let our component know that we are using this service, so we need to inject this using the property called
+'providers' inside the decorator and include the service 'OwnService'
 
 providers: [OwnService]
 ----
-We can divide our app into modules, now we have 'app' and we have component in it, we can modify this, by having 'appModule' and having multiple components inside of this 'appModule' now when we do this we dont have to include the services into each particular component inside of 'appModule' instead we inclde them in the 'providers' property of the 'appModule' just ONCE and this will be globally available to all the modules or components inside of 'appModule'. (New Version of angular)
+We can divide our app into modules, now we have 'app' and we have component in it, we can modify this, by having 'appModule'
+and having multiple components inside of this 'appModule' now when we do this we dont have to include the services into each
+particular component inside of 'appModule' instead we inclde them in the 'providers' property of the 'appModule' just ONCE and
+this will be globally available to all the modules or components inside of 'appModule'. (New Version of angular)
 ----------
 to create a directive
 1. import the 'Directive' from 'angular'
@@ -98,8 +103,10 @@ to duplicate a line in the code
 go the line which you want to duplicate, put hte cursor anywhere on the line and press shift+Alt+down arrow
 ----
 [(ngModel)]="title"
-actually we dont really have tow way data binding, in Angular2, in Angualr 2 we have one directional flow implemented from 'flux' and here we implement two way using the syntax of both property and event binding
-'[]' square braces represent property binding and '()' represents event binding, so when we combine both it will be two way data binding, binding both properties and events.
+actually we dont really have tow way data binding, in Angular2, in Angualr 2 we have one directional flow implemented from 
+'flux' and here we implement two way using the syntax of both property and event binding
+'[]' square braces represent property binding and '()' represents event binding, so when we combine
+both it will be two way data binding, binding both properties and events.
 
 if we dont use this, to have two way data binding, we need to write the complete syntax for both proeprty and event binding
 <input type="text" [value]="nameInComponent" (click)="nameInComponent = $event.target.value"/>
@@ -111,7 +118,9 @@ Now if we use [(ngModel)]="nameInComponent" thats it must be added to the input
 
 or we can also do bindon-ngModel="nameInComponent"
 ----------
-now when we click star it goes to black, when again we open the application it goes to initial state, to avoid that we need to create a public API for our private variable 'isActive' inside of 'starComponent' to do that import {Input} and mention the Input decorator infront of the variable name where you want to use publicly in  the app.
+now when we click star it goes to black, when again we open the application it goes to initial state, to avoid that
+we need to create a public API for our private variable 'isActive' inside of 'starComponent' to do that import {Input}
+and mention the Input decorator infront of the variable name where you want to use publicly in  the app.
 
 import {Input} from 'angular2/core';
 
@@ -120,7 +129,8 @@ now this 'isActive' is available to use for the entire appComponent.
 
 Now you can use 'isActive' variable inside of appComponent.
 
-> when we have more number of inputs that are to be accessed as public we can also specify them in an array format in the meta data of the component.
+> when we have more number of inputs that are to be accessed as public we can also specify them in an array format in
+the meta data of the component.
 
 inputs: ['isActive']
 
@@ -146,7 +156,8 @@ onClick(){
 	//when ever 'change' event is emitted, emit that event with the object that has newVal
 }
 
-this emitted event inside of'starComponent' can be caught in 'appComponent' by specifying the 'eventName' we specified here in 'starComponent' as event
+this emitted event inside of'starComponent' can be caught in 'appComponent' by specifying the 'eventName' we specified here
+in 'starComponent' as event
 
 like
 inside of app
@@ -162,13 +173,20 @@ styles: [``] //specifies inline styles
 stylesUrl: '' //specifies external style
 
 ---------------
-Here when we do stylesUrl or templateUrl angular will do an extra HTTP request for the first time it sees it, this can be seen under 'Network' tab in chrome developer tools and later its cached by the browser and the cached result will be used without actually making the request for the file.
+Here when we do stylesUrl or templateUrl angular will do an extra HTTP request for the first time it sees it, this can
+be seen under 'Network' tab in chrome developer tools and later its cached by the browser and the cached result will be
+used without actually making the request for the file.
 Same happens with 'stylesUrl'
 -----------
 
->Styles in Angular2 are private to the component itslef and they are not available to it's consumer component here 'appComponent' though it has the same element
+>Styles in Angular2 are private to the component itslef and they are not available to it's consumer component here
+'appComponent' though it has the same element
 
->when we have same element, that has a style specified in a component which is also in its consumer component, in the DOM, the component specific style element will have its own attribute 'ome randomly generated name' by angular2, now it's style will be applied ONLY when agular sees the matching element and ALSO the 'attribute' generated by angular2. since the consumer component wil not have the same attribute name generated to the same element, that style will not be applied to its consumer here 'appComponent' but will be applied to the inner component ex: starComponent
+>when we have same element, that has a style specified in a component which is also in its consumer component,
+in the DOM, the component specific style element will have its own attribute 'ome randomly generated name' by angular2,
+now it's style will be applied ONLY when agular sees the matching element and ALSO the 'attribute' generated by angular2.
+since the consumer component wil not have the same attribute name generated to the same element, that style will not be applied
+to its consumer here 'appComponent' but will be applied to the inner component ex: starComponent
 
 ---------------
 YOU NEED TO READ THIS 
